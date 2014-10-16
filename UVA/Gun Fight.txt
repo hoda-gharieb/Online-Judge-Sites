@@ -1,0 +1,136 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+#include<cmath>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,k,l ) for ( int i=k-1 ; i>=l ; i-- )
+#define vs vector< string >
+#define vb vector< bool >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+typedef unsigned long long ull;
+const int oo = (int)1e9 ;
+
+struct inP
+{
+	int x;
+	int y;
+	int p;
+};
+vector< inP > V;
+//=================== MaxMatch code ================//
+
+vector< vector< int > > adjList ;
+vi le;
+vi ri;
+vb vis;
+bool canMatch( int shmal )
+{
+
+	Forp( i, 0, adjList[ shmal ].size() )
+	{
+		int ymin = adjList[ shmal ][ i ];
+
+		if ( vis[ ymin ] )
+			continue;
+		vis[ ymin ] = true;
+		
+		if ( ri[ ymin ] == -1 || canMatch( ri[ ymin ] ) )
+		{
+			le[ shmal ] = ymin;
+			ri[ ymin ] = shmal;
+			return true;
+		}
+	}
+	return false;
+}
+
+int maxMatch ( int nRight )
+{
+	le = vi( adjList.size(), -1 );
+	ri = vi( nRight, -1 );
+	int ans = 0;
+	Forp( i, 0, adjList.size() )
+	{
+		vis = vb( nRight, false );
+		ans += canMatch( i );
+	}
+	return ans;
+}
+//==============================================================//
+
+//========= Position of a point wz respect to a line ===========//
+int a, b ;
+bool isLeft( int i )
+{
+	// cross product = |A| * |B| * Sin(theta) = A.x * B.y - A.y * B.x
+	// will be negative if and only if theta > 180 (not on the left side)
+	// the two sides ai, ab , and theta between them
+	// A.x = distance from a.x and b.x , B.x = distance from a.x and i.x
+
+	return ((( V[ b ].x - V[ a ].x ) * ( V[ i ].y - V[ a ].y )) - (( V[ b ].y - V[ a ].y ) * ( V[ i ].x - V[ a ].x )) ) > 0 ;
+}
+//===============================================================//
+
+int R;
+bool attack( int i, int j )
+{
+	return ((( V[ i ].x - V[ j ].x ) * ( V[ i ].x - V[ j ].x )) + (( V[ i ].y - V[ j ].y ) * ( V[ i ].y - V[ j ].y )) ) <= R*R ;
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	int t = 1, n;
+	vi small, large;
+
+	while ( cin>>n && n )
+	{
+		V.resize( n );
+		Forp( i, 0, n )
+			cin >> V[ i ].x >> V[ i ].y >> V[ i ].p;
+		cin>> a >> b >> R;
+		a--; b--;
+		small.clear(); large.clear();
+
+		Forp( i, 0, n )
+		{
+			if ( V[ i ].p )
+			{
+				if ( isLeft( i ) )
+					large.push_back( i );
+				else
+					small.push_back( i );
+			}
+		}
+
+		if ( small.size() > large.size() )
+			swap( small, large );
+		adjList.clear();
+		adjList.resize( small.size() );
+
+		Forp( i, 0, small.size() )
+			Forp( j, 0, large.size() )
+			if ( attack( small[i],large[j] ) && V[ small[i] ].p > V[ large[j] ].p )
+				adjList[ i ].push_back( j );
+
+		cout<< "Case " << t++ << ": " << maxMatch( large.size() ) <<endl;
+	}
+}

@@ -1,0 +1,27 @@
+#include<iostream>
+#include<stdio.h>
+#include<cstdlib>
+using namespace std;
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	int row,col,t,m_r,m_c,c1_r,c1_c,c2_r,c2_c,top,bot,left,right;
+	cin>>row>>col>>t;
+	while ( t-- )
+	{
+		cin>>m_r>>m_c>>c1_r>>c1_c>>c2_r>>c2_c;
+		if ( (m_r<=c1_r && m_r<=c2_r) || (m_r>=c1_r && m_r>=c2_r) || (m_c<=c1_c && m_c<=c2_c) || (m_c>=c1_c && m_c>=c2_c) )
+			cout<<"YES\n";
+		else
+		{
+			top = min( (c1_r-1)+abs(m_c - c1_c) , (c2_r-1)+abs(m_c - c2_c));
+			bot = min( ( row - c1_r )+abs(m_c - c1_c) , (row - c2_r)+abs(m_c - c2_c));
+			right = min ( abs( m_r - c1_r )+( col-c1_c) , abs( m_r - c2_r )+( col-c2_c ) );
+			left = min ( abs( m_r - c1_r )+( c1_c-1 ) , abs( m_r - c2_r )+( c2_c-1 ) );
+			if ( m_r-1<top || row-m_r<bot || m_c-1<left || col-m_c<right )
+				cout<<"YES\n";
+			else
+				cout<<"NO\n";
+		}
+	}
+}

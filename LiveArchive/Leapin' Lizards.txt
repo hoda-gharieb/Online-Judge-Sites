@@ -1,0 +1,178 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+#include<cmath>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,k,l ) for ( int i=k-1 ; i>=l ; i-- )
+#define vs vector< string >
+#define vb vector< bool >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+typedef unsigned long long ull;
+const int oo = (int)1e9 ;
+
+//============================ MaxFlow Code ======================//
+const int inf = 1 << 29;
+
+struct node
+{
+	int to;
+	int nSides;
+	int flow;
+	node(){}
+	node( int t, int n, int f ) : to( t ), nSides( n ), flow( f ) {}
+};
+
+vector< vector < node > > adjList;
+vb vis;
+
+void addEdge( int from, int to, int flow )
+{
+	node a = node( from, adjList[ from ].size(), 0 );
+	node b = node( to, adjList[ to ].size(), flow );
+	adjList[ to ].push_back( a );
+	adjList[ from ].push_back( b );
+}
+
+int getPath( int src, int sink, int flow )
+{
+	if ( vis[ src ] || !flow )
+		return 0;
+	vis[ src ] = true;
+	if ( src == sink )
+		return flow;
+	Forp( i, 0, adjList[ src ].size() )
+	{
+		int j = adjList[ src ][ i ].to;
+		int path = getPath( j, sink, min( flow, adjList[ src ][ i ].flow ) );
+		if ( path > 0 )
+		{
+			int k = adjList[ src ][ i ].nSides;
+			adjList[ src ][ i ].flow -= path;
+			adjList[ j ][ k ].flow += path;
+			return path;
+		}
+	}
+	return 0;
+}
+
+int maxFlow( int src, int sink )
+{
+	if ( src == sink )
+		return inf;
+	int flow, total = 0;
+
+	while ( ( flow = getPath( src, sink, inf) ) )
+	{
+		vis = vb( adjList.size(), false );
+		total += flow;
+	}
+	return total;
+}
+
+void init( int n)
+{
+	adjList.clear();
+	adjList.resize( n );
+	vis.clear();
+	vis.resize( n, false );
+}
+//===========================================================================//
+
+int in( int i )
+{
+	return i*2;
+}
+
+int out( int i )
+{
+	return (i*2)+1;
+}
+
+
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	int n, m, d, t, arr[ 30 ][ 30 ],idx, sink, src, count;
+	string line;
+	scanf( "%d", &t );
+	Forp( T, 1, t+1 )
+	{
+		scanf( "%d", &n );
+		scanf( "%d", &d );
+		idx = 0;
+		Forp( i, 0, n )
+		{
+			cin>>line;
+			if ( !i )
+			{
+				m = line.size();
+				init( ( n*m*3 )+3 );
+				src = ( n*m*3 ) + 1;
+				sink = ( n*m*3 ) + 2;
+			}
+			Forp( j,0,line.size() )
+			{
+				arr[ i ][ j ] = idx++;
+				addEdge( in( arr[ i ][ j ] ), out( arr[ i ][ j ] ), line[ j ]-'0' );
+			}
+		}
+
+		count = 0;
+		char c;
+		Forp( i, 0, n )
+		{
+			Forp( j, 0, m )
+			{
+				cin>>c;
+				if ( c == 'L' )
+				{
+					count++;
+					addEdge( src, in( arr[ i ][ j ] ), 1 );
+				}
+			}
+		}
+		Forp( i, 0, n )
+		{
+			Forp( j, 0, m )
+			{
+				if ( i < d || j < d || i+d >= n || j+d >= m )
+					addEdge( out( arr[ i ][ j ] ), sink, inf );
+				Forp( k, 0, n )
+				{
+					Forp( l, 0, m )
+					{
+						if ( abs( i-k ) + abs( j - l ) <= d )
+							addEdge( out( arr[ i ][ j ] ), in( arr[ k ][ l ] ), inf );
+					}
+				}
+			}
+		}
+		count -= maxFlow( src, sink );
+		printf( "Case #%d: ", T );
+		if ( !count )
+			puts("no lizard was left behind.");
+		else if ( count == 1 )
+			puts( "1 lizard was left behind." );
+		else
+			printf( "%d lizards were left behind.\n",count );
+	}
+}

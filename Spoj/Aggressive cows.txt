@@ -1,0 +1,48 @@
+#include<iostream>
+#include<algorithm>
+#include<stdio.h>
+using namespace std;
+int t,stalls,cows,arr[100002],big,small,mid,result;
+bool check(int mid)
+{
+	int co=1;
+	int i=1,j=0;
+	for ( ; i<stalls ; i++ )
+	{
+		if ( arr[i]-arr[j] >= mid )
+		{
+			j=i;
+			co++;
+			if ( co==cows )
+				return true;
+		}
+	}
+	return co==cows;
+}
+int main()
+{	
+	//freopen( "input.in" , "r" , stdin );
+	scanf("%d",&t);
+	while ( t-- )
+	{
+		scanf("%d",&stalls);
+		scanf("%d",&cows);
+		for ( int i=0 ; i<stalls ; i++ )
+			scanf("%d",&arr[i]);
+		sort(arr,arr+stalls);
+		big=arr[stalls-1];
+		small=0;
+		while ( small<=big )
+		{
+			mid=(small+big)/2;
+			if ( check(mid) )
+			{
+				small=mid+1;
+				result=mid;
+			}
+			else
+				big=mid-1;
+		}
+		printf("%d\n",result);
+	}
+}

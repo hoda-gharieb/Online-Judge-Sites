@@ -1,0 +1,35 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	int arr2[3],t,ans,num;	
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		ans=0;
+		for ( int j=0 ; j<4 ; j++ )
+		{
+			cin>>num;
+			ans+=num;
+		}
+		for ( int l=0 ; l<3 ; l++ )
+			cin>>arr2[l];
+		sort(arr2,arr2+3);
+		arr2[0]=arr2[2]+arr2[1];
+		arr2[0]/=2;
+		ans+=arr2[0];
+		cout<<"Case "<<i+1<<": ";
+		if ( ans >= 90 )
+			cout<<"A\n";
+		else if ( ans >= 80 )
+			cout<<"B\n";
+		else if ( ans >= 70 )
+			cout<<"C\n";
+		else if ( ans >= 60 )
+			cout<<"D\n";
+		else
+			cout<<"F\n";
+	}
+}

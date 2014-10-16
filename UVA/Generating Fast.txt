@@ -1,0 +1,30 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+#include<sstream>
+using namespace std;
+int main()
+{
+	int t;
+	char arr[10];
+	string m;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>m;
+		stringstream sin;
+		sin<<m;
+		int j=0;
+		while ( sin>>arr[j])
+		j++;
+		sort(arr,arr+j);
+		do
+		{
+			for ( int k=0 ; k<j ; k++ )
+				cout<<arr[k];
+			cout<<endl;
+
+		}while(next_permutation(arr,arr+j));
+		cout<<endl;
+	}
+}

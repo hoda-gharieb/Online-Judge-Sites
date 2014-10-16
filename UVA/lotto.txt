@@ -1,0 +1,46 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int arr[15],num,s=0,ss;
+bool arrr[15];
+void answer(int ind,int index)
+{
+	if ( index == 6 )
+	{
+		ss=0;
+		for ( int k=0 ; k<num ; k++ )
+		{
+			if ( arrr[k] )
+			{
+				if ( ss != 0 )
+					cout<<" ";
+				cout<<arr[k];
+				ss++;
+			}
+		}
+		cout<<endl;
+		return;
+	}
+	for ( int i=ind ; i<num ; i++ )
+	{
+		arrr[i]=true;
+		answer(i+1,index+1);
+		arrr[i]=false;
+		if(num-i < 6-index )
+			break;
+	}
+}
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	memset(arrr,false,sizeof(arrr));
+	while ( cin>>num && num != 0 )
+	{
+		if ( s!=0 )
+			cout<<endl;
+		for ( int i=0 ; i<num ; i++ )
+			cin>>arr[i];
+		answer(0,0);
+		s++;
+	}
+}

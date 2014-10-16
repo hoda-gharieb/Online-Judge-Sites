@@ -1,0 +1,22 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	 int num,count=0,check=0,ans=0;
+	vector<int> nums;
+	while ( cin>>num )
+	{
+		nums.push_back(num);
+		sort(nums.begin(),nums.end());
+		count++;
+		check=count/2;
+		if ( count%2 == 0 )
+			ans=(nums[check]+nums[check-1])/2;
+		else
+			ans=nums[check];
+		cout<<ans<<endl;
+	}
+}

@@ -1,0 +1,28 @@
+#include<iostream>
+#include<math.h>
+#include<string>
+#include<cstring>
+using namespace std;
+int main()
+{
+	//freopen("input.in","r",stdin);
+	int ans=0;
+	char c;
+	while ( cin>>c )
+	{
+		if ( c=='#' )
+		{
+			if(ans)
+				cout<<"NO\n";
+			else
+				cout<<"YES\n";
+			ans=0;
+		}
+		else
+		{
+			ans*=2;
+			ans+=c-'0';
+			ans%=131071;
+		}		
+	}
+}

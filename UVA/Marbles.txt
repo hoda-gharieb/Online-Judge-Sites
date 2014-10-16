@@ -1,0 +1,74 @@
+#include<iostream>
+#include<stdio.h>
+#include<cmath>
+#include<limits.h>
+using namespace std;
+long long Gcd,x,y,n,c1,c2,n1,n2;
+void eE(long long a,long long b)
+{
+	if ( !b )
+	{
+		x=1;
+		y=0;
+		Gcd=a;
+		return;
+	}
+	eE(b,a%b);
+	long long l=y;
+	y=x-(a/b)*y;
+	x=l;
+}
+void solve()
+{
+	n/=Gcd,n2/=Gcd,n1/=Gcd;
+	long long m1=n*x,m2=n*y;
+	long long l,j;
+	if ( m1>=0 )
+		l=-m1/n2;
+	else
+		l=(-m1+n2-1)/n2;
+	if ( m2>=0 )
+		j=m2/n1;
+	else
+		j=(m2-n1+1)/n1;
+	if ( l>j )
+	{
+		x=y=-1;
+		return;
+	}
+	else
+	{
+		long long k=c1*n2-c2*n1;
+		if ( k*l<=k*j )
+		{
+			x=m1+(l*n2);
+			y=m2-(l*n1);
+		}
+		else
+		{
+			x=m1+(j*n2);
+			y=m2-(j*n1);
+		}
+	}
+}
+int main()
+{
+	//freopen("input.in","r",stdin); 
+	while ( scanf("%lld",&n) )
+	{
+		if ( !n )
+			break;
+		scanf("%lld %lld\n%lld %lld\n", &c1, &n1, &c2, &n2); 
+		eE(n1,n2);
+		if ( n%Gcd )
+			printf("failed\n");
+		else
+		{
+			solve();
+			if ( x==-1 )
+				printf("failed\n");
+			else
+				printf("%lld %lld\n",x,y);
+		}
+	}
+}

@@ -1,0 +1,74 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+using namespace std;
+
+#define Forp( i,l ) for ( int i=0 ; i<l ; i++ )
+#define Form( i,l ) for ( int i=l-1 ; i>=0 ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+const int oo = (int)1e9;
+
+
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	vector< int > odds, evens, eo, oe;
+	int n, a, b;
+	cin>>n;
+	n*=5;
+	Forp( i,n )
+	{
+		cin>>a>>b;
+		if ( a%2 && b%2 )
+			odds.push_back( i+1 );
+		else if ( a%2 )
+			oe.push_back( i+1 );
+		else if ( b%2 )
+			eo.push_back( i+1 );
+		else
+			evens.push_back( i+1 );
+	}
+	cout<<"OK\n";
+	n/=5;
+	if ( (int)odds.size() >= n )
+	{
+		cout<<odds[ 0 ];
+		for ( int i=1 ; i<n ; i++ )
+			cout<<" "<<odds[ i ]<<endl;
+	}
+	else if ( (int)oe.size() >= n )
+	{
+		cout<<oe[ 0 ];
+		for ( int i=1 ; i<n ; i++ )
+			cout<<" "<<oe[ i ]<<endl;
+	}
+	else if ( (int)eo.size() >= n )
+	{
+		cout<<eo[ 0 ];
+		for ( int i=1 ; i<n ; i++ )
+			cout<<" "<<eo[ i ]<<endl;
+	}
+	else
+	{
+		cout<<evens[ 0 ];
+		for ( int i=1 ; i<n ; i++ )
+			cout<<" "<<evens[ i ]<<endl;
+	}
+}

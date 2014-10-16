@@ -1,0 +1,32 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<string>
+//#include<limits.h>
+using namespace std;
+
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	//freopen ( "output.out" , "w" , stdout );
+	long long mini,m;
+	int n,i;
+	scanf("%d",&n);
+	while  ( n-- )
+	{
+		cin>>i>>m;
+		mini = 1;
+		while ( m!=1 )
+		{
+			mini = max( mini,m);
+			if ( m%2 )
+				m=(m*3)+1;
+			else
+				m/=2;
+		}
+		cout<<i<<" "<<mini<<endl;
+	}
+}

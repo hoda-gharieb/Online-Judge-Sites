@@ -1,0 +1,40 @@
+//=================== MaxMatch code ================//
+
+vector< vector< int > > adjList ;
+vi le;
+vi ri;
+vb vis;
+bool canMatch( int shmal )
+{
+
+	Forp( i, 0, adjList[ shmal ].size() )
+	{
+		int ymin = adjList[ shmal ][ i ];
+
+		if ( vis[ ymin ] )
+			continue;
+		vis[ ymin ] = true;
+		
+		if ( ri[ ymin ] == -1 || canMatch( ri[ ymin ] ) )
+		{
+			le[ shmal ] = ymin;
+			ri[ ymin ] = shmal;
+			return true;
+		}
+	}
+	return false;
+}
+
+int maxMatch ( int nRight )
+{
+	le = vi( adjList.size(), -1 );
+	ri = vi( nRight, -1 );
+	int ans = 0;
+	Forp( i, 0, adjList.size() )
+	{
+		vis = vb( nRight, false );
+		ans += canMatch( i );
+	}
+	return ans;
+}
+//==============================================================//

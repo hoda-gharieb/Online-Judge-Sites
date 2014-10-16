@@ -1,0 +1,37 @@
+#include<iostream>
+#include<iomanip>
+#include <string>
+#include <algorithm>
+#include<sstream>
+#include<iomanip>
+#include<stdio.h>
+#include<cstring>
+using namespace std;
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define pp push_back
+#define unsigned long long ull
+int ch[ 100001 ][ 26 ];
+int main()
+{
+	//freopen( "input.in", "r", stdin );
+	//freopen( "output.out", "w", stdout );
+	int t, tt, a;
+
+	scanf( "%d", &t );
+	string line;
+	rep( k,1,t+1 )
+	{
+		int a,r,n;
+		scanf( "%d %d %d", &a, &r, &n);
+		int ans = 1;
+		rep( i, 0, n )
+			ans = ( ans*r ) % 1000003;
+		ans--;
+		printf( "Case #%d: %d\n", k, ans );
+		
+	}
+}
+

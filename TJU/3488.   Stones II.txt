@@ -1,0 +1,55 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+#include<cmath>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,k,l ) for ( int i=k-1 ; i>=l ; i-- )
+#define vs vector< string >
+#define vb vector< bool >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+typedef unsigned long long ull;
+const int oo = (int)1e9 ;
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	int n, ans, t, num, nn;
+	scanf( "%d", &t );
+	priority_queue< int > Q;
+	while ( t-- )
+	{
+		scanf( "%d", &n );
+		Forp( i, 0, n )
+		{
+			scanf( "%d", &num );
+			Q.push( -num );
+		}
+		ans = 0;
+		Forp( i, 1, n )
+		{
+			num = Q.top(); Q.pop();
+			nn = Q.top(); Q.pop();
+			ans -= num + nn;
+			Q.push( nn + num );
+		}
+		printf( "%d\n", ans );
+	}
+}

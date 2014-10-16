@@ -1,0 +1,38 @@
+#include<iostream>
+#include <string>
+#include<iomanip>
+#include<cmath>
+using namespace std;
+int main()
+{	
+	double t=0,n=0,k=0,l=0,j=0,r=0;
+	int s=1;
+	while(cin>>t>>n>>k>>l && t!=0)
+	{
+		if(t==1)
+		{
+			r=(k-n)/l;
+			j=(n*l)+(0.5*r*(l*l));
+		}
+		else if (t==2)
+		{
+			r=(k-n)/l;
+			j=(n*r)+(0.5*l*(r*r));
+		}
+		else if (t==3)
+		{
+           j=sqrt((n*n)+(2*k*l));
+		   r=(j-n)/k;
+		}
+		else if (t==4)
+		{
+			j=sqrt((n*n)-(2*k*l));
+			r=(n-j)/k;
+		}
+		cout<<"Case "<<s<<": "<<setprecision(3) << fixed <<j<<" "<<setprecision(3) << fixed <<r<<endl;
+		s++;
+   }
+	    return 0;
+}
+
+

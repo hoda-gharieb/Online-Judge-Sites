@@ -1,0 +1,52 @@
+#include<iostream>
+#include<string>
+#include<map>
+using namespace std;
+string line="A2B2C2D3E3F3G4H4I4J5K5L5M6N6O6P7R7S7T8U8V8W9X9Y9",word;
+map<string,int> M;
+map<string,int>::iterator it;
+int num,num2;
+string cclear(string cline)
+{
+	for( int l=0 ; l<cline.length() ; l++ )
+	{
+		if(cline[l] == '-')
+		{
+			cline.erase(l,1);
+			l--;
+		}
+		else if ( cline[l]<'Z' && cline[l] >= 'A' )
+			cline[l]=line[line.find(cline[l])+1];
+	}
+	cline.insert(3,"-");
+	return cline;
+}
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	cin>>num;
+	bool check;
+	for ( int i=0 ; i<num ; i++ )
+	{
+		if( i != 0 )
+			cout<<endl;
+		M.clear();
+		check=true;
+		cin>>num2;
+		for ( int j=0 ; j<num2 ; j++)
+		{
+			cin>>word;
+			M[cclear(word)]+=1;
+		}
+		for ( it=M.begin() ; it!=M.end() ; it++ )
+		{
+			if ( (*it).second != 1 )
+			{
+				cout<<(*it).first<<" "<<(*it).second<<endl;
+				check=false;
+			}
+		}
+		if(check)
+			cout<<"No duplicates."<<endl;
+	}
+}

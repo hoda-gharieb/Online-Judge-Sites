@@ -1,0 +1,25 @@
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+int arr[500],num,t,diff,mini,i;
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	cin>>t;
+	for (int l=0 ; l<t ; l++ )
+	{
+		mini=INT_MAX;
+		cin>>num;
+		for ( i=0 ; i<num ; i++ )
+			cin>>arr[i];
+		for ( i=0 ; i<num ; i++ )
+		{
+			diff=0;
+			for ( int j=0 ; j<num ; j++ )
+				diff+=abs(arr[i]-arr[j]);
+			if(diff<mini )
+				mini=diff;			
+		}
+		cout<<mini<<endl;
+	}
+}

@@ -1,0 +1,73 @@
+#include<iostream>
+#include<iomanip>
+#include <string>
+#include <algorithm>
+#include<sstream>
+#include<iomanip>
+#include<stdio.h>
+#include<cstring>
+using namespace std;
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define pp push_back
+#define unsigned long long ull
+string addition ( string line , string line1)
+{
+	int sum=0,rem=0;
+	if ( line.length()<line1.length())
+		swap(line,line1);
+	for ( int i=line.length()-1 , j=line1.length()-1 ; j>=0 ; --j ,--i )
+	{
+		sum=(line[i]-'0')+(line1[j]-'0')+sum;
+		rem=sum%10;
+		sum/=10;
+		line[i]=rem+'0';
+	}
+	if ( sum>0 && ( line.length()==line1.length()))
+		line.insert(0,1,'1');
+	else
+	{
+		for ( int i= (line.length()-line1.length()-1); i>=0 ; --i)
+		{
+			sum=(line[i]-'0')+sum;
+			rem=sum%10;
+			sum/=10;
+			line[i]=rem+'0';
+			if ( sum==0 )
+				break;
+		}
+		if ( sum>0 )
+			line.insert(0,1,'1');
+	}
+	return line;
+}
+string arr[ 1001 ];
+int main()
+{
+	//freopen( "input.in", "r", stdin );
+	//freopen( "output.out", "w", stdout );
+	int t, n;	
+	scanf( "%d", &t );
+	rep( j,1,t+1 )
+	{
+		scanf( "%d", &n );
+		rep( i, 0, n*n*n )
+		cin>>arr[ i ];
+		string ss = "0";
+		int k = n*n, m = n*n*(n-1);
+		k--; n--;
+		ss = addition( ss, arr[ 0 ] ); 
+		ss = addition( ss, arr[ n ] ); 
+		ss = addition( ss, arr[ k ] ); 
+		ss = addition( ss, arr[ k - n ] ); 
+		ss = addition( ss, arr[ m ] ); 
+		ss = addition( ss, arr[ n+m ] ); 
+		ss= addition( ss, arr[ k+m ] ); 
+		ss = addition( ss, arr[ m+k-n ] );
+		printf( "Case #%d: ", j );
+		cout<<ss<<endl;
+	}
+}
+

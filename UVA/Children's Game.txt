@@ -1,0 +1,29 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+bool compare ( string one , string two )
+{
+	string line=one;
+	one.append(two);
+	two.append(line);
+	if ( one>two )
+		return true;
+	else
+		return false;
+}
+int main()
+{
+	freopen("input.in", "r", stdin);
+	int t;
+	string tests[55];
+	while ( cin>>t && t!=0)
+	{
+		for ( int i=0 ; i<t ; i++ )
+			cin>>tests[i];
+		sort ( tests,tests+t,compare );
+		for ( int i=0 ; i<t ; i++ )
+			cout<<tests[i];
+		cout<<endl;
+	}
+}

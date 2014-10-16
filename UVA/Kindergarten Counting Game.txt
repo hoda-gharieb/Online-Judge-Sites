@@ -1,0 +1,32 @@
+#include<iostream>
+#include <string>
+using namespace std;
+int main()
+{	
+	
+	string m="";
+	char c=0;
+	while( getline (cin,m))
+	{
+		int s=0;
+		if(m[0]<='z' && m[0] >='a' || m[0] <='Z' && m[0]>='A')
+			s++;
+		for(int i=1;i<m.length()-1;i++)
+		{
+			if(m[i]<='z' && m[i] >='a' || m[i]>='A' && m[i]<='Z')
+			{
+				if( m[i-1]<='z' && m[i-1]>='a' || m[i-1] >='A' && m[i-1]<='Z')
+					c=m[i-1];
+				else 
+					s++;
+			}
+
+		}
+		cout<<s<<endl;
+	}
+	return 0;
+}
+
+
+
+

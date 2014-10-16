@@ -1,0 +1,32 @@
+#include<iostream>
+#include<cstdlib>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	//freopen("input.in","r",stdin);
+	int t,arr[1430];
+	bool check;
+	while ( cin>>t && t!=0 )
+	{
+		check=true;
+		for ( int i=0;i<t; i++ )
+			cin>>arr[i];
+		sort(arr,arr+t);
+		for ( int i=1 ; i<t ; i++ )
+		{
+			if(arr[i]-arr[i-1]>200)
+			{
+				check=false;
+				break;
+			}
+		}
+		if ( arr[0]-0>200 || ((1422-arr[t-1])*2)>200)
+			check=false;
+
+		if (check)
+			cout<<"POSSIBLE\n";
+		else
+			cout<<"IMPOSSIBLE\n";
+	}
+}

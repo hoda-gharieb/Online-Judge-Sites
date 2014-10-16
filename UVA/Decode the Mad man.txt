@@ -1,0 +1,20 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	string line;
+	string find="qwertyuiop[]asdfghjkl;'zxcvbnm,.";
+	getline(cin,line);
+	char c;
+	int k=0;
+	for (int i=0 ; i<line.length() ; i++)
+	{
+		if ( line[i]==' ')
+			continue;
+		c=tolower(line[i]);
+		line[i]=find[find.find(c)-2];
+	}
+	cout<<line<<endl;
+}

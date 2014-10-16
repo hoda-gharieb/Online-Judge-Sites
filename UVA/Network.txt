@@ -1,0 +1,75 @@
+#include<iostream>
+#include<string>
+#include<queue>
+#include<map>
+#include<set>
+#include<cstring>
+#include<vector>
+#include<limits.h>
+#include<iomanip>
+#include<stdio.h>
+#include<cmath>
+#include<stack>
+#include<algorithm>
+#include<sstream>
+using namespace std;
+
+bool visited[102];
+vector< int > graph[102];
+
+void dfs ( int node , int left)
+{
+	visited[node]=true;
+	for ( int i=0 ; i<graph[node].size() ; i++ )
+	{
+		int j=graph[node][i];
+		if ( !visited[ j ] && j!=left )
+			dfs ( j,left );
+	}
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	int n ,x ,num ;
+	string line;
+	while ( cin>>num && num )
+	{
+		memset ( visited , false , sizeof(visited) );
+		cin.ignore();
+		while ( getline(cin,line) )
+		{
+			if ( line.length()==1 && line[0]=='0' )
+				break;
+			stringstream sin;
+			sin<<line;
+			sin>>n;
+			while ( sin>>x )
+			{
+				graph[n].push_back(x);
+				graph[x].push_back(n);
+			}
+		}
+		x=0;
+		for ( int i=1 ; i<=num ; i++ )
+		{
+			memset ( visited , false , sizeof(visited) );
+			if ( i==1 )
+				dfs ( 2,1 );
+			else
+				dfs( 1,i );
+			for ( int j=1 ; j<=num ; j++ )
+			{
+				if ( !visited[j] && j!=i )
+				{
+					x++;
+					break;
+				}
+			}
+		}
+		cout<<x<<endl;
+		for ( int i=1 ; i<=num ; i++ )
+			graph[i].clear();
+	}
+
+}

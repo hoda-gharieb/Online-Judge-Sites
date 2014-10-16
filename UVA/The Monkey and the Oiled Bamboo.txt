@@ -1,0 +1,42 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<string>
+using namespace std;
+
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	//freopen ( "output.out" , "w" , stdout );
+	int t,n, arr[100010],ans,m,max ;
+	scanf ( "%d",&t );
+	for ( int i=0 ; i<t ; i++ )
+	{
+		scanf ( "%d",&n );
+		scanf ( "%d",&m );
+		arr[0] = max = m;
+		for ( int j=1 ; j<n ; j++ )
+		{
+			scanf ( "%d",&ans );
+			arr[j] = ans - m;
+			if ( max<arr[j] )
+				max = arr[j];
+			m = ans;
+		}
+		m = max;
+		for ( int j=0 ; j<n ; j++ )
+		{
+			if ( m == arr[j] )
+				m--;
+			else if ( m < arr[j] )
+			{
+				max++;
+				break;
+			}
+		}
+		printf("Case %d: %d\n",i+1,max);
+	}
+}

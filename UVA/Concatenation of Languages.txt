@@ -1,0 +1,27 @@
+#include<iostream>
+#include<string>
+#include<set>
+using namespace std;
+string word1 [1500];
+string word2 [1500];
+set<string> words;
+int t,m,n,i,j,l;
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	cin>>t;
+	for ( l=0 ; l<t ; l++ )
+	{
+		cin>>m>>n;
+		cin.ignore();
+		words.clear();
+		for ( i=0 ; i<m ; i++ )
+			getline(cin,word1[i]);
+		for ( i=0 ; i<n ; i++ )
+			getline(cin,word2[i]);
+		for ( i=0 ; i<m ; i++ )
+			for ( j=0 ; j<n ; j++ )
+				words.insert(word1[i]+word2[j]);
+		cout<<"Case "<<l+1<<": "<<words.size()<<endl;
+	}
+}

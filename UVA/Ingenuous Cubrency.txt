@@ -1,0 +1,26 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+long long ans[10001][21];
+int cube[10001];
+long long solve(int n,int m )
+{
+	if ( n==0 )
+		return 1;
+	if ( m==21 )
+		return 0;
+	if ( ans[n][m] != -1 )
+		return ans[n][m];
+	for ( int i=0 ; i*cube[m]<=n ; i++ )
+		ans[n][m]+= solve(n-i*cube[m],m+1);
+	return ++ans[n][m];
+}
+int main()
+{
+	for ( int i=1 ; i<22 ; i++ )
+		cube[i-1]=i*i*i;
+	memset(ans,-1,sizeof(ans));
+	int n;
+	while ( cin>>n )
+		cout<< solve(n,0)<<endl;
+}

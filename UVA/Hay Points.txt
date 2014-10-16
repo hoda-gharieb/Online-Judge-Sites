@@ -1,0 +1,28 @@
+#include<iostream>
+#include<map>
+#include<string>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	int n,m;
+	map<string,long long int> M;
+	long long int ans=0,num;
+	string line;
+	cin>>n>>m;
+	for ( int i=0 ; i<n ; i++ )
+	{
+		cin>>line>>num;
+		M[line]=num;
+	}
+	for ( int i=0 ; i<m ; i++ )
+	{
+		ans=0;
+		while (cin>>line && line!=".")
+		{
+			if ( M.find(line) != M.end())
+				ans+=M[line];
+		}
+		cout<<ans<<endl;
+	}
+}

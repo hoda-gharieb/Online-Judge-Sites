@@ -1,0 +1,88 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+#include<cmath>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,k,l ) for ( int i=k-1 ; i>=l ; i-- )
+#define vs vector< string >
+#define vb vector< bool >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+typedef unsigned long long ull;
+const int oo = (int)1e9 ;
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	int t, n, m, num ;
+	
+	string s;
+	scanf( "%d", &t );
+	while ( t-- )
+	{
+		priority_queue< int > Q, q;
+		scanf( "%d", &n );
+		Forp( i, 0, n )
+		{
+			scanf( "%d", &num );
+			q.push( -num );
+		}
+		Forp( i, 0, (n+1) / 2 )
+		{
+			num = -q.top();
+			Q.push( num );
+			q.pop();
+		}
+		scanf( "%d", &m );
+		Forp( i, 0, m )
+		{
+			cin>>s;
+			if ( s[ 0 ] == 'm' )
+			{
+				num = Q.top();
+				printf( "%d\n", num );
+			}
+			else
+			{
+				scanf( "%d", &num );
+				if ( num < Q.top() )
+				{
+					Q.push( num );
+					if ( Q.size() - q.size() == 2 )
+					{
+						num = Q.top();
+						Q.pop();
+						q.push( -num );
+					}
+				}
+				else
+				{
+					q.push( -num );
+					if ( q.size() - Q.size() )
+					{
+						num = -q.top();
+						q.pop();
+						Q.push( num );
+					}
+				}
+			}
+		}		
+	}
+}

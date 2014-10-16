@@ -1,0 +1,37 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	int arr[1026][1026] ,t ,str ,pop ,x ,y ,psize ,sum ,maxi;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		memset(arr,0,sizeof(arr));
+		maxi=-1;
+		cin>>str>>pop;
+		for ( int j=0 ; j<pop ; j++ )
+		{
+			cin>>x>>y>>psize;
+			for ( int k=x-str ; k<=x+str ; k++ )
+				for ( int m=y-str ; m<=y+str ; m++ )
+					if ( k>-1 && k<1026 && m>-1 && m<1026 )
+						if ( k!=x && m!=y)
+							arr[k][m]+=psize;
+		}
+		for ( int j=0 ; j<1026 ; j++ )
+		{
+			for ( int l=0 ; l<1026 ; l++ )
+			{
+				if ( arr[j][l]>maxi )
+				{
+					maxi=arr[j][l];
+					x=j;
+					y=l;
+				}
+			}
+		}
+		cout << x << " " << y << " " << maxi << endl;
+	}
+}

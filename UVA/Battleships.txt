@@ -1,0 +1,92 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<cstdlib>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,l ) for ( int i=l-1 ; i>=0 ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+const int oo = (int)1e9;
+const int Mod = 1000000007;
+
+char arr[ 101 ][ 101 ];
+int to,N;
+void solve( int i, int j )
+{
+	Forp( k,i+1,N )
+	{
+		if ( arr[ k ][ j ] == '.' )
+			break;
+		else
+			arr[ k ][ j ] = '.';
+	}
+	Forp( k,0,i )
+	{
+		if ( arr[ k ][ j ] == '.' )
+			break;
+		else
+			arr[ k ][ j ] = '.';
+	}
+
+	Forp( k,j+1,N )
+	{
+		if ( arr[ i ][ k ] == '.' )
+			break;
+		else
+			arr[ i ][ k ] = '.';
+	}
+	Forp( k,0,j )
+	{
+		if ( arr[ i ][ k ] == '.' )
+			break;
+		else
+			arr[ i ][ k ] = '.';
+	}
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	int t, ans;
+	scanf( "%d", &t );
+	Forp( k,1,t+1 )
+	{
+		scanf( "%d", &N );
+		to = N/2;
+		ans = 0;
+		Forp( i,0,N )
+			Forp( j,0,N )
+			cin>>arr[ i ][ j ] ;
+		Forp( i, 0, N )
+		{
+			Forp( j, 0, N )
+			{
+				if ( arr[ i ][ j ] == 'x' )
+				{
+					ans++;
+					solve( i, j );
+					arr[ i ][ j ] = '.';
+				}
+			}
+		}
+		
+		printf( "Case %d: %d\n", k, ans );
+	}
+}

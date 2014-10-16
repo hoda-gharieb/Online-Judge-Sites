@@ -1,0 +1,29 @@
+#include<iostream>
+using namespace std;
+int arr[11][11],num,sum,s=1;
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	while ( cin>>num && num!=0 )
+	{
+		for ( int i=0 ; i<num ; i++ )
+			for ( int j=0 ; j<num ; j++ )
+				cin>>arr[i][j];
+		cout<<"Case "<<s<<":";
+		for ( int i=0 ,j=num-1; i<=((num-1)/2) ; i++ , j--)
+		{
+			sum=0;
+			for ( int l=i ; l<j+1 ; l++ )
+			{
+				sum+=arr[i][l];
+				if ( i != j )
+					sum+=arr[j][l];
+			}
+				for ( int l=i+1 ; l<j ; l++ )
+					sum+=arr[l][i]+arr[l][j];
+			cout<<" "<<sum;
+		}
+		cout<<endl;
+		s++;
+	}
+}

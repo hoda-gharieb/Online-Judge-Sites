@@ -1,0 +1,41 @@
+#include<iostream>
+#include<string>
+#include <vector>
+using namespace std;
+vector < pair <int,string> > V;
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	int num;
+	bool check;
+	pair < int , string > input ;
+	while ( cin>>input.first )
+	{
+		if ( input.first == 0 )
+			break;
+		cin.ignore();
+		getline ( cin,input.second);
+		if ( input.second == "right on" )
+		{
+			num=input.first;
+			check=true;
+			while ( ! V.empty() )
+			{
+				input=V[V.size()-1];
+				V.pop_back();
+				if ( (num <= input.first && input.second== "too low") || (num >= input.first && input.second== "too high"))
+				{
+					cout<<"Stan is dishonest"<<endl;
+					while ( ! V.empty() )
+						V.pop_back();
+					check=false;
+					break;
+				}
+			}
+			if ( check)
+			cout<<"Stan may be honest"<<endl;
+		}
+		else
+			V.push_back(input);
+	}
+}

@@ -1,0 +1,39 @@
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+	int t,nofblocks,length,width,height,i,j,k,area;
+	cin>>t;
+	while(t>=1)
+	{
+		cin>>nofblocks;
+		for(length=1;length<=nofblocks;length++)
+		{
+			k=0;
+			for(width=1;width<=length;width++)
+			{
+				j=0;
+				for(height=1;height<=width;height++)
+				{
+					if(nofblocks==(height*width*length))
+					{
+						i=height;
+					    j=width;
+						k=length;
+						break;
+					}
+				}
+				if(j==width)
+					break;
+			}
+			if(k==length)
+				break;
+		}
+		area=(j*k*2)+(j*i*2)+(i*k*2);
+		cout<<area<<endl;
+        t--;
+	}
+	return 0;
+}
+

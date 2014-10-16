@@ -1,0 +1,21 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	//freopen("input.in","r",stdin);
+	int row,col,state;
+	long long ans;
+	while ( cin>>row>>col>>state )
+	{
+		if ( row==0 && col==0 && state==0 )
+			break;
+		ans=(row-7)*(col-7);
+		ans/=2;
+		if ( state==1 )
+		{
+			if ( row%2==0 && col%2==0 )
+				ans++;
+		}
+		cout<<ans<<endl;
+	}
+}

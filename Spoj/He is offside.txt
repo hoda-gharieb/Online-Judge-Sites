@@ -1,0 +1,32 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	int arr[12],arr1[12];
+	int at,def;
+	bool check;
+	while ( cin>>at>>def )
+	{
+		if ( at==0 && def==0 )
+			break;
+		for ( int i=0 ; i<at ; i++ )
+			cin>>arr[i];
+		for ( int j=0 ; j<def ; j++ )
+			cin>>arr1[j];
+		sort(arr1,arr1+def);
+		check=true;
+		for ( int i=0 ; i<at ; i++ )
+		{
+			if ( arr[i]<arr1[1] )
+			{
+				cout<<"Y"<<endl;
+				check=false;
+				break;
+			}
+		}
+		if ( check )
+			cout<<"N"<<endl;
+	}
+}

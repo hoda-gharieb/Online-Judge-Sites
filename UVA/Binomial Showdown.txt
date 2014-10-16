@@ -1,0 +1,26 @@
+#include<iostream>
+using namespace std;
+long long nCr(int n,int r)
+{
+	long double anss=1;
+	if ( n-r > r )
+		r=n-r;
+	for ( int i=r+1,j=2 ; i<=n || j<=n-r ; i++,j++ )
+	{
+		if ( i<=n )
+			anss*=i;
+		if( j<=n-r )
+			anss/=j;
+	}
+	return (long long)anss;
+}
+int main()
+{
+	int num,rem;
+	while ( cin>>num>>rem )
+	{
+		if ( num==0 && rem==0 )
+			break;
+		cout<<nCr(num,rem)<<endl;
+	}
+}

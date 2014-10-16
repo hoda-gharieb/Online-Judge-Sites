@@ -1,0 +1,17 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	long int n;
+	
+	while ( cin>>n )
+	{
+		long long int ans=0;
+		for (long long  int i=1 ; i<=n ; i++ )
+		{
+			ans+=(i*i*i);
+		}
+		cout<<ans<<endl;
+	}
+}

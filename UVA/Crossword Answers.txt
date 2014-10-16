@@ -1,0 +1,70 @@
+#include<iostream>
+#include<stdio.h>
+#include<iomanip>
+#include<cstring>
+using namespace std;
+int main()
+{
+	//freopen( "input.in" , "r" , stdin );
+	int r,c,arr[11][11],s=0,t,k;
+	char let[11][11];
+	while ( scanf("%d",&r))
+	{
+		if ( !r ) 
+			break;
+		scanf("%d",&c);
+		s++;
+		if ( s!=1 )
+			puts("");
+		memset(arr,0,sizeof(arr));
+		t=1;
+		for ( int i=0 ; i<c ; i++ )
+		{
+			cin>>let[0][i];
+			if ( let[0][i]!='*' )
+				arr[0][i]=t++;
+		}
+		for ( int i=1 ; i<r ; i++ )
+		{
+			for ( int j=0 ; j<c ; j++ )
+			{
+				cin>>let[i][j];
+				if ( let[i][j]!='*' && ( j==0 || let[i][j-1]=='*' || let[i-1][j]=='*' ) )
+					arr[i][j]=t++;
+			}
+		}
+		printf("puzzle #%d:\n",s);
+		puts("Across");
+		for ( int i=0 ; i<r ; i++ )
+		{
+			for ( int j=0 ; j<c ; j++ )
+			{
+				if ( arr[i][j] )
+				{
+					cout<<setw(3)<<arr[i][j]<<".";
+					while ( j != c && let[i][j]!='*' )
+						cout<<let[i][j++];
+					cout<<endl;
+				}
+			}
+		}
+		puts("Down");
+		for ( int i=0 ; i<r ; i++ )
+		{
+			for ( int j=0 ; j<c ; j++ )
+			{
+				if ( arr[i][j] )
+				{
+					cout<<setw(3)<<arr[i][j]<<".";
+					k=i;
+					while ( k != r && let[k][j]!='*' )
+					{
+						cout<<let[k++][j];
+						arr[k][j]=0;
+					}
+					cout<<endl;
+				}
+			}
+		}
+	}
+}

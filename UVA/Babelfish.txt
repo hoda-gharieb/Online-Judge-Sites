@@ -1,0 +1,26 @@
+#include<iostream>
+#include<string>
+#include<sstream>
+#include<map>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	map<string,string> M;
+	pair<string,string> input;
+	string m;
+	while ( getline(cin,m)&& m!="")
+	{
+		stringstream sin;
+		sin<<m;
+		sin>>input.first>>input.second;
+		M[input.second]=input.first;
+	}
+	while ( cin>>m)
+	{
+		if ( M.find(m)!= M.end())
+			cout<<M[m]<<endl;
+		else
+			cout<<"eh"<<endl;
+	}
+}

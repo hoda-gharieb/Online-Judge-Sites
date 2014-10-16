@@ -1,0 +1,68 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+#include<cmath>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,k,l ) for ( int i=k-1 ; i>=l ; i-- )
+#define vs vector< string >
+#define vb vector< bool >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+typedef unsigned long long ull;
+const int oo = (int)1e8 ;
+double x,y;
+int interSect( double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4 )
+{
+	double X1, X2, Y1, Y2, c1, c2;
+	X1 = x2 - x1 ; X2 = x4 - x3;
+	Y1 = y2 - y1 ; Y2 = y4 - y3;
+	c1 = ( y1*X1 ) - ( x1*Y1 );
+	c2 = ( y3*X2 ) - ( x3*Y2 );
+	if ( !( X1*Y2 - X2*Y1 ) && !( X1*c2 - c1*X2 ) && !( Y1*c2 - c1*Y2 ) )
+		return 2;
+	else if ( !( X1*Y2 - X2*Y1 ) && ( ( X1*c2 - c1*X2 ) || ( Y1*c2 - c1*Y2 ) ) )
+		return 0;
+	else
+	{
+		x = -( X1*c2 - c1*X2 ) / ( X1*Y2 - X2*Y1 );
+		y = -( Y1*c2 - c1*Y2 ) / ( X1*Y2 - X2*Y1 );
+		return 1;
+	}
+}
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	double x1, y1, x2, y2, x3, y3, x4, y4;
+	int t;
+	scanf( "%d", &t );
+	puts( "INTERSECTING LINES OUTPUT" );
+	while( t-- )
+	{
+		cin>>x1>>y1>>x2>>y2>>x3>>y3>>x4>>y4;
+		int ans = interSect( x1, y1, x2, y2, x3, y3, x4, y4 );
+		if ( !ans )
+			puts( "NONE" );
+		else if ( ans == 2 )
+			puts( "LINE" );
+		else
+			printf( "POINT %.2lf %.2lf\n", x, y );
+	}
+	puts( "END OF OUTPUT" );
+}

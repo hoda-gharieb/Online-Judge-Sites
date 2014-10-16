@@ -1,0 +1,13 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+unsigned int num1 , num2 , ans;
+while ( cin>>num1>>num2 )
+{
+ans=num2-num1;
+if ( ans<0 )
+ans*=-1;
+cout<<ans<<endl;
+}
+}

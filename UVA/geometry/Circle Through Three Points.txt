@@ -1,0 +1,86 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+#include<cmath>
+#include<complex>
+#include<vector>
+using namespace std;
+
+typedef complex <double> point;
+#define X real()
+#define Y imag()
+#define length(a) hypot((a).X,(a).Y)
+#define vec(a,b) ((b)-(a))
+#define dot(a,b) ((conj(a)*(b)).real())
+#define cross(a,b) ((conj(a)*(b)).imag())
+#define EPS 1.0e-10
+
+bool intersectLine(const point &a, const point &b, const point &p, const point &q, point & ret)
+{
+	double d1 = cross(p - a, b - a);
+	double d2 = cross(q - a, b - a);
+	ret = (d1 * q - d2 * p) / (d1 - d2);
+	return fabs(d1-d2) > EPS;
+}
+void perBisector(point &a,point &b,point &c,point &d)
+{
+	point mid = (a+0.5*(b-a));
+	double x = vec(a,b).X;
+	double y = vec(a,b).Y;
+	point p1(-1*y,x);
+	point p2(y,-1*x);
+	p1=p1+mid;
+	p2=p2+mid;
+	c=p1;
+	d=p2;
+}
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	double x1, y1, x2, y2, x3, y3;
+	while ( cin >> x1>> y1>> x2>> y2>> x3>> y3 )
+	{
+		point a( x1,y1 ), b( x2,y2 ), c( x3,y3 ), d, e, f, g, center;
+		perBisector( a, b, d, e );
+		perBisector( b, c, f, g );
+		intersectLine( d, e, f, g, center );
+		double r = length( vec( a, center ) );
+		double h = center.X;
+		double k = center.Y;
+
+		cout<<"(x ";
+		if ( h < 0 )
+			cout<<"+ "<<setprecision( 3 )<<fixed<<( -1*h )<<")^2 + (y ";
+		else
+			cout<<"- "<<setprecision( 3 )<<fixed<< h <<")^2 + (y ";
+		if ( k < 0 )
+			cout<<"+ "<<setprecision( 3 )<<fixed<<( -1*k )<<")^2 = "<<setprecision( 3 )<<fixed<< r << "^2\n";
+		else
+			cout<<"- "<<setprecision( 3 )<<fixed<< k <<")^2 = "<<setprecision( 3 )<<fixed<< r << "^2\n";
+		cout<<"x^2 + y^2 ";
+
+		if ( h < 0 ) cout<<"+ "<<setprecision( 3 )<<fixed<<( -1*h*2.0 )<<"x "; 
+		else cout<<"- "<<setprecision( 3 )<<fixed<< h * 2.0<<"x ";
+		if ( k < 0 )
+			cout<<"+ "<<setprecision( 3 )<<fixed<<( -1*k*2.0 )<<"y ";
+		else
+			cout<<"- "<<setprecision( 3 )<<fixed<< k*2.0 <<"y ";
+		r = ( h*h ) + ( k*k ) - ( r*r );
+		if ( r < 0 )
+			cout<<"- "<<setprecision( 3 )<<fixed<<( -1*r )<<" = 0\n\n";
+		else
+			cout<<"+ "<<setprecision( 3 )<<fixed<< r <<" = 0\n\n";
+	}
+}

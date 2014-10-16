@@ -1,0 +1,47 @@
+#include<iostream>
+#include<string>
+using namespace std;
+string line;
+int pailndrome( int k , int index )
+{
+	int ans=-1,count=0,m=0;
+	for ( int i=index-1 , j=index+1 ; i>=0 && j<line.length() ; i-- , j++,m++ )
+	{
+		if ( count>k )
+			break;
+		if ( line[i] != line[j] )
+			count++;		
+	}
+	if ( count>k )
+		m--;
+	m*=2;
+	m++;
+	ans=max(m,ans);
+	m=count=0;
+	for ( int i=index , j=index+1 ; i>=0 && j<line.length() ; i-- , j++,m++ )
+	{
+		if ( count>k )
+			break;
+		if ( line[i] != line[j] )
+			count++;		
+	}
+	if ( count>k )
+		m--;
+	m*=2;
+	ans=max(ans,m);
+	return ans;
+}
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	int t,k,ans;	
+	cin>>t;
+	while ( t-- )
+	{
+		cin>>line>>k;
+		ans=-1;
+		for ( int i=0 ; i<line.length() ; i++ )
+			ans=max(ans,pailndrome(k,i));		
+		cout<<ans<<endl;
+	}
+}

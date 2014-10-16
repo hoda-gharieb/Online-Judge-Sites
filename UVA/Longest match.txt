@@ -1,0 +1,64 @@
+#include<iostream>
+#include<string>
+#include<cstring>
+#include<vector>
+#include<sstream>
+#include<iomanip>
+using namespace std;
+string word1,word2,word="!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~";
+string arr[1000],arr2[1000];
+int V[1005][1005];
+int solve()
+{
+	int m=0,n=0;
+	stringstream sin;
+	sin<<word1;
+	while ( sin>>arr[m] )
+		m++;
+	stringstream fin;
+	fin<<word2;
+	while ( fin>>arr2[n] )
+		n++;
+	for ( int i=1 ; i<=m ; i++ )
+	{
+		for ( int j=1 ; j<=n ; j++ )
+		{
+			if ( arr[i-1]==arr2[j-1] )
+				V[i][j]=V[i-1][j-1]+1;
+			else
+				V[i][j]=max(V[i-1][j],V[i][j-1]);
+		}
+	}
+	return V[m][n];
+}
+int main()
+{
+	freopen("input.in","r",stdin);
+	memset(V,0,sizeof(V));
+	int s=1,ans;
+	while ( getline(cin,word1) )
+	{
+		getline(cin,word2);
+		
+		cout<<setw(2)<<s<<". ";
+		if ( word1=="" || word2=="" )
+		{
+			cout<<"Blank!\n";
+			s++;
+			continue;
+		}
+		else
+		{
+			for ( int i=0 ; i<word1.length() || i<word2.length() ; i++ )
+			{
+				if (i<word1.length() && word.find(word1[i]) != -1)
+					word1[i]=' ';
+				if (i<word2.length() && word.find(word2[i]) != -1)
+					word2[i]=' ';
+			}
+			ans=solve();
+			cout<<"Length of longest match: "<<ans<<endl;
+		}
+		s++;
+	}
+}

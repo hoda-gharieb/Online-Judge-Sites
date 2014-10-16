@@ -1,0 +1,32 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int arr[]={1,5,10,25,50};
+int count[5][7500],num;
+void solve(int n)
+{
+	for ( int i=0 ; i<=n ; i++ )
+		count[0][i]=1;
+	for ( int i=0 ; i<5 ; i++ )
+		count[1][i]=count[2][i]=count[3][i]=count[4][i]=1;
+	for ( int i=1 ; i<5 ; i++ )
+	{
+		for ( int j=5 ; j<= n ; j+=5 )
+		{
+			count[i][j]=0;
+			for ( int k=0 ; k<=i ; k++ )
+			{
+				if ( j-arr[k]<0 )
+					break;
+				count[i][j]+=count[k][j-arr[k]];
+			}
+			count[i][j+1]=count[i][j+2]=count[i][j+3]=count[i][j+4]=count[i][j];
+		}
+	}
+}
+int main()
+{
+	solve(7489);
+	while ( cin>>num )
+		cout<<count[4][num]<<endl;
+}

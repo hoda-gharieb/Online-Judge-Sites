@@ -1,0 +1,23 @@
+
+#include <iostream>
+#include <list>
+#include <vector>
+#include <string>
+#include <iomanip>
+#include <cstdio>
+#include <map>
+#include <set>
+#include <limits>
+using namespace std;
+int main(){
+	int x ,y ,z;
+	while (cin >> x >> y >> z ){
+		if (x == y && x == z && x == 0)
+			break;
+		if (z-y == y - x)
+			cout << "AP " << 2 * z - y << endl;
+		else
+			cout << "GP " << (y / x ) * z << endl;
+	}
+	return 0;
+}

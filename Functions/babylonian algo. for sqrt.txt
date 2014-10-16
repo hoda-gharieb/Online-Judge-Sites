@@ -1,0 +1,16 @@
+#include<iostream>
+#include<math.h>
+using namespace std;
+int main()
+{
+	double number,guess=0,r=0,check=0;
+	cin>>number;
+	guess=number/2;
+	do
+	{ 
+		check=guess;
+		r=number/guess;
+		guess=(guess+r)/2;	 
+	}while(floor((guess-check)*10000) != 0 );
+	cout<<guess<<endl;
+}

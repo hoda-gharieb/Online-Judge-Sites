@@ -1,0 +1,100 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+#include<algorithm>
+#include<cstdlib>
+#include<iomanip>
+#include<stdio.h>
+#include<string>
+#include<set>
+#include<vector>
+#include<map>
+using namespace std;
+
+bool visited [ 1000 ];
+map < int,int > indegree;
+map < int,int > taken;
+vector < int > graph[1000];
+
+void Dfs( int n )
+{
+	visited [ n ] =true;
+	for ( int j=0 ; j< graph[n].size() ; j++ )
+		if ( !visited [ graph[n][j] ] )
+			Dfs ( graph[n][j] );
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	//freopen ( "output.out" , "w" , stdout );
+	int n,m,num, s=1;
+	while ( scanf ( "%d %d", &n, &m ) )
+	{
+		if ( n<0 && m<0 )
+			break;
+		else if ( !n && !m )
+		{
+			printf( "Case %d is a tree.\n", s++ );
+			continue;
+		}
+		indegree.clear();
+		taken.clear();
+		memset ( visited , false , sizeof ( visited) );
+		num=0;
+		for ( int i=0 ; i<1000 ; i++ )
+			graph[i].clear();
+
+		taken[ n ] = num++;
+		taken[ m ] = num++;
+
+		indegree[ taken[ n ] ] = 0;
+		indegree[ taken[ m ] ] = 1;
+		graph [ taken [ n ] ].push_back( taken[ m ] );
+		while ( scanf ( "%d %d", &n, &m ) )
+		{
+			if ( !n && !m )
+				break;
+			if ( ! (taken.find(n) != taken.end()) )
+			{
+				taken [ n ] = num++;
+				indegree [ taken[n] ] =0;
+			}
+			if ( ! (taken.find(m) != taken.end()) )
+			{
+				taken [ m ] = num++;
+				indegree [ taken[m] ] =0;
+			}
+			graph [ taken[n] ] .push_back( taken[ m ] );
+			indegree[ taken[m] ]++;
+		}
+		printf( "Case %d ", s++ );
+		map < int,int >::iterator it;
+		n=0;
+		bool check = true;
+		for ( it = indegree.begin() ; it != indegree.end() ; it++ )
+		{
+			if ( (*it).second==0 )
+			{
+				n++;
+				m = (*it ).first;
+			}
+			else if ( (*it).second>1 )
+				check = false;
+		}
+		if ( !check || n!=1 )
+		{
+			printf( "is not a tree.\n");
+			continue;
+		}
+		Dfs ( m );
+		check = true;
+		for ( int i=0 ; i<num ; i++ )
+			if ( !visited[ i ] )
+				check=false;
+		if ( check )
+			printf( "is a tree.\n");
+		else
+			printf( "is not a tree.\n");
+	}
+}

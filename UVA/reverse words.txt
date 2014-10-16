@@ -1,0 +1,28 @@
+#include<iostream>
+#include<string>
+#include<sstream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	int t;
+	string m;
+	vector<string> V;
+	cin>>t;
+	cin.ignore();
+	for ( int i=0 ; i<t ; i++ )
+	{
+		getline(cin,m);
+		stringstream sin;
+		sin<<m;
+		while (sin>>m)
+			V.push_back(m);
+		cout <<"Case #"<<i+1<<" : ";
+		reverse(V.begin(),V.end());
+		vector<string>::iterator it;
+		for ( it=V.begin() ; it != V.end() ; it++ )
+			cout<<*it<<" ";
+		cout<<endl;
+	}
+}

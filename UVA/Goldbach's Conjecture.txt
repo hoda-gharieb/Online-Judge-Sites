@@ -1,0 +1,32 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+bool prime[1000005];
+void doPrime(int num)
+{
+	memset(prime,true,sizeof(prime));
+	for ( unsigned long long i=2 ; i<num+1 ; i++ )
+	{
+		if ( prime[i] )
+		{
+			for ( unsigned long long j=i*i ; j<num+1 ; j+=i )
+				prime[j]=false;
+		}
+	}
+}
+int main()
+{
+	//freopen("input.in","r",stdin);
+	doPrime(1000000);
+	int n;
+	while ( cin>>n && n!=0 )
+	{	
+		cout<<n<<" = ";
+		for ( int i=3 ; i<=n/2 ; i++ )
+				if ( prime[i] && prime[n-i] )
+				{
+					cout<<i<<" + "<<n-i<<endl;
+					break;
+				}
+	}
+}

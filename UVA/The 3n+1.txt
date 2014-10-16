@@ -1,0 +1,42 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n,m,l,i,j,s,h,o;
+	
+	while(cin>>h>>o)
+	{
+		
+		if(h>o)
+		{
+			n=o;
+			m=h;
+		}
+		else
+		{
+			n=h;
+			m=o;
+		}
+			
+	
+	j=0;
+	for(l=m;l>=n;l=l-1)
+	{
+		s=l;
+	for(i=1;s>1;i=i++)
+	{
+		
+		if(s%2==0)
+			s=s/2;
+		else
+		s=(3*s)+1;
+	}
+	if(i>j)
+		j=i;
+	}
+	cout<<h<<" "<<o<<" "<<j<<endl;
+
+}
+	
+	return 0;
+}

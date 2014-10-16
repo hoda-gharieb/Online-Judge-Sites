@@ -1,0 +1,73 @@
+#include<iostream>
+#include<cstring>
+#include<cmath>
+#include<algorithm>
+#include<cstdlib>
+#include<iomanip>
+#include<stdio.h>
+#include<string>
+#include<set>
+#include<vector>
+#include<map>
+using namespace std;
+
+int t, n, m;
+
+int N[101],M[101];
+vector < vector< int > > Graph;
+vector < int > L,R;
+vector < bool > visited;
+
+bool can_match ( int node)
+{
+	for ( int i=0 ; i< Graph[node].size() ; i++ )
+	{
+		int num = Graph[ node ][ i ];
+		if ( visited [ num ] )
+			continue;
+		visited [ num ] = true;
+		if ( R [ num ] == -1 || can_match ( R[ num ] ) )
+		{
+			R [ num ] = node;
+			L [ node ] = num;
+			return true;
+		}
+	}
+	return false;
+}
+
+int max_match()
+{
+	L = vector<int>( Graph.size(), -1 );
+	R = vector<int>( m, -1 );
+	int ans=0;
+	for ( int i=0 ; i<Graph.size() ; i++ )
+	{
+		visited = vector<bool>( m, 0 );
+		ans+= can_match ( i );
+	}
+	return ans;
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	//freopen ( "output.out" , "w" , stdout );
+	
+	scanf ( "%d", &t );
+	for ( int i=0 ; i<t ; i++ )
+	{
+		scanf ( "%d", &n );
+		for ( int j=0 ; j<n ; j++ )
+			scanf ( "%d", &N[ j ] );
+		scanf ( "%d", &m );
+		for ( int j=0 ; j<m ; j++ )
+			scanf ( "%d", &M[ j ] );
+		Graph.assign ( n , vector< int>() );
+		for ( int i=0 ; i<n ; i++ )
+			for ( int j=0 ; j<m ; j++ )
+				if ( N[i] && !( M[j] % N[i] ) || !M[j] )
+					Graph[ i ].push_back( j );
+		printf( "Case %d: %d\n", i+1, max_match() );
+	}
+}

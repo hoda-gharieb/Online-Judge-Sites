@@ -1,0 +1,25 @@
+#include<iostream>
+using namespace std;
+long long nCr(int n,int r)
+{
+	long double anss=1;
+	if ( n-r < r )
+		r=n-r;
+	for ( int i=n,j=1 ; j<=r ; i--,j++ )
+	{
+			anss*=i;
+			anss/=j;
+	}
+	return anss;
+}
+int main()
+{
+	//freopen ( "input.in","r",stdin);
+	long int num,rem;
+	while ( cin>>num>>rem )
+	{
+		if ( num==0 && rem==0 )
+			break;
+		cout<<num<<" things taken "<<rem<<" at a time is "<<nCr(num,rem)<<" exactly."<<endl;
+	}
+}

@@ -1,0 +1,18 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	freopen("input.in","r",stdin);
+	int t,no;
+	long long row,col;
+	cin>>t;
+	while ( t-- )
+	{
+		cin>>no>>row>>col;
+		cout<<no<<" ";
+		if ( col==0 )
+			cout<<1<<endl;
+		else
+			cout<<(col*(row-col))+1<<endl;
+	}
+}

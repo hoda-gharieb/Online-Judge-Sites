@@ -1,0 +1,81 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<cstdlib>
+#include<complex>
+#include<vector>
+#include<cstdio>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,l ) for ( int i=l-1 ; i>=0 ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+
+int arr[ 1002 ];
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );	
+	int t,n,p,mask, arr[ 12 ][ 12 ];
+	scanf( "%d", &t );
+	Forp( l,1,t+1 )
+	{
+		scanf( "%d %d", &n, &p );
+		mst( arr, 0 );
+		Forp( i,0,n )
+		{
+			Forp( j,0,p )
+			{
+				scanf( "%d", &arr[ i ][ j ] );
+				arr[ i ][ p ] += arr[ i ][ j ];
+			}
+		}
+		bool maxi = true;
+		int mini = 30;
+		Forp( i, 0, n )
+		{
+			if ( arr[ i ][ p ] == p )
+				maxi = false;
+			mini = min ( mini, arr[ i ][ p ] );
+		}
+		mask = 0;
+		if ( maxi )
+			mask |= 1<<0;
+		if ( mini == 1 )
+			mask |= 1<<1;
+		maxi = true;
+		Forp ( i,0,p )
+		{
+			maxi = false;
+			Forp( j,0,n )
+			{
+				if( arr[ j ][ i ] )
+				{
+					maxi = true; 
+					break;
+				}
+			}
+			if( !maxi )
+				break;
+		}
+		if ( maxi )
+			mask |= 1<<2;
+		printf( "Case %d: %d\n",l, mask);
+	}
+}

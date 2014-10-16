@@ -1,0 +1,71 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,k,l ) for ( int i=k-1 ; i>=l ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+typedef unsigned long long ull;
+const int oo = (int)1e9;
+
+int g[ 82 ];
+ull ans;
+vector< vector< int > > graph;
+int t, N, E, a, b;
+
+void solve ( int vertex, int depth )
+{
+	if ( g[ vertex ] != -1 )
+	{
+		if ( depth - g[ vertex ] > 2 )
+			ans *= ull( ull(depth) - ull( g[ vertex ] ) );
+		return;
+	}
+
+	g[ vertex ] = depth;
+	Forp ( i,0, graph[ vertex ].size() )
+		solve( graph[ vertex ][ i ], depth+1 );
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+
+	cin>>t;
+	Forp( i,0,t )
+	{
+		cin>>N>>E;
+		graph.resize( N );
+		Forp( i,0,N)
+			graph[ i ].clear();
+		Forp( j,0,E )
+		{
+			cin>>a>>b;
+			a--; b--;
+			graph[ a ].push_back( b );
+			graph[ b ].push_back( a );
+		}
+		mst( g, -1 );
+		ans = 1;
+		solve( 0,0 );
+		cout<<"Case "<<i+1<<": "<<ans<<endl;
+	}
+}

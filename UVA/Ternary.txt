@@ -1,0 +1,20 @@
+#include<iostream>
+using namespace std;
+int main()
+{	
+	long long int n;
+	while (cin>>n && n>=0)
+	{
+		long long int ans=0 , s=1 ;
+		while ( n>0 )
+		{
+			ans+=(n%3)*s;
+			n/=3;
+			s*=10;			
+		}
+		cout<<ans<<endl;
+	}
+
+}
+
+

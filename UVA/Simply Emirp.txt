@@ -1,0 +1,63 @@
+#include <iostream>
+#include <stdio.h>
+#include <cmath>
+#include <vector>
+#include <map>
+#include <set>
+#include <algorithm>
+#include<string>
+#include <fstream>
+#include<iomanip>
+#include <sstream>
+using namespace std;
+
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define pp push_back
+#define long long ll
+#define unsigned long long ull
+#define eps 1e-9
+
+int main()
+{
+	int n;
+	while( scanf( "%d", &n )==1 )
+	{
+		bool prime = true;
+		for( int i=2 ; i*i <= n ; i++ )
+		{
+			if( !( n%i ) )
+			{
+				prime = false;
+				break;
+			}
+		}
+		printf( "%d is ",n);
+		if ( !prime )
+		{
+			puts("not prime.");
+			continue;
+		}
+		bool emrip = true;
+		int rev = 0, m=n;
+		while( n!=0 )
+		{
+			rev = ( rev*10 ) + ( n%10 );
+			n/=10;
+		}
+		for( int i=2 ; i*i <= rev ; i++ )
+		{
+			if( !( rev%i ) )
+			{
+				emrip = false;
+				break;
+			}
+		}
+		if( emrip && rev != m )
+			puts( "emirp." );
+		else
+			puts( "prime." );
+	}
+}

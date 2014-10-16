@@ -1,0 +1,30 @@
+#include<iostream>
+#include<string>
+#include<iomanip>
+#include<map>
+using namespace std;
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin);
+	int t,all;
+	map<string,float> M;
+	map<string,float> ::iterator it;
+	string line;
+	cin>>t;
+	cin.ignore();
+	getline(cin,line);
+	for ( int i=0 ; i<t ; i++ )
+	{
+		if ( i!=0 )
+			cout<<endl;
+		all=0;
+		M.clear();
+		while ( getline(cin,line ) && line !="")
+		{
+			M[line]++;
+			all++;
+		}
+		for ( it=M.begin() ; it != M.end() ; it++ )
+			cout<<(*it).first<<" "<<setprecision(4)<<fixed<<((*it).second/all)*100<<endl;
+	}
+}

@@ -1,0 +1,75 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<map>
+#include<queue>
+using namespace std;
+
+#define Forp( i,l ) for ( int i=0 ; i<l ; i++ )
+#define Form( i,l ) for ( int i=l-1 ; i>=0 ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+typedef long long ll;
+const int oo = (int)1e9;
+
+int arr[ 31 ][ 31 ], maxi;
+
+void solve ()
+{
+	Forp( i, maxi+1 )
+		Forp( j, maxi+1 )
+		Forp( k, maxi+1 )
+		if ( arr[ j ][ i ] && arr[ i ][ k ] )
+		arr[ j ][ k ] += arr[ j ][ i ] * arr[ i ][ k ];
+}
+
+int main()
+{
+	//freopen ( "input.in", "r", stdin );
+	int n, s, t, i=0;
+	while ( cin>>n )
+	{
+		memset( arr, 0, sizeof( arr ) );
+		maxi = -oo;
+		while ( n-- )
+		{
+			cin>>s>>t;
+			maxi = max ( maxi, max ( s,t ) );
+			arr[ s ][ t ] ++;
+		}
+
+		solve();
+		Forp( j, maxi+1 )
+		{
+			if ( arr[j][j] )
+				Forp ( k, maxi+1 )
+				Forp ( l, maxi+1 )
+				if ( arr[k][j] && arr[j][l] )
+					arr[k][l] = -1;
+		}
+
+
+		cout<<"matrix for city "<<i++<<endl;
+		Forp( j, maxi+1 )
+		{
+			Forp ( k, maxi+1 )
+			{
+				if ( k )
+					cout<<" ";
+				cout<<arr[j][k];
+			}
+			cout<<endl;
+		}
+	}	
+}
+

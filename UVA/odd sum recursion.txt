@@ -1,0 +1,27 @@
+#include<iostream>
+using namespace std;
+int arr[100];
+
+int add(int n)
+{
+	int answer=0;
+	if (n==0 && arr[0]%2==0)
+		return 0;
+	else if (n==0 )
+		return arr[0];
+	if ( arr[n]%2 !=0 )
+		answer+=arr[n];
+	answer+=add(n-1);
+	return answer;
+}
+
+int main()
+{
+	int t;
+	while ( cin>>t )
+	{
+		for ( int i=0 ; i<t ; i++ )
+			cin>>arr[i];
+		cout<<add(t-1)<<endl;
+	}
+}

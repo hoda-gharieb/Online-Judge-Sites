@@ -1,0 +1,25 @@
+#include<iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+int main()
+{  
+    int t,cases=1;
+	cin>>t;
+	string string1,string2="a1b2c3d1e2f3g1h2i3j1k2l3m1n2o3p1q2r3s4t1u2v3w1x2y3z4 1";
+	char c;
+	cin.ignore();
+	for(int i=0;i<t;i++)
+	{
+		int sum = 0;
+		getline(cin,string1);
+		for(int j=0;j<string1.length();j++)
+		{
+			c = string1[j];
+			sum += string2 [ string2.find(c)+1 ]-'0';
+		}
+		cout<<"Case #" << cases <<": "<< sum <<endl;
+		cases++;
+	}
+	return 0;
+}

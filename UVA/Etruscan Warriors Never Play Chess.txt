@@ -1,0 +1,17 @@
+#include<iostream>
+#include<math.h>
+using namespace std;
+int main()
+{
+	double num;
+	int t;
+	cin>>t;
+	while( t-- )
+	{
+		cin>>num;
+		num= sqrt( 1 + (8*num) );
+		num--;
+		num/=2;
+		cout<<(int)num<<endl;
+	}
+}

@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	int k,l,m;
+	cin>>l;
+	m=0;
+	
+	do
+	{
+	for(m=0;l>0;m+=k)
+	{
+		k=l%10;
+		l=l/10;
+	}
+	if(m>9)
+		l=m;
+	else
+	cout<<m<<endl;
+	}while(l>9);
+	
+	
+		
+	
+	return 0;
+
+}
+ans=num%9;
+if (ans == 0)
+ans=9;

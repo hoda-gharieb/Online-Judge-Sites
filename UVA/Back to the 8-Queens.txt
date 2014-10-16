@@ -1,0 +1,55 @@
+#include<iostream>
+#include<cstdlib>
+#include<iomanip>
+using namespace std;
+int arrr[9],result,ans,maxi,arr[9],s=1;
+bool check(int index,int row)
+{
+	for ( int i=1 ; i<index ; i++ )
+		if( arrr[i]==row || abs(arrr[i]-row)==abs(index-i))
+			return false;
+	return true;
+}
+void solve(int index)
+{
+	if(index == 9)
+	{
+		if ( maxi<ans)
+			ans=maxi;
+		return;
+	}
+	else
+	{
+		for(int i=1; i < 9 ; i++)
+		{
+			if ( check(index,i) )
+			{
+				if ( arrr[index] != i )
+				{
+					maxi++;
+					arrr[index]=i;
+				}
+				solve(index+1);				
+				if ( arr[index] != i )
+				{
+					arrr[index]=arr[index];
+					maxi--;
+				}
+			}
+		}
+	}
+}
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	while ( cin>>arrr[1]>>arrr[2]>>arrr[3]>>arrr[4]>>arrr[5]>>arrr[6]>>arrr[7]>>arrr[8] )
+	{
+		for ( int i=1 ; i<9 ; i++ )
+			arr[i]=arrr[i];
+		maxi=0;
+		ans=10;
+		solve(1);
+		cout<<"Case "<<s<<": "<<ans<<endl;
+		s++;
+	}
+}

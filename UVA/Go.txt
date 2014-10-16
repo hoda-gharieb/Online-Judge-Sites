@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	int n,m,arr[103][103],trans[103][103];
+	memset(arr,0,sizeof(arr));
+	while (cin>>n>>m && n!=0 && m!=0)
+	{
+		for ( int i=0 ; i<n ; i++)
+			for ( int j=0 ; j<m ; j++ )
+				cin>>arr[i][j];
+		for ( int i=0 ; i<n ; i++)
+			for ( int j=0 ; j<m ; j++ )
+				trans[j][i]=arr[i][j];
+		cout<<"Original Matrix:\n";
+		for ( int i=0 ; i<n ; i++)
+		{
+			for ( int j=0 ; j<m ; j++ )
+				cout<<arr[i][j]<<" ";
+			cout<<endl;
+		}
+		cout<<"\nTransposed Matrix:\n";
+		for ( int i=0 ; i<m ; i++)
+		{
+			for ( int j=0 ; j<n ; j++ )
+				cout<<trans[i][j]<<" ";
+			cout<<endl;
+		}
+	}
+}

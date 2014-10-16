@@ -1,0 +1,36 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+int f,a,i,n,m,j,l,y;
+	cin>>y;
+	cout<<endl;
+	while(y>=1)
+	{
+		cin>>a>>f;	
+		m=1;
+		while(m<=f)
+		{
+			i=1;
+			j=a-1;
+			while(i<=a)
+			{
+				for(n=1;n<=i;n=n++)
+					cout<<i;
+				cout<<endl;
+				i++;
+			} 
+			while(j>=1)
+			{
+				for(l=1;l<=j;l=l++)
+					cout<<j;
+				cout<<endl;
+				j--;
+			}
+			if(m<f)
+				cout<<endl;
+			m++;
+		}
+		y-=1;
+	}
+}

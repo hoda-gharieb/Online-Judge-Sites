@@ -1,0 +1,33 @@
+#include<iostream>
+#include <string>
+using namespace std;
+int main()
+{	
+	freopen("input.in", "r", stdin);
+	int n;
+	cin>>n;
+	cin.ignore();
+	string st[30];
+	for ( int i=0 ; i<n ; i++ )
+	{
+		for ( int j=0 ; j<2 ; j++)
+			cin>>st[j];
+		int l=0;
+		if ( st[0].length()== st[1].length() )
+		{
+			for ( int k=0 ; k<st[0].length() ; k++ )
+			{
+				if ( st[0][k]==st[1][k] )
+					l++;
+				else if ( (st[0][k]=='a'||st[0][k]=='o' || st[0][k]=='u' || st[0][k]=='e' || st[0][k]=='i') && (st[1][k]=='a' || st[1][k]=='o'                            ||st[1][k]=='u' || st[1][k]=='e' || st[1][k]=='i'))
+					l++;
+			}
+		}
+		if ( l == st[0].length() )
+			cout<<"Yes"<<endl;
+	else
+			cout<<"No"<<endl;
+	}
+
+
+}

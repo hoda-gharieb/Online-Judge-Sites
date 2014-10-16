@@ -1,0 +1,78 @@
+#include<iostream>
+#include<string>
+#include<queue>
+#include<map>
+#include<set>
+#include<cstring>
+#include<vector>
+#include<limits.h>
+#include<iomanip>
+#include<stdio.h>
+#include<algorithm>
+using namespace std;
+
+struct edge
+{
+	int to,weight;
+	edge();
+	edge ( int a, int b ) : to(a) , weight(b) {}
+	bool operator < ( const edge &otherEdge ) const
+	{
+		return weight > otherEdge.weight;
+	}
+};
+
+void dijkestra ( int start, vector< edge >* g , int* dis )
+{
+	priority_queue< edge > Q;
+	Q.push ( edge( start,0 ) );
+	dis[ start ] = 0;
+
+	while ( !Q.empty() )
+	{
+		edge e = Q.top();
+		Q.pop();
+		int w = e.weight;
+		int n = e.to;
+		for ( int i=0 ; i < g[n].size() ; i++ )
+		{
+			edge E = g[n][i];
+			int W = g[n][i].weight;
+			int N = g[n][i].to;
+			if ( dis[ N ] > W+w )
+			{
+				dis[ N ] = W+w ;
+				Q.push ( edge ( N , dis[ N ] ) );
+			}
+		}
+	}
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	int t ,n ,m ,S ,T ,x ,y ,w ;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>n>>m>>S>>T;
+		vector< edge > *graph = new vector< edge> [n];
+		int *distance = new int[n];
+		for ( int j=0 ; j<n ; j++ )
+			distance[j]=INT_MAX;
+		
+		for ( int j=0 ; j<m ; j++ )
+		{
+			cin>>x>>y>>w;
+			graph[x].push_back ( edge(y,w) );
+			graph[y].push_back ( edge(x,w) );
+		}
+
+		dijkestra ( S, graph, distance);
+		cout<<"Case #"<<i+1<<": ";
+		if ( distance[T] == INT_MAX )
+			cout<<"unreachable\n";
+		else
+			cout<<distance[T]<<endl;
+	}
+}

@@ -1,0 +1,28 @@
+#include<iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+int main()
+{  
+	String string1,string2="A2B2C2D3E3F3G4H4I4J5K5L5M6N6O6P7Q7R7S7T8U8V8W9X9Y9Z9";
+	char c;
+	while(cin>>string1)
+	{
+		string1;
+		char k=0;
+		for(int j=0;j<string1.length();j++)
+		{
+			c = string1[j];
+			if(c<='Z' && c>='A')
+			{
+			k= string2 [ string2.find(c)+1 ];
+			string1[j]=k;
+			}
+			else
+				string1[j]=c;
+		}
+		cout<<string1<<endl;
+		
+	}
+	return 0;
+}

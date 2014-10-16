@@ -1,0 +1,65 @@
+#include<iostream>
+#include<string>
+using namespace std;
+string generatePailndrome(string line)
+{
+	bool check=true,equal=true;
+	for ( int i=0,j=line.length()-1 ; i<line.length()/2 ; i++,j-- )
+	{
+		if ( line[i]!=line[j] )
+			equal=false;
+		if ( line[i]<line[j] )
+			check=false;
+		if ( line[i]>line[j])
+			check=true;
+		line[j]=line[i];
+	}
+	if ( ! check || equal)
+	{
+		if ( line.size()%2 )
+		{
+			if ( line[line.size()/2]=='9' )
+			{
+				line[line.size()/2]='0';
+				for ( int i=(line.length()/2)+1,j=i-2 ; j>=0 ; i++,j-- )
+				{
+					if ( line[i]!='9')
+					{
+						line[i]=line[j]+=1;
+						break;
+					}
+					else
+						line[i]=line[j]='0';
+				}
+			}
+			else
+				line[line.size()/2]+=1;
+		}
+		else
+		{
+			for ( int i=line.length()/2,j=i-1 ; j>=0 ; i++,j-- )
+			{
+				if ( line[i]!='9')
+				{
+					line[i]=line[j]+=1;
+					break;
+				}
+				else
+					line[i]=line[j]='0';
+			}
+		}
+	}
+	if ( line[0]=='0' )
+	{
+		line[line.length()-1]='1';
+		line.insert(0,"1");
+	}
+	return line;
+}
+int main()
+{
+	freopen("input.in","r",stdin);
+	string num;
+	while ( cin>>num )
+		cout<<generatePailndrome(num)<<endl;
+}

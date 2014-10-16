@@ -1,0 +1,46 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+long long fact[21];
+void doFact()
+{
+	long long n=1;
+	for ( int i=1 ; i<21 ; i++ )
+	{
+		n*=i;
+		fact[i]=n;
+	}
+}
+int main()
+{
+	//freopen("input.in","r",stdin);
+	doFact();
+	int t,num;
+	string line;
+	long long ans;
+	char c;
+	cin>>t;
+	for ( int i=0 ; i< t ; i++ )
+	{
+		cin>>line;
+		ans=fact[line.length()];
+		sort(line.begin() , line.end() );
+		c=line[0];
+		num=2;
+		for ( int j=1 ; j<line.length() ; j++ )
+		{
+			if ( line[j]==c )
+			{
+				ans/=num;
+				num++;
+			}
+			else
+			{
+				c=line[j];
+				num=2;
+			}
+		}
+		cout<<"Data set "<<i+1<<": "<<ans<<endl;
+	}
+}

@@ -1,0 +1,17 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	int n,length,m;
+	while ( cin>>n )
+	{
+		m=1;
+		length=1;
+		while ( m%n != 0 )
+		{
+			m=(m*10+1)%n;
+			length++;
+		}
+		cout<<length<<endl;
+	}
+}

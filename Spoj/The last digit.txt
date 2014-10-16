@@ -1,0 +1,33 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+long long B,M;
+long long modd(long long p)
+{
+	if ( p==1 )
+		return B%M;
+	long long res=modd(p/2);
+	if ( p%2==0 )
+		return (res*res)%M;
+	else
+		return (((res*res)%M)*(B%M))%M;
+}
+int main()
+{
+	//freopen( "input.in" , "r" , stdin );
+	M=2147483000;
+	int t,pp;
+	scanf("%d",&t);
+	while ( t-- )
+	{
+		scanf("%d",&B);
+		scanf("%d",&pp);
+		if ( pp==0 )
+			printf("%d\n",1);
+		else
+		{
+			pp=modd(pp)%10;
+			printf("%d\n",pp);
+		}
+	}
+}

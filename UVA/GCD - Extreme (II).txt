@@ -1,0 +1,75 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<cstdlib>
+#include<complex>
+#include<vector>
+#include<cstdio>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,l ) for ( int i=l-1 ; i>=0 ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+#define Mod 1000000007
+#define num 4000002
+
+typedef long long ll;
+ll phi[ num ];
+ll dp[ num ];
+void euler_totient()
+{
+	mst(phi,0);
+	phi[ 1 ] = 1;
+	Forp( i,2,num )
+	{
+		if( ! phi[ i ] )
+		{
+			phi[ i ] = i-1;
+			for( int j= i+i ; j<num ; j+=i )
+			{
+				if( ! phi[ j ] )
+					phi[ j ] = j;
+				phi[ j ] = phi[ j ] / i *( i-1 );
+			}
+		}
+	}
+}
+
+void fill_gcds()
+{
+	mst( dp,0 );
+	Forp( i,1, num )
+		for( int j = i+i ; j<num ; j+=i )
+			dp[ j ] += ( i* phi[ j/i ] );
+	Forp( i,2,num )
+		dp[ i ] += dp[ i -1 ];
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );	
+	euler_totient();
+	fill_gcds();
+	int n;
+	while( scanf( "%d", &n ) )
+	{
+		if( !n )
+			break;
+		printf( "%lld\n", dp[ n ] );
+	}
+}

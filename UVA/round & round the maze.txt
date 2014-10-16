@@ -1,0 +1,123 @@
+#include<iostream>
+#include<string>
+#include<cstring>
+#include<queue>
+using namespace std;
+string arr[505][505][4];
+bool arrr[505][505][4];
+string word="WNESW";
+int row,col;
+bool check;
+struct State
+{
+	int x;
+	int y;
+	int num;
+	int count;
+};
+void change()
+{
+	for ( int l=1 ; l<4 ; l++ )
+	{
+		for ( int i=0 ; i<row ; i++ )
+		{
+			for ( int j=0 ; j<col ; j++ )
+			{
+				if ( i == row-1 && j == col-1 )
+					break;
+				arr[i][j][l]="";
+				for ( int k=0 ; k<arr[i][j][l-1].length() ; k++ )
+					arr[i][j][l].push_back(word[word.find(arr[i][j][l-1][k])+1]);
+			}
+		}
+	}
+}
+int main()
+{
+	//freopen( "input.in" , "r" , stdin );
+	char c;
+	while ( cin>>row>>col )
+	{
+		for ( int i=0 ; i<row ; i++ )
+		{
+			for ( int j=0 ; j<col ; j++ )
+			{
+				if ( i == row-1 && j == col-1 )
+					break;
+				cin>>arr[i][j][0];
+			}
+		}
+		memset(arrr,false,sizeof(arrr));
+		change();
+		check=false;
+		State start={0,0,0,0};
+		arrr[0][0][0]=true;
+		queue <State> BFs;
+		BFs.push(start);
+		State current,todo;
+		while ( !BFs.empty() )
+		{
+			current=BFs.front();
+			if ( row-1==current.x && col-1==current.y )
+			{
+				cout<<current.num<<endl;
+				check=true;
+				break;
+			}
+			BFs.pop();
+			for ( int i=0 ; i<arr[current.x][current.y][current.count].length() ; i++ )
+			{
+				if ( arr[current.x][current.y][current.count][i]=='N' && current.x-1>=0 && arrr[current.x-1][current.y][current.count] != true)
+				{
+					todo=current;
+					todo.x--;
+					todo.num++;
+					if ( todo.count != 3 )
+						todo.count++;
+					else
+						todo.count=0;
+					arrr[current.x-1][current.y][current.count] = true;
+					BFs.push(todo);
+				}
+				else if ( arr[current.x][current.y][current.count][i]=='S' && current.x+1<row && arrr[current.x+1][current.y][current.count]!= true)
+				{
+					todo=current;
+					todo.x++;
+					todo.num++;
+					if ( todo.count != 3 )
+						todo.count++;
+					else
+						todo.count=0;
+					arrr[current.x+1][current.y][current.count]= true;
+					BFs.push(todo);
+				}
+				else if (arr[current.x][current.y][current.count][i]=='W' && current.y-1>=0 && arrr[current.x][current.y-1][current.count]!= true )
+				{
+					todo=current;
+					todo.y--;
+					todo.num++;
+					if ( todo.count != 3 )
+						todo.count++;
+					else
+						todo.count=0;
+					arrr[current.x][current.y-1][current.count]= true ;
+					BFs.push(todo);
+				}
+				else if (arr[current.x][current.y][current.count][i]=='E' && current.y+1<col && arrr[current.x][current.y+1][current.count] != true)
+				{
+					todo=current;
+					todo.y++;
+					todo.num++;
+					if ( todo.count != 3 )
+						todo.count++;
+					else
+						todo.count=0;
+					arrr[current.x][current.y+1][current.count] = true;
+					BFs.push(todo);
+				}
+			}
+		}
+		if ( ! check)
+			cout<<"no path to exit\n";
+	}
+}

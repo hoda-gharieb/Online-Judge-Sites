@@ -1,0 +1,81 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<cstdlib>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,l ) for ( int i=l-1 ; i>=0 ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+const int oo = (int)1e9;
+const int N = 1000005;
+
+bool prime[ N ];
+int dPrime[ N ];
+int checkP( int num )
+{
+	int ans = 0;
+	while ( num )
+	{
+		ans += num%10;
+		num /= 10;
+	}
+	return ans;
+}
+void sieve()
+{
+	mst( prime, true );
+	prime[ 0 ] = prime[ 1 ] = 0;
+	int i=4;
+	while ( i<= 1000000 )
+	{
+		prime[i]=false;
+		i+=2;
+	}
+	for ( i=3 ; i<=1000000 ; i+=2 )
+	{
+		if ( prime[i] )
+		{
+			for ( ll  j=(ll)i*i ; j<=1000000 ; j+=i )
+				prime[j]=false;
+		}
+	}
+	int ans = 0;
+	Forp( k,0,1000001 )
+	{
+		if( prime[ k ] && prime[ checkP( k ) ] )
+			ans++;
+		dPrime[ k ] = ans;
+	}
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );	
+	int t, a, b;
+	sieve();
+	scanf( "%d", &t );
+	while ( t-- )
+	{
+		scanf( "%d %d", &a, &b );
+		if ( b < a )
+			swap( a,b );
+		printf( "%d\n", dPrime[ b ] - dPrime[ a-1 ] );
+	}
+}

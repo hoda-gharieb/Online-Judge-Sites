@@ -1,0 +1,86 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<string>
+//#include<limits.h>
+using namespace std;
+
+int main()
+{
+	freopen ( "input.in" , "r" , stdin );
+	//freopen ( "output.out" , "w" , stdout );
+	int n,i,len,counter,m,num;
+	string line,ans;
+	cin>>n;
+	while  ( n-- )
+	{
+		cin>>i;
+		cin.ignore();
+		getline ( cin,line );
+		len = line.length();
+		cin>>m;
+		ans="";
+		counter=0;
+		while ( m--)
+		{
+			cin>>num;
+			counter+=num;
+			if ( counter >= len )
+				ans.push_back( line[counter%len]);
+			else if ( counter<0 )
+			{
+				num=counter*-1;
+				num = num%len;
+				num = len-num;
+				ans.push_back( line[num]);
+			}
+			else
+				ans.push_back( line[counter]);
+		}
+		cout<<i<<" "<<ans<<endl;
+	}
+}
+===========
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<string>
+//#include<limits.h>
+using namespace std;
+
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	//freopen ( "output.out" , "w" , stdout );
+	int n,i,len,counter,m,num;
+	string line,ans;
+	cin>>n;
+	while  ( n-- )
+	{
+		cin>>i;
+		cin.ignore();
+		getline ( cin,line );
+		len = line.length();
+		cin>>m;
+		ans="";
+		counter=0;
+		while ( m--)
+		{
+			cin>>num;
+			counter+=num;
+			if ( counter >= len )
+				counter-=len;
+			else if ( counter<0 )
+				counter+=len;
+				ans.push_back( line[counter]);
+		}
+		cout<<i<<" "<<ans<<endl;
+	}
+}
+

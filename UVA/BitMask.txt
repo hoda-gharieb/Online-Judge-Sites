@@ -1,0 +1,23 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int main()
+{
+	//freopen( "input.in" , "r" , stdin );
+	long long num,L,U,M,i,nn,j;
+	i=1ll<<32;
+	bool check;
+	while ( cin>>num>>L>>U )
+	{
+		M=0;
+		L++;
+		U++;
+		for ( j=i ; j>0 ; j>>=1 )
+		{
+			nn=M|j;
+			if ( nn<L || ( (nn<U) && (~num & j ) ) )
+				M=nn;
+		}
+		cout<<M<<endl;
+	}
+}

@@ -1,0 +1,35 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+using namespace std;
+int ans[1000005];
+void solve()
+{
+	memset(ans,0,sizeof(ans));
+	int num;
+	for ( int i=2 ; i<= 1000000 ; i++ )
+	{
+		if ( ans[i]==0 )
+		{
+			ans[i]=1;
+				for ( int j=i*2 ; j<=1000000 ; j+=i )
+				{
+					num=j;
+					do
+					{
+						ans[j]++;
+					}while( (num/=i)%i == 0 );
+				}			
+		}
+		ans[i]+=ans[i-1];
+	}
+}
+int main()
+{
+	//freopen("input.in","r",stdin);
+	int num;
+	solve();
+	while ( cin>>num )
+		cout<<ans[num]<<endl;
+}

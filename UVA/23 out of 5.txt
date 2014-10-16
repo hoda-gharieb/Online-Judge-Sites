@@ -1,0 +1,39 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+signed long long arr[5];
+int answer=0;
+int check(int b,long long an)
+{
+	if(b==5)
+	{
+		if ( an==23)
+			answer=23;
+		return an;
+	}
+	signed long long  add,minus,mul;
+	add = check(b+1,an+arr[b]);
+	minus = check(b+1,an-arr[b]);
+	mul = check(b+1,an*arr[b]);
+}
+int main()
+{
+	freopen("input.in", "r", stdin);
+	while ( cin>>arr[0]>>arr[1]>>arr[2]>>arr[3]>>arr[4] )
+	{
+		if(arr[0]==0 && arr[1]==0 && arr[2]==0 && arr[3]==0 && arr[4]==0 )
+			break;
+		answer=0;
+		sort(arr,arr+5);
+		do
+		{
+			check(1,arr[0]);
+			if (answer==23)
+				break;
+		}while (next_permutation(arr,arr+5));
+		if (answer==23)
+			cout<<"Possible"<<endl;
+		else
+			cout<<"Impossible"<<endl;
+	}
+}

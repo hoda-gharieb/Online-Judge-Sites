@@ -1,0 +1,76 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<cstdlib>
+using namespace std;
+
+#define Forp( i,l ) for ( int i=0 ; i<l ; i++ )
+#define Form( i,l ) for ( int i=l-1 ; i>=0 ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+const int oo = (int)1e9;
+
+struct e
+{
+	int x1;
+	int x2;
+	int y1;
+	int y2;
+	bool operator < ( e E ) const
+	{
+		if ( x2-x1 != E.x2 - E.x1 )
+			return x2 - x1 > E.x2 - E.x1;
+		return y2 - y1 > E.y2 - E.y1;
+	}
+}arr[ 20000 ];
+
+
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+
+	int N, ans=0;
+
+	while ( scanf("%d",&N) == 1 )
+	{
+		Forp( i,N )
+			scanf("%d%d%d%d",&arr[i].x1,&arr[i].x2,&arr[i].y1,&arr[i].y2);
+		ans = 0;
+		sort( arr, arr+N );
+
+		Forp( i,N )
+		{
+			if ( ( !i || arr[ i ].x1 != arr[ i-1 ].x1 || arr[ i ].y1 != arr[ i-1 ].y1 || arr[ i ].x2 != arr[ i-1 ].x2 || arr[ i ].y2 == arr[ i-1 ].y2 ) && ( i+1 < N && arr[ i ].x1 == arr[ i+1 ].x1 && arr[ i ].y1 == arr[ i+1 ].y1 && arr[ i ].x2 == arr[ i+1 ].x2 && arr[ i ].y2 == arr[ i+1 ].y2  ) )
+				ans++;
+			else
+			{
+				for ( int j = i-1 ; j>=0 ; j-- )
+				{
+					if ( (i != j) && arr[ i ].x1 >= arr[ j ].x1 && arr[ i ].y1 >= arr[ j ].y1 && arr[ i ].x2 <= arr[ j ].x2 && arr[ i ].y2 <= arr[ j ].y2 )
+					{
+						ans++;
+						break;
+					}
+				}
+			}
+		}
+
+		printf("%d\n",ans);
+	}
+}

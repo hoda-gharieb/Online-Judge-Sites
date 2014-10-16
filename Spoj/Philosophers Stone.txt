@@ -1,0 +1,37 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+int main()
+{
+	//freopen( "input.in" , "r" , stdin );
+	int arr[101][101],ans,t,r,c,ch;
+	scanf("%d",&t);
+	while ( t-- )
+	{
+		scanf("%d",&r);
+		scanf("%d",&c);
+		for ( int i=0 ; i<r ; i++ )
+			for ( int j=0 ; j<c ; j++ )
+				scanf("%d",&arr[i][j]);
+		ans=-1;
+		for ( int i=1 ; i<r ; i++ )
+		{
+			for ( int j=0 ; j<c ; j++ )
+			{
+				if ( j==0 )
+					ch=max(arr[i-1][j+1],arr[i-1][j]);
+				else if ( j==c-1 )
+					ch=max(arr[i-1][j-1],arr[i-1][j]);
+				else
+				{
+					ch=max(arr[i-1][j+1],arr[i-1][j]);
+					ch=max(ch,arr[i-1][j-1]);
+				}
+				arr[i][j]+=ch;
+			}
+		}
+		for ( int j=0 ; j<c ; j++ )
+			ans=max(arr[r-1][j],ans);
+		printf("%d\n",ans);
+	}
+}

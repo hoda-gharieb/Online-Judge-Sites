@@ -1,0 +1,35 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int main()
+{
+	int t ,num ,arr[50001][3];
+	memset(arr,-1,sizeof(arr));
+	cin>>t ;
+	for ( int j=0 ; j*j < 50000 ; j++ )
+	{
+		for ( int l=j ; l*l < 50000 ; l++ )
+		{
+			for ( int k=l ; k*k < 50000 ; k++ )
+			{
+				num=(l*l)+(j*j)+(k*k);
+				if ( num>50000)
+					break;
+				if ( arr[num][0] == -1 )
+				{
+					arr[num][0]=j;
+					arr[num][1]=l;
+					arr[num][2]=k;
+				}
+			}
+		}
+	}
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>num;
+		if ( arr[num][0]==-1 )
+			cout<<arr[num][0]<<endl;
+		else
+			cout<<arr[num][0]<<" "<<arr[num][1]<<" "<<arr[num][2]<<endl;
+	}
+}

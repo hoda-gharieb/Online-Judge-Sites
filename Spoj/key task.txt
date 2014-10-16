@@ -1,0 +1,113 @@
+#include<iostream>
+#include<string>
+#include<queue>
+#include<map>
+#include<set>
+#include<cstring>
+#include<vector>
+#include<limits.h>
+#include<iomanip>
+using namespace std;
+
+struct choice
+{
+	int x;
+	int y;
+	int pos;
+};
+
+string arr[101];
+int row,col;
+int xx[]={1,-1,0,0}, yy[]={0,0,1,-1}, sol[101][101][16];
+
+int solve(choice num)
+{
+	queue<choice> Q;
+	choice x;
+	Q.push(num);
+	while ( ! Q.empty() )
+	{
+		x=Q.front();
+		Q.pop();
+		for ( int i=0 ; i<4 ; i++ )
+		{
+			num=x;
+			num.x+=xx[i];
+			num.y+=yy[i];
+			if ( num.x>=0 && num.y>=0 && num.x<row && num.y<col && arr[num.x][num.y] != '#' )
+			{
+				if ( arr[num.x][num.y]=='X' )
+					return sol[x.x][x.y][x.pos]+1;
+				if ( sol[num.x][num.y][num.pos]==-1 )
+				{
+					if ( islower(arr[num.x][num.y]) )
+					{
+						switch ( arr[num.x][num.y] )
+						{
+						case 'b' : num.pos |= 1; break;
+						case 'g' : num.pos |= 2; break;
+						case 'r' : num.pos |= 4; break;
+						case 'y' : num.pos |= 8; break;
+						}
+						Q.push(num);
+						sol[num.x][num.y][x.pos]=sol[x.x][x.y][x.pos]+1;
+						sol[num.x][num.y][num.pos]=sol[num.x][num.y][x.pos];
+					}
+					else if ( isupper( arr[num.x][num.y] ) )
+					{
+						switch ( arr[num.x][num.y] )
+						{
+						case 'B' : 
+							if ( num.pos & 1 )
+								Q.push(num); break;
+						case 'G' : 
+							if ( num.pos & 2 )
+								Q.push(num); break;
+						case 'R' :
+							if ( num.pos & 4 )
+								Q.push(num); break;
+						case 'Y' :
+							if ( num.pos & 8 )
+								Q.push(num); break;
+						}
+						sol[num.x][num.y][num.pos]=sol[x.x][x.y][x.pos]+1;
+					}
+					else
+					{
+						Q.push(num);
+						sol[num.x][num.y][num.pos]=sol[x.x][x.y][x.pos]+1;
+					}
+				}
+			}
+		}
+	}
+	return -1;
+}
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	choice num;
+	int ans;
+	while ( cin>>row>>col )
+	{
+		if ( !row && !col )
+			break;
+		for ( int i=0 ; i<row ; i++ )
+		{
+			cin>>arr[i];
+			if ( arr[i].find('*') != string::npos )
+			{
+				num.x=i;
+				num.y=arr[i].find('*');
+			}
+		}
+		memset ( sol , -1 , sizeof(sol) );
+		num.pos=0;
+		sol[num.x][num.y][num.pos]=0;
+		ans = solve(num);
+		if ( ans != -1 )
+			cout<<"Escape possible in "<<ans<<" steps.\n";
+		else
+			cout<<"The poor student is trapped!\n";
+	}
+}

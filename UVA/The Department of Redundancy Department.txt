@@ -1,0 +1,20 @@
+#include<iostream>
+#include<map>
+#include<vector>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	int n;
+	map<int,int> M;
+	vector<int> V;
+	while ( cin>>n )
+	{
+		if(!(M.find(n)!=M.end()))
+			V.push_back(n);
+		M[n]++;
+	}
+	vector<int>::iterator it;
+	for ( it=V.begin() ; it!=V.end() ; it++ )
+		cout<<*it<<" "<<M[(*it)]<<endl;
+}

@@ -1,0 +1,57 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+string addition ( string line , string line1)
+{
+	int sum=0,rem=0;
+	if ( line.length()<line1.length())
+		swap(line,line1);
+	for ( int i=line.length()-1 , j=line1.length()-1 ; j>=0 ; --j ,--i )
+	{
+		sum=(line[i]-'0')+(line1[j]-'0')+sum;
+		rem=sum%10;
+		sum/=10;
+		line[i]=rem+'0';
+	}
+	if ( sum>0 && ( line.length()==line1.length()))
+		line.insert(0,1,'1');
+	else
+	{
+		for ( int i= (line.length()-line1.length()-1); i>=0 ; --i)
+		{
+			sum=(line[i]-'0')+sum;
+			rem=sum%10;
+			sum/=10;
+			line[i]=rem+'0';
+			if ( sum==0 )
+				break;
+		}
+		if ( sum>0 )
+			line.insert(0,1,'1');
+	}
+	return line;
+}
+int main()
+{
+	int t;
+	string line,line1;
+	cin>>t ;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>line>>line1;
+		reverse(line.begin(),line.end());
+		reverse(line1.begin(),line1.end());
+		line=addition(line,line1);
+		reverse(line.begin(),line.end());
+		for ( int i=0 ; i<line.length() ; i++ )
+			if ( line[i]=='0' )
+			{
+				line.erase(0,1);
+				i--;
+			}
+			else
+				break;
+		cout<<line<<endl;
+	}
+}

@@ -1,0 +1,34 @@
+#include<iostream>
+#include<cstring>
+#include<string>
+#include<cmath>
+#include<cstdlib>
+#include<iomanip>
+#include<map>
+#include<set>
+using namespace std;
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	int person , n;
+	int arr[20002];
+	map<string,int> M;
+	map<string,int>::iterator it;
+	string line;
+	while ( cin>>person>>n )
+	{
+		if ( person==0 && n==0 )
+			break;
+		M.clear();
+		memset( arr,0,sizeof(arr));
+		for ( int i=0 ; i<person ; i++ )
+		{
+			cin>>line;
+			M[line]++;
+		}
+		for ( it=M.begin() ; it!=M.end() ; it++ )
+			arr[(*it).second]++;
+		for ( int i=1 ; i<=person ; i++ )
+			cout<<arr[i]<<endl;
+	}
+}

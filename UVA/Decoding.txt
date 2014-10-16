@@ -1,0 +1,28 @@
+#include<iostream>
+#include<string>
+#include<sstream>
+using namespace std;
+int main()
+{
+	string m;
+	int t,s=1;
+	cin>>t;
+	cin.ignore();
+	for ( int i=0 ; i<t ; i++ )
+	{
+		stringstream sin;
+		cin>>m;
+		sin<<m;
+		cout<<"Case "<<s<<": ";
+		int n;
+		char c;
+		while ( sin>>c>>n )
+		{
+			for ( int j=0 ; j<n ; j++ )
+				cout<<c;
+		}
+		cout<<endl;
+		s++;
+	}
+	return 0;
+}

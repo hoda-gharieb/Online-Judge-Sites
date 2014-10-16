@@ -1,0 +1,47 @@
+#include<iostream>
+#include <string>
+#include<string.h>
+#include<iomanip>
+using namespace std;
+int main()
+{	
+	long int n;
+	while(cin>>n)
+	{
+		long long int ans=1;
+		if(n<0)
+		{
+			if(n%2!=0)
+				cout<<"Overflow!"<<endl;
+			else 
+				cout<<"Underflow!"<<endl;
+		}
+		else
+		{
+
+
+			for(int i=n;i>1;--i)
+			{
+				ans*=i;
+				if(ans>6227020800)
+				{
+					cout<<"Overflow!"<<endl;
+					break;
+				}
+			}
+			if(ans<=6227020800)
+			{
+
+				if(ans<=10000)
+					cout<<"Underflow!"<<endl;
+				else
+					cout<<ans<<endl;
+			}
+		}
+	}
+
+
+	return 0;
+}
+
+

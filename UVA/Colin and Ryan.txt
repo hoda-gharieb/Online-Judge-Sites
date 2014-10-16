@@ -1,0 +1,36 @@
+#include<iostream>
+#include<set>
+using namespace std;
+int main()
+{
+	int t,num1,num2,num3;
+	set<int> n;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{		
+		cin>>num1>>num2;
+		cout<<"Case #"<<i+1<<":";
+		num3=num1-num2;
+		if ( num3 >num2 )
+		{
+			for (int  i=1 ; i*i <= num3 ; i++ )
+			{
+				if ( num3/i <num2 )
+					break;
+				if ( num3%i == 0 )
+				{
+					n.insert (num3/i );
+						n.insert(i);
+				}
+			}
+			set<int >::iterator it;
+			for ( it=n.begin() ; it!=n.end() ; it++ )
+				if ( (*it)>num2 )
+				cout<<" "<<(*it);
+		}
+		else if ( num3==0 )
+			cout<<" 0";
+		cout<<endl;
+		n.clear();
+	}
+}

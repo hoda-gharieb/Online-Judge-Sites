@@ -1,0 +1,71 @@
+#include<iostream>
+#include<iomanip>
+#include <string>
+#include <algorithm>
+#include<sstream>
+#include<iomanip>
+#include<stdio.h>
+#include<cstring>
+using namespace std;
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define pp push_back
+#define unsigned long long ull
+int ch[ 100001 ][ 26 ];
+int main()
+{
+	//freopen( "input.in", "r", stdin );
+	//freopen( "output.out", "w", stdout );
+	int t, tt, a;
+
+	scanf( "%d", &t );
+	string line;
+	rep( k,1,t+1 )
+	{
+		cin>>line;
+		for( int i=1, l = 0 ; i<line.size()+1 ; i++, l++ )
+		{
+			int k = line[ l ] - 'a';
+			ch[ i ][ k ]= 1;
+		}
+		for( int j = 1, l = 0; j<line.size()+1 ; j++, l++ )
+			rep( i,0,26 )
+			ch[ j ][ i ] = ch[ l ][ i ] + ( line[ l ] == i + 'a' );
+		scanf( "%d", &tt );
+		printf( "Case #%d:\n", k );
+		rep( i, 0, tt )
+		{
+			scanf( "%d", &a );
+			if ( a == 1 )
+			{
+				int s1, e1, s2, e2;
+				scanf( "%d %d %d %d", &s1, &e1, &s2, &e2 );
+				s1--; s2--;
+				int neg = 0, pos = 0;
+				rep( i,0,26 )
+				{					
+					int a = ( ch[ e1 ][ i ] - ch[ s1 ][ i ] ) - ( ch[ e2 ][ i ] - ch[ s2 ][ i ] );
+					if ( a < 0 )
+						neg += (a*-1);
+					else 
+						pos += a;
+				}
+				int ans = min( neg, pos );
+				if ( neg > pos )
+					ans += ( ( neg-pos ) *3 );
+				else
+					ans += ( ( pos-neg ) *2 );
+				printf( "%d\n", ans );
+			}
+			else
+			{
+				string s;
+				cin>>s;
+				puts( "Done" );
+			}
+		}
+	}
+}
+

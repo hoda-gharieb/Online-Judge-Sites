@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	long long int row,col;
+	while ( cin>> row >> col && row!=0 && col!=0 )
+	{
+		long long int ans=0;
+		if ( row<col )
+			swap(row,col);
+		for ( long int i=1 ; i<col ; i++ )
+		{
+			ans+= ((i-1)*i*4 );
+		}
+		ans+=(col*(col-1)*2)*(row-col+1);
+		ans += ((col*row)*(col+row-2));
+		cout<<ans<<endl;
+	}
+}

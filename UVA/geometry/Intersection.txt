@@ -1,0 +1,76 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+#include<cmath>
+#include<complex>
+using namespace std;
+
+
+typedef complex<double> point;
+
+#define vec(a,b) (b)-(a)
+#define dot(a,b) (conj(a)*(b)).real()
+#define cross(a,b) (conj(a)*(b)).imag()
+#define lensqr(a) dot(a,a)
+#define EPS 1e-9
+double x1, Y1,x2, y2, x3, y3, x4, y4;
+
+bool Lines_intersect(const point &a, const point &b, const point &p, const point &q, point &ret) {
+   double d1 = cross(vec(a,p),vec(a,b)),
+         d2 = cross(vec(a,q),vec(a,b));
+   ret = (d1 * q - d2 * p) / (d1 - d2);
+   return fabs(d1 - d2) > EPS;
+}
+
+bool pointOnRay(const point &a, const point &b, const point &p) {
+   return cross(vec(a,b),vec(a,p)) < EPS
+         && cross(vec(a,b),vec(a,p)) > -EPS
+         && dot(vec(a,b),vec(a,p)) > -EPS;
+}
+
+bool pointOnSegment(const point &a, const point &b, const point &p) {
+   if (lensqr(vec(a,b)) < EPS)
+      return lensqr(vec(a,p)) < EPS;
+   return pointOnRay(a, b, p) && pointOnRay(b, a, p);
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	
+	int t;
+	scanf( "%d", &t );
+	point p;
+	while( t-- )
+	{
+		cin>>x1>>Y1>>x2>>y2>>x3>>y3>>x4>>y4;
+		if ( x1 <= max( x3,x4 ) && x1 >= min( x3,x4 ) && Y1 <= max( y3,y4 ) && Y1 >= min( y3,y4 ) )
+			puts( "T" ); 
+		else if ( Lines_intersect( point( x1,Y1), point( x2, y2 ), point( x3,y3 ), point( x3, y4 ), p ) 
+			&& pointOnSegment( point( x1,Y1), point( x2, y2 ), p ) && pointOnSegment( point( x3,y3 ), point( x3, y4 ), p ) )
+			puts( "T" ); 
+		else if ( Lines_intersect( point( x1,Y1), point( x2, y2 ), point( x4,y3 ), point( x4, y4 ), p ) 
+			&& pointOnSegment( point( x1,Y1), point( x2, y2 ), p ) && pointOnSegment( point( x4,y3 ), point( x4, y4 ), p ) )
+			puts( "T" ); 
+		else if ( Lines_intersect( point( x1,Y1), point( x2, y2 ), point( x3,y3 ), point( x4, y3 ), p ) 
+			&& pointOnSegment( point( x1,Y1), point( x2, y2 ), p ) && pointOnSegment( point( x3,y3 ), point( x4, y3 ), p ) )
+			puts( "T" ); 
+		else if ( Lines_intersect( point( x1,Y1), point( x2, y2 ), point( x3,y4 ), point( x4, y4 ), p ) 
+			&& pointOnSegment( point( x1,Y1), point( x2, y2 ), p ) && pointOnSegment( point( x3,y4 ), point( x4, y4 ), p ) )
+			puts( "T" ); 
+		else
+			puts( "F" );
+	}
+}

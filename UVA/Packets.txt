@@ -1,0 +1,53 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	//freopen("input.in","r",stdin);
+	int n1,n2,n3,n4,n5,n6,ans,rem;
+	while ( cin>>n1>>n2>>n3>>n4>>n5>>n6 )
+	{
+		if ( n1==0 && n2==0 && n3==0 && n4==0 && n5==0 && n6==0 )
+			break;
+		ans=0;
+		rem=0;
+		ans+=n6;
+		//=======
+		ans+=n5;
+		n1-=min(n1,n5*11);
+		//========
+		ans+=n4;
+		if ( n4)
+		{
+			n6=min(n2,5*n4);
+			n2-=n6;
+			rem=(20*n4)-(n6*4);
+			n1-=min(n1,rem);
+		}
+		//===========
+		ans+=(n3/4);
+		n3=n3%4;
+		if ( n3 )
+		{
+			ans++;
+			rem=36-(n3*9);
+			n3=min((rem==27?5:rem==18?3:1),n2);
+			n2-=n3;
+			rem-=(n3*4);
+			n1-=min(rem,n1);
+		}
+		//===============
+		ans+=(n2/9);
+		n2=n2%9;
+		rem=36-(n2*4);
+		if ( n2 )
+		{
+			ans++;
+			n1-=min(n1,rem);
+		}
+		//==============
+		ans+=(n1/36);
+		if ( n1%36>0 )
+			ans+=1;
+		cout<<ans<<endl;
+	}
+}

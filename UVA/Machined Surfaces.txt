@@ -1,0 +1,33 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	string line[13];
+	int arr[13],t,ans;
+	while ( cin>>t && t != 0 )
+	{
+		cin.ignore();
+		for ( int i=0 ; i<t ; i++ )
+		{
+			getline(cin,line[i]);
+			arr[i]=0;
+			for ( int j=0 ; j<line[i].length() ; j++ )
+				if(line[i][j]=='X')
+					arr[i]+=1;
+		}
+		if ( t==1 )
+			cout<<"0"<<endl;
+		else
+		{
+			sort(arr,arr+t);
+			ans=0;
+			for ( int i=t-2 ; i>=0 ; i-- )
+				ans+=arr[t-1]-arr[i];
+			cout<<ans<<endl;
+		}
+	}
+
+}

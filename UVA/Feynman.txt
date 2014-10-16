@@ -1,0 +1,36 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<cstdlib>
+#include<complex>
+#include<vector>
+#include<cstdio>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );	
+
+	int n;
+	while ( cin>>n && n )
+	{
+		long long ans = 0;
+		Forp( i, 1, n+1 )
+			ans += ( i*i );
+		cout<<ans<<endl;
+	}
+
+}

@@ -1,0 +1,17 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+int main()
+{
+	int t;
+	float celsius , feh;
+	cin>>t;
+	for ( int i=0 ; i < t ; i++ )
+	{
+		cin>>celsius>>feh;
+		celsius=(celsius*9/5)+32;
+		celsius+=feh;
+		feh = (celsius-32)*5/9;
+		cout<<"Case "<<i+1<<": "<<setprecision(2)<<fixed<<feh<<endl;
+	}
+}

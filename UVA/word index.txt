@@ -1,0 +1,30 @@
+#include<iostream>
+#include<string>
+#include<map>
+using namespace std;
+map < string , int > M;
+int count=1;
+void solve(string word,int n)
+{
+	if ( word.size() == n )
+	{
+		M[word]=count++;
+		return;
+	}
+	char c;
+	if ( word.size() == 0 )
+		c='a';
+	else
+		c=word[word.size()-1]+1;
+	for ( char i=c ; i<='z' ; i++ )
+		solve(word+i,n);
+}
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	for ( int i=1 ; i<6 ; i++ )
+		solve("",i);
+	string line;
+	while ( cin>>line )
+		cout<<M[line]<<endl;
+}

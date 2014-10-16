@@ -1,0 +1,36 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	freopen("input.in" , "r" , stdin);
+	long long int num1 , num2 ,ack ,first=0,second=0,check=0 ;
+	while ( cin>>num1>>num2 )
+	{
+second=0;
+			first=0;
+		if ( num1==0 && num2==0 )
+			break;
+		if ( num2<num1)
+			swap(num1,num2);
+		for ( long long int  i=num1 ; i<=num2 ; i++ )
+		{
+			ack=i;
+			check=0;
+			do
+			{
+				if ( ack%2 == 0 )
+					ack/=2;
+				else
+					ack=(3*ack)+1;
+				check++;
+			}while ( ack!=1 );
+			if ( check > second )
+			{
+				second=check;
+				first=i;
+			}
+			
+		}
+		cout<<"Between "<<num1<<" and "<<num2<<", "<<first<<" generates the longest sequence of "<<second<<" values.\n";
+	}
+}

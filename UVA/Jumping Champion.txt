@@ -1,0 +1,68 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+#include<cstring>
+#include<sstream>
+#include<string>
+using namespace std;
+bool prime[1000005];
+vector < pair<int,int> > V;
+void doPrime(int num)
+{
+	memset(prime,true,sizeof(prime));
+	prime[0]=prime[1]=false;
+	for ( unsigned long long i=2 ; i<=num+1 ; i++ )
+	{
+		if ( prime[i] )
+			for ( unsigned long long j=i*i ; j<=num+1 ; j+=i )
+				prime[j]=false;
+	}
+}
+
+int main()
+{
+	//freopen("input.in","r",stdin);
+	doPrime(1000000);
+	int n,m,t,j,diff;
+	pair<int,int> temp;
+	bool check;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>n>>m ;
+		V.clear();
+		j=-1;
+		for ( int k=n ; k<=m ; k++ )
+		{
+			if ( prime[k] )
+			{
+				if ( j != -1 )
+				{
+					diff=k-j;
+					for ( int l=0 ; l<V.size() ; l++ )
+					{
+						if ( V[l].second == diff )
+						{
+							V[l].first++;
+							j=-1;
+						}
+					}
+					if ( j != -1 )
+					{
+						temp.second=diff;
+						temp.first=1;
+						V.push_back(temp);
+					}					
+				}
+				j=k;
+			}
+		}
+		sort(V.begin(),V.end());
+		if ( V.size() == 1 )
+			cout<<"The jumping champion is "<<V[0].second<<endl;
+		else if ( V.size()==0 || V[V.size()-1].first == V[V.size()-2].first )
+			cout<<"No jumping champion"<<endl;
+		else
+			cout<<"The jumping champion is "<<V[V.size()-1].second<<endl;
+	}
+}

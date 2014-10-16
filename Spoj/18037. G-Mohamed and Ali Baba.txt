@@ -1,0 +1,47 @@
+#include<iostream>
+#include<iomanip>
+#include <string>
+#include <algorithm>
+#include<sstream>
+#include<iomanip>
+#include<stdio.h>
+#include<cstring>
+using namespace std;
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define pp push_back
+#define unsigned long long ull
+int main()
+{
+	//freopen( "input.in", "r", stdin );
+	//freopen( "output.out", "w", stdout );
+	int t, tt;
+
+	scanf( "%d", &t );
+	string line;
+	rep( k,1,t+1 )
+	{
+		cin>>line;
+		int s = line.size();
+		long long count = 0, a;
+		scanf( "%d", &tt );
+		rep ( i, 0, tt )
+		{
+			char c;
+			cin>>a>>c;
+			a %= s;
+			if ( c == 'L' )
+				count = ( count + a ) % s;
+			else
+				count = ( count - a ) % s;
+		}
+		if ( count < 0 )
+			count = s + count;
+		string ss = line.substr( count ) + line.substr( 0, count);
+		printf( "Case #%d: ", k );
+		cout<<ss<<endl;
+	}
+}
+

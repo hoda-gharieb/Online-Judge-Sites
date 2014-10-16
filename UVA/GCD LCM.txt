@@ -1,0 +1,29 @@
+#include<iostream>
+using namespace std;
+int Gcd;
+int gcd(int a,int b)
+{
+	return ( b==0 ? a : gcd(b,a%b) );
+}
+int lcm ( int a,int b)
+{
+	return ( a*( b / Gcd ) );
+}
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	int a,b,t;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>a>>b;
+		if ( b%a != 0 )
+		{
+			cout<<-1<<endl;
+			continue;
+		}
+		Gcd=gcd(b,a);
+		a=lcm(b,a);
+		cout<<Gcd<<" "<<a<<endl;
+	}
+}

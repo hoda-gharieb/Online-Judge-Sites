@@ -1,0 +1,54 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+#include<cmath>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,k,l ) for ( int i=k-1 ; i>=l ; i-- )
+#define vs vector< string >
+#define vb vector< bool >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+#define pi 3.141592653589793
+typedef long long ll;
+typedef unsigned long long ull;
+const int oo = (int)1e8 ;
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	double x1, y1, x2, y2, x3, y3, l1, l2, l3;
+	while ( cin>>x1>>y1>>x2>>y2>>x3>>y3 )
+	{
+		l1 = (( x1 - x2 ) * ( x1 - x2 )) + ( ( y1 - y2 ) * ( y1 - y2 ) ) ;
+		l1 = sqrt( l1 );
+		l2 = (( x3 - x2 ) * ( x3 - x2 )) + ( ( y3 - y2 ) * ( y3 - y2 ) ) ;
+		l2 = sqrt( l2 );
+		l3 = (( x1 - x3 ) * ( x1 - x3 )) + ( ( y1 - y3 ) * ( y1 - y3 ) ) ;
+		l3 = sqrt( l3 );
+		double area, s, r;
+		s = l1 + l2 + l3;
+		s /= 2;
+		area = s * ( s - l1 ) * ( s - l2 ) * ( s - l3 );
+		area = sqrt( area );
+		r = l1 * l2 * l3 ;
+		r /= ( 4 * area );
+		r *= 2 * pi;
+		cout<<setprecision( 2 )<<fixed<<r<<endl;
+	}
+}

@@ -1,0 +1,47 @@
+#include<iostream>
+#include <string>
+#include<string.h>
+#include<iomanip>
+using namespace std;
+int main()
+{	
+	freopen("input.in", "r", stdin);
+	int t , s=1;
+	string m,k;
+	cin>>t;
+	cin.ignore();
+	for( int i=0 ;i<t ;i++ )
+	{
+		getline(cin ,m );
+		getline(cin ,k );
+		cout<<"Case "<<s<<": ";
+		if(m==k)
+			cout<<"Yes"<<endl;
+		else
+		{
+			if( m.length() > k.length() || m.length() < k.length() )
+			{
+				for(int i=0;i<m.length();i++)
+				{
+					if( m[i]==' ')
+					{
+						m.erase(i,1);
+						--i;
+					}
+				
+				}
+				if(k==m)
+					cout<<"Output Format Error"<<endl;
+				else
+					cout<<"Wrong Answer"<<endl;
+			}
+			else
+				cout<<"Wrong Answer"<<endl;
+		}
+		s++;
+	}
+
+
+	return 0;
+}
+

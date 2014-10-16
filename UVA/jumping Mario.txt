@@ -1,0 +1,35 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	int t,n,k,l,m,j,s,i;
+	cin>>t;
+	i=1;
+	while(t>=1)
+	{
+		
+		j=0;
+		m=0;
+		n=0;
+		s=0;
+		cin>>n;
+	
+		while(n>=1)
+		{
+			cin>>l;
+			
+			if(l>j)
+				m++;
+			else if(j>l)
+				s++;
+			j=l;
+			n=n-1;
+		}
+		m=m-1;
+		cout<<"Case "<<i<<": "<<m<<" "<<s<<endl;
+		t--;
+		i++;
+	}
+	return 0;
+}

@@ -1,0 +1,36 @@
+#include<iostream>
+#include <string>
+using namespace std;
+int main()
+{	
+	int t=0,j=0,k=0,l=0,s=1,m=0;
+	cin>>t;
+	for( int i=0;i<t;i++)
+	{
+		cin>>j>>k>>l;
+		if(j>k && j>l)
+		{
+			if(k>l)
+				m=k;
+			else
+				m=l;
+		}
+		else if(k>j && k>l)
+		{
+			if(j>l)
+				m=j;
+			else
+				m=l;
+		}
+		else
+		{
+			if(k>j)
+				m=k;
+			else
+				m=j;
+		}
+		cout<<"Case "<<s<<": "<<m<<endl;
+		s++;
+	}
+	    return 0;
+}

@@ -1,0 +1,137 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+#include<cmath>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,k,l ) for ( int i=k-1 ; i>=l ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+typedef unsigned long long ull;
+const int oo = (int)1e9 ;
+
+#define numVertex 105
+
+struct edge
+{
+	int start;
+	int end;
+	int weight;
+	edge(){};
+	edge( int s, int e, int w ): start(s) , end(e) , weight(w) {}
+	bool operator < ( const edge &that)const
+	{
+		return weight < that.weight ;
+	}
+};
+
+struct DjS
+{
+	int parent[ numVertex ];
+	int ra[ numVertex ];
+	int numOfComp;
+
+	DjS()	
+	{
+		numOfComp = 0;
+	}
+	void add_comp( int n )
+	{
+		parent[ n ] = n;
+		ra[ n ] = 0 ;
+		numOfComp ++;
+	}
+
+	int find_parent( int node )
+	{
+		return node == parent[node] ?  node :  parent[node]=find_parent( parent[node] );
+	}
+
+	void merge( int u , int v )
+	{
+		if ( u == v )
+			return;
+		numOfComp --;
+		if ( ra[u] > ra[v] )
+			parent[v] = u;
+		else 
+		{
+			parent[u]=v;
+			if ( ra[u] == ra[v] )
+				ra[v]++;
+		}
+	}
+};
+
+vector < edge > EdgeList;
+int V,E;
+
+void kruskal()
+{
+	int ans=0, u, v, w, a, b, diff = INT_MAX;
+	sort( EdgeList.begin() , EdgeList.end() );
+	DjS ds;
+	Forp( i,1,V+1 )
+		ds.add_comp( i );
+
+	for ( int i=0 ; i<EdgeList.size() ; i++ )
+	{
+		u = ds.find_parent( EdgeList[i].start );
+		v = ds.find_parent( EdgeList[i].end );
+		if ( u != v )
+		{
+			w = EdgeList[i].weight;
+			Forp( j, i+1, EdgeList.size() )
+			{
+				a = ds.find_parent( EdgeList[j].start );
+				b = ds.find_parent( EdgeList[j].end );
+				if ( ( a == u && b == v ) || ( a == v && b == u ) )
+					diff = min ( diff,  EdgeList[ j ].weight - w );
+			}			
+			ans+=w;
+			ds.merge( u,v );
+		}
+	}
+	if ( ds.numOfComp != 1 )
+		cout<<"No way\n";
+	else if ( diff == INT_MAX )
+		cout<<"No second way\n";
+	else
+		cout<< ans + diff << endl;
+	//return ans;
+}
+
+
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	int t;
+	cin>>t;
+	Forp( i,1,t+1 )
+	{
+		cin>>V>>E;
+		EdgeList.resize( E );
+		Forp( j,0,E )
+			cin>>EdgeList[ j ].start>>EdgeList[ j ].end>>EdgeList[ j ].weight;
+		cout<<"Case #"<<i<<" : ";
+		kruskal();
+	}
+}

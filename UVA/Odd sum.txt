@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+	
+	int k,m,j,y,l;
+	cin>>k;
+	m=1;
+	while(k>=1)
+	{
+		cin>>y>>j;
+	
+	l=0;
+if(y%2==0)
+{
+	y=y++;
+	while(y<=j)
+	{
+		l=l+y;
+		y+=2;
+	}
+	
+}
+else if(y%2==!0)
+{
+	while(y<=j)
+	{
+		l=l+y;
+		y+=2;
+	} 
+}
+cout<<"Case "<<m<<": "<<l<<endl;
+m++;
+k=k-1;
+	}
+	
+}
+

@@ -1,0 +1,31 @@
+#include<iostream>
+#include<iomanip>
+using namespace std;
+long double nCr(int n,int r,int s,int m)
+{
+	long double anss=1;
+	if ( n-r > r )
+		r=n-r;
+	if ( s-m > m )
+		m=s-m;
+	for ( int i=r+1,j=2,k=2,l=m+1 ; i<=n || j<=n-r || l<=s || k<=s-m ; i++,j++,k++,l++ )
+	{
+		if ( i<=n )
+			anss*=i;
+		if( j<=n-r )
+			anss/=j;
+		if ( l<=s )
+			anss/=l;
+		if ( k<=s-m )
+			anss*=k;
+	}
+	return anss;
+}
+int main()
+{
+	int num,rem,num2,rem2;
+	while ( cin>>num>>rem>>num2>>rem2 )
+	{
+		cout<<setprecision(5)<<fixed<<nCr(num,rem,num2,rem2)<<endl;
+	}
+}

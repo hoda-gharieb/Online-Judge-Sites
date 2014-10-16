@@ -1,0 +1,58 @@
+#include<iostream>
+#include<map>
+#include<list>
+#include<cmath>
+#include<string>
+#include<cstring>
+using namespace std;
+bool prime[2005];
+void Prime(int num)
+{
+	memset(prime,1,sizeof(prime));
+	prime[0]=prime[1]=false;
+	int i=4;
+	while ( i<=num )
+	{
+		prime[i]=false;
+		i+=2;
+	}
+	for ( i=3 ; i<=num ; i+=2 )
+	{
+		if ( prime[i] )
+		{
+			for ( int  j=i*i ; j<=num ; j+=i )
+				prime[j]=false;
+		}
+	}
+}
+int main()
+{
+	Prime(2000);
+	int t;
+	string line;
+	bool check;
+	map<char,int> M;
+	map<char,int>::iterator it;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>line;
+		cout<<"Case "<<i+1<<": ";
+		M.clear();
+		for ( int i=0 ; i<line.length() ; i++ )
+			M[line[i]]++;
+		check=true;
+		for ( it=M.begin() ; it!=M.end() ; it++ )
+		{
+			if ( prime[(*it).second] )
+			{
+				check=false;
+				cout<<(*it).first;
+			}
+		}
+		if ( check )
+			cout<<"empty\n";
+		else
+			cout<<endl;
+	}
+}

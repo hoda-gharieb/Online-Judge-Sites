@@ -1,0 +1,54 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+bool prime[1005];
+int ans[1000];
+void doPrime(int num)
+{
+	memset(prime,true,sizeof(prime));
+	for ( int i=2 ; i<=num+1 ; i++ )
+	{
+		if ( prime[i] )
+			for ( int j=i*i ; j<=num+1 ; j+=i )
+				prime[j]=false;
+	}
+}
+int count(int num)
+{
+	int n=0;
+	for ( int i=1 ; i<=num ; i++ )
+	{
+		if ( prime[i] )
+		{
+			ans[n]=i;
+			n++;
+		}
+	}
+	return n;
+}
+int main()
+{
+	//freopen("input.in","r",stdin);
+	doPrime(1000);
+	int n,c,x;
+	while ( cin>>n>>c )
+	{		
+		cout<<n<<" "<<c<<":";
+		n=count(n);
+		x=(n-1)/2;
+		if ( c*2 > n )
+			for ( int i=0 ; i<n ; i++ )
+					cout<<" "<<ans[i];
+		else
+		{
+			if ( n%2 == 1 )
+				for ( int i=x-c+1 ; i<= x+c-1 ; i++)
+						cout<<" "<<ans[i];
+			else
+				for ( int i=x-c+1 ; i<= x+c ; i++)
+						cout<<" "<<ans[i];
+
+		}
+		cout<<endl<<endl;
+	}
+}

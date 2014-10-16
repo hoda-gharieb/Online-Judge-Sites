@@ -1,0 +1,98 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<cstdlib>
+#include<complex>
+#include<vector>
+#include<cstdio>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,l ) for ( int i=l-1 ; i>=0 ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+//const int oo = (int)1e9;
+//const int N = 1000005;
+
+typedef complex< double> point;
+//#define sz(a) ((int)(a).size())
+//#define all(n) (n).begin(),(n).end()
+#define EPS 1.0e-5
+//#define OO 1e9
+#define X real()
+#define Y imag()
+#define vec(a,b) ((b)-(a))
+#define polar(r,t) ((r)*exp(point(0,(t))))
+#define angle(v) (atan2((v).Y,(v).X))
+#define length(a) hypot((a).X,(a).Y)
+#define lengthSqr(v) (dot(v,v))
+#define dot(a,b) ((conj(a)*(b)).real())
+#define cross(a,b) ((conj(a)*(b)).imag())
+#define rotate(v,t) (polar(v,t))
+#define rotateabout(v,t,a)  (rotate(vec(a,v),t)+(a))
+#define reflect(p,m) ((conj((p)/(m)))*(m))
+//#define normalize(p) ((p)/length(p))
+//#define same(a,b) (lengthSqr(vec(a,b))==0)
+//#define mid(a,b) (((a)+(b))/point(2,0))
+//#define perp(a) (point(-(a).Y,(a).X))
+//#define colliner pointOnLine
+#define pi 2*acos(0.0)
+int arr[ 101 ][ 101 ],r,c;
+int x[] ={ -1,0,1 };
+int y[] ={ -1, 0, 1 };
+bool check ( int n, int m )
+{
+	Forp( i, 0, 3 )
+	{
+		Forp( j ,0, 3 )
+		{
+			if ( n+x[i] >= 0 && m+y[j] >=0 && n+x[i]<r && m+y[j]<c && ( x[i] || y[ j ] ) )
+				if ( arr[ n ][ m ] == arr[ n+x[i] ][ m+y[j] ] )
+					return true;
+		}
+	}
+	return false;
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );	
+	int t;
+	scanf( "%d", &t );
+	while( t-- )
+	{
+		set< int > S;
+		scanf( "%d %d", &r, &c );
+		Forp( i, 0, r )
+			Forp( j, 0, c )
+			scanf( "%d", &arr[ i ][ j ] );
+		Forp( i, 0, r )
+		{
+			Forp( j,0,c )
+			{
+				if ( arr[ i ][ j ] != -1 && !(S.find( arr[i ][ j ] ) != S.end()) )
+				{
+					if ( check ( i,j ) )
+						S.insert( arr[ i ][ j ] );
+				}
+			}
+		}
+		printf( "%d\n", S.size() );
+	}
+
+}

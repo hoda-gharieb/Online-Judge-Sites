@@ -1,0 +1,40 @@
+#include<iostream>
+#include<iomanip>
+#include <string>
+#include <algorithm>
+#include<sstream>
+#include<iomanip>
+#include<stdio.h>
+#include<cstring>
+using namespace std;
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define pp push_back
+#define unsigned long long ull
+int arr[ 101 ];
+int main()
+{
+	freopen( "input.in", "r", stdin );
+	//freopen( "output.out", "w", stdout );
+
+	int t,n ;
+	scanf( "%d", &t );
+	rep( i,1,t+1 )
+	{
+		int h, num=0;
+		scanf( "%d %d", &n, &h );
+		scanf( "%d", &num );
+		num *= h;
+		rep( j,0,n )
+			scanf( "%d", &arr[ j ] );
+		int a, b;
+		scanf( "%d %d", &a, &b );
+		if ( arr[ b ] != 0 )
+			arr[ b ] -= h;
+		float ans = ( arr[ b ]/ ( double ) num ) * a;
+		printf( "Case #%d: %.3f\n", i,ans );
+	}
+}
+

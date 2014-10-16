@@ -1,0 +1,59 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<cstdlib>
+using namespace std;
+
+#define Forp( i,l ) for ( int i=0 ; i<l ; i++ )
+#define Form( i,l ) for ( int i=l-1 ; i>=0 ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+const int oo = (int)1e9;
+
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	int  M,N;
+	vector< string > V;
+	vector< int > v;
+	scanf("%d%d",&M,&N);
+	V.resize( M );
+	v.resize( M+1 ,0 );
+	Forp( i,M )
+		cin>>V[ i ];
+	Forp( j, N )
+	{
+		int count = 0;
+		Forp( i,M )
+		{
+			if ( V[ i ][ j ] == '1' && count)
+			{
+				v[ count ]++;
+				count = 0;
+			}
+			else if ( V[i][j] == '0' )
+				count++;
+		}
+		if ( count )
+			v[ count ] ++;
+	}
+	for ( int i=1 ; i<v.size() ; i++ )
+		if ( v[ i ] )
+			cout<<i<<" "<<v[i]<<endl;
+}

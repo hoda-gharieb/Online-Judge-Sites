@@ -1,0 +1,64 @@
+#include<iostream>
+#include<string>
+#include<queue>
+#include<map>
+#include<set>
+#include<vector>
+using namespace std;
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	set<string> Visited;
+	map<string, vector<string> > Cities;
+	queue< pair<string,string> > Q;
+	int t,n,m;
+	string city1,city2,choice,ans;
+	pair<string , string > route;
+	cin>>t;
+	while ( t-- )
+	{
+		cin>>m>>n;
+		Cities.clear();
+		for ( int i=0 ; i<m ; i++ )
+		{
+			cin>>city1>>city2;
+			Cities[city1].push_back(city2);
+			Cities[city2].push_back(city1);
+		}
+		for ( int i=0 ; i<n ; i++ )
+		{
+			cin>>city1>>city2;
+			Visited.clear();
+			choice="";
+			choice+=city1[0];
+			Q.push( make_pair(city1,choice) );
+			ans="";
+			Visited.insert(city1);
+			while ( ! Q.empty() )
+			{
+				route=Q.front();
+				Q.pop();
+				if ( route.first==city2 )
+				{
+					ans=route.second;
+					break;
+				}
+				for ( int j=0 ; j<Cities[route.first].size() ; j++ )
+				{
+					city1=Cities[route.first][j];
+					if ( ! (Visited.find( city1 ) != Visited.end()) )
+					{
+						Visited.insert( city1 );
+						Q.push( make_pair( city1 , route.second+city1[0] ) );
+					}
+				}
+			}
+			cout<<ans<<endl;
+			while ( ! Q.empty() )
+				Q.pop();
+		}		
+		if ( t>0 )
+			cout<<endl;
+	}
+
+}

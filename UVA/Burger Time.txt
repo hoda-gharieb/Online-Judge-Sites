@@ -1,0 +1,43 @@
+#include<iostream>
+#include<cstdlib>
+#include<string>
+using namespace std;
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	string line;
+	int num,ans,cd=-1;
+	char c;
+	while ( cin>>num && num !=0 )
+	{
+		cin>>line;
+		if ( line.find('Z') != -1 )
+			cout<<"0\n";
+		else
+		{
+			ans=2000000;
+			cd=-1;
+			for ( int i=0 ; i<line.length() ; i++ )
+			{
+				if ( line[i]=='D' || line[i]=='R')
+				{
+					if ( cd==-1 )
+					{
+						c=line[i];
+						cd=i;
+					}
+					else if ( line[i]==c )
+						cd=i;
+					else
+					{
+						if ( i-cd < ans )
+							ans=i-cd;
+						cd=i;
+						c=line[i];
+					}
+				}
+			}
+			cout<<ans<<endl;
+		}
+	}
+}

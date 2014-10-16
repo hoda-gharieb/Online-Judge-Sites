@@ -1,0 +1,44 @@
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+pair<string,string> arr[101];
+string arrr[101];
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	int i=0;
+	while ( cin>>arr[i].first )
+	{
+		if ( arr[i].first == "XXXXXX" )
+		break;
+		arr[i].second=arr[i].first;
+		sort(arr[i].first.begin(),arr[i].first.end());
+		i++;
+	}
+	int j=0;
+	while ( cin>>arrr[j] )
+	{
+		if ( arrr[j] == "XXXXXX" )
+		break;
+		sort(arrr[j].begin(),arrr[j].end());
+		j++;
+	}
+	bool check;
+	sort(arr,arr+i);
+	for ( int k=0 ; k<j ; k++ )
+	{
+		check=true;
+		for ( int l=0 ; l<i ; l++ )
+		{
+			if ( arrr[k]==arr[l].first )
+			{
+				cout<<arr[l].second<<endl;
+				check=false;
+			}
+		}
+		if (check)
+			cout<<"NOT A VALID WORD"<<endl;
+		cout<<"******"<<endl;
+	}
+}

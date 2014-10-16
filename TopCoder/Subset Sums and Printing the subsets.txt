@@ -1,0 +1,17 @@
+void subset(int indx, int sum, vector<int> a) {
+	if (indx == arrSize) {
+		cout << "sum = " << sum << endl;
+		REP(i, SIZE(a)) cout << a[i] << " ";
+		cout << endl;
+		return;
+	}
+	subset(indx + 1, sum, a);
+	a.push_back(arr[indx]);
+	subset(indx + 1, sum + arr[indx], a);
+	a.pop_back();
+}
+
+int main() {
+	subset(0, 0, vector<int>());
+	return 0;
+}

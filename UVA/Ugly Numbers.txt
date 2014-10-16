@@ -1,0 +1,40 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	int arr[1501];
+	int c2,c3,c5,a,b,c;
+	arr[1]=c2=c3=c5=1;
+	for ( int i=2 ; i<1501 ; i++ )
+	{
+		a=2*arr[c2];
+		b=3*arr[c3];
+		c=5*arr[c5];
+		if ( a<b && a<c )
+		{
+			arr[i]=a;
+			c2++;
+		}
+		else if ( b<a && b<c )
+		{
+			arr[i]=b;
+			c3++;
+		}
+		else if ( c<a && c<b )
+		{
+			arr[i]=c;
+			c5++;
+		}
+		else if ( a== b || a==c)
+		{
+			c2++;
+			i--;
+		}
+		else if ( b==c )
+		{
+			c3++;
+			i--;
+		}
+	}
+	cout<<"The 1500'th ugly number is "<<arr[1500]<<".\n";
+}

@@ -1,0 +1,80 @@
+#include<iostream>
+#include<algorithm>
+#include<cstring>
+#include<sstream>
+#include<string>
+using namespace std;
+bool prime[1005];
+void doPrime(int num)
+{
+	memset(prime,true,sizeof(prime));
+	prime[0]=prime[1]=false;
+	for ( long long i=2 ; i<num+1 ; i++ )
+	{
+		if ( prime[i] )
+		{
+			for ( long long j=i*i ; j<num+1 ; j+=i )
+				prime[j]=false;
+		}
+	}
+}
+string int_str ( int n )
+{
+	string word;
+	stringstream sin;
+	sin<<n;
+	sin>>word;
+	return word;
+}
+
+int str_int ( string line )
+{
+	int n=0;
+	for ( int i=0 ; i<line.length() ; i++ )
+	{
+		n*=10;
+		n+=line[i]-'0';
+	}
+	return n;
+}
+bool is_prime(int num)
+{
+	string word=int_str(num);
+	sort( word.begin(),word.end() );
+	do
+	{
+		if ( ! prime[ str_int(word) ] )
+			return false;
+	}while ( next_permutation(word.begin(),word.end()) );
+	return true;
+}
+int main()
+{
+	//freopen("input.in","r",stdin);
+	doPrime(1000);
+	int n,m;
+	bool check;
+	while ( cin>>n && n!=0 )
+	{
+		if ( n>= 1000 )
+		{
+			cout<<0<<endl;
+			continue;
+		}
+		check=false;
+		m=1;
+		while ( m <= n )
+			m*=10;
+		for ( int i=n+1 ; i<m ; i++ )
+		{
+			if ( is_prime(i)  )
+			{
+				cout<<i<<endl;
+				check=true;
+				break;
+			}
+		}
+		if ( ! check )
+			cout<<0<<endl;
+	}
+}

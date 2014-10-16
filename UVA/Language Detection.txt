@@ -1,0 +1,29 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main()
+{
+	string m1,m2;
+	int s=1;
+	while ( cin>>m1 && m1 != "#" )
+	{
+		if ( m1=="HELLO" )
+			m2="ENGLISH";
+		else if ( m1 == "HALLO" )
+			m2="GERMAN";
+		else if (m1=="HOLA")
+			m2="SPANISH";
+		else if (m1=="BONJOUR")
+			m2="FRENCH";
+		else if (m1=="CIAO")
+			m2="ITALIAN";
+		else if (m1=="ZDRAVSTVUJTE")
+			m2="RUSSIAN";
+		else
+			m2="UNKNOWN";
+		cout<<"Case "<<s<<": "<<m2<<endl;
+		s++;
+	}
+	return 0;
+}
+

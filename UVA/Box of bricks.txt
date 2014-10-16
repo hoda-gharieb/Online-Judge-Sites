@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	int m,k,t,j,s,o;
+	o=1;
+	while(cin>>t && t!=0)
+	{
+		k=0;
+		m=0;
+		s=0;
+		int x[50];
+		for(int i=0, k=0;i<t;i++)
+		{
+			cin>>x[i];
+			k+=x[i];
+		}
+		m=k/t;
+		for(int i=0;i<t;i++)
+		{
+			if(x[i]>m)
+			{
+				j=x[i]-m;
+				s+=j;
+			}
+		}
+		cout<<"Set #"<<o<<endl<<"The minimum number of moves is "<<s<<"."<<endl<<endl;
+
+	}
+	return 0;
+}

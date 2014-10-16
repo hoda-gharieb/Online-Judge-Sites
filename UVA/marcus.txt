@@ -1,0 +1,64 @@
+#include<iostream>
+#include<string>
+#include<vector>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	int t,m,n,found,next,index;
+	vector < string > line;
+	string word="IEHOVA@#",word2;
+	bool check;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>m>>n;
+		check=true;
+		for ( int j=0 ; j<m ; j++ )
+		{
+			cin>>word2;
+			line.push_back(word2);
+		}
+		word2=word;
+		found=line[m-1].find('@');
+		index=m-1;
+		while ( check)
+		{
+			if ( index != 0 && word2.find(line[index-1][found])!=-1)
+			{
+				n=word2.find(line[index-1][found]);
+				word2.erase(n,1);
+				index--;
+				cout<<"forth";
+				if ( line[index][found] != '#' )
+					cout<<" ";
+				else
+					check=false;
+			}
+			else
+			{
+				for ( int j=0 ; j<word2.length() ; j++ )
+				{
+					if ( line[index].find(word2[j])!= -1 )
+					{
+						next=line[index].find(word2[j]);
+						if ( next<found )
+							cout<<"left";
+						else
+							cout<<"right";
+						word2.erase(j,1);
+						found=next;
+						if ( line[index][found] != '#' )
+							cout<<" ";
+						else
+							check=false;
+						break;
+					}
+				}
+			}
+		}
+		cout<<endl;
+		while ( ! line.empty() )
+			line.pop_back();
+	}
+}

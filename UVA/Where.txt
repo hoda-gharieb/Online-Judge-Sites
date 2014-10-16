@@ -1,0 +1,47 @@
+#include <iostream>
+#include <stdio.h>
+#include <cmath>
+#include <vector>
+#include <map>
+#include <algorithm>
+using namespace std;
+
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define pp push_back
+#define long long ll
+#define unsigned long long ull
+
+int arr[ 10001 ], l[ 10001 ];
+int main()
+{
+   //freopen( "input.in", "r", stdin );
+   int s,n, ind = 1;
+   while( scanf( "%d %d", &s, &n ) == 2 )
+   {
+	   if ( !s && !n )
+		   break;
+	   rep( i,0,s )
+	   scanf( "%d", &arr[ i ] );
+	   sort( arr, arr+s );
+	   memset( l, -1, sizeof( l ) );
+	   rep( i,0,s )
+	   {
+		   if ( !i || arr[ i ] != arr[ i-1 ] )
+			   l[ arr[ i ] ] = i;
+	   }
+	   int a;
+	   printf( "CASE# %d:\n", ind );
+	   rep( i,0,n )
+	   {
+		   scanf( "%d", &a );
+		   if( l[ a ] != -1 )
+			   printf( "%d found at %d\n", a, l[ a ] + 1 );
+		   else
+			   printf( "%d not found\n", a );
+	   }
+	   ind++;
+   }
+}

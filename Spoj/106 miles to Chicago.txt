@@ -1,0 +1,36 @@
+#include<iostream>
+#include<string>
+#include<queue>
+#include<map>
+#include<set>
+#include<cstring>
+#include<vector>
+#include<limits.h>
+#include<iomanip>
+#include<stdio.h>
+using namespace std;
+
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	double arr[101][101],d;
+	int num,edge,u,v;
+	while ( scanf( "%d",&num ) )
+	{
+		if ( !num )
+			break;
+		scanf( "%d",&edge );
+		memset ( arr,0,sizeof(arr) );
+		for ( int i=0 ; i<edge ; i++ )
+		{
+			scanf( "%d%d%lf", &u, &v, &d);
+			arr[u][v]=arr[v][u]=d/100.0;
+		}
+		for ( int i=1 ; i<=num ; i++ )
+			for ( int j=1 ; j<=num ; j++ )
+				for ( int k=1 ; k<=num ; k++ )
+					arr[j][k] = max( arr[j][k] , arr[j][i]*arr[i][k]);
+		printf( "%.6lf percent\n", arr[1][num]*100.0 );
+	}
+
+}

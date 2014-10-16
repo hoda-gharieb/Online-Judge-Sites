@@ -1,0 +1,60 @@
+#include<iostream>
+#include<string>
+#include<stack>
+using namespace std;
+int main()
+{
+	string line="IVXLCDM";
+	int arr[]={1,5,10,50,100,500,1000},x;
+	string word;
+	stack<char> ch;
+	while ( cin>>word )
+	{
+		if ( word[0]<='9' && word[0]>='0' )
+		{
+			for ( int i=word.length()-1 , j=0 ; i>=0 ; i--, j+=2 )
+			{
+				x=word[i]-'0';
+				if ( x!=0 && x<4 )
+					for ( int k=0 ; k<x ; k++ )
+						ch.push(line[j]);
+				else if (  x!=0 && x==4 )
+				{
+					ch.push(line[j+1]);
+					ch.push(line[j]);
+				}
+				else if ( x!=0 && x==5 )
+					ch.push(line[j+1]);
+				else if (  x!=0 && x>5 && x<9 )
+				{
+					for ( int k=0 ; k<x-5 ; k++ )
+						ch.push(line[j]);
+					ch.push(line[j+1]);
+				}
+				else if ( x!=0 )
+				{
+					ch.push(line[j+2]);
+					ch.push(line[j]);
+				}
+			}
+			while ( !ch.empty() )
+			{
+				cout<<ch.top();
+				ch.pop();
+			}
+			cout<<endl;
+		}
+		else
+		{
+			x=0;
+			for ( int i=word.length()-1 ; i>=0 ; i-- )
+			{
+				if ( i != word.length()-1 && line.find(word[i])<line.find(word[i+1]))
+					x-=arr[line.find(word[i])];
+				else
+					x+=arr[line.find(word[i])];
+			}
+			cout<<x<<endl;
+		}
+	}
+}

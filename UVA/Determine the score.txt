@@ -1,0 +1,29 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	int t,n,arr[103][103],ans=0;
+	cin>>t>>n;
+	for ( int i=0 ; i<t ; i++ )
+		for ( int j=0 ; j<n ; j++)
+			cin>>arr[i][j];
+	string line;
+	cin>>line;
+	int i=0 , j=0;
+	ans+=arr[i][j];
+	for ( int k=0 ; k<line.length() ; k++ )
+	{
+		if (line[k]=='N')
+			i--;
+		else if (line[k]=='S')
+			i++;
+		else if (line[k]=='E')
+			j++;
+		else
+			j--;
+		ans+=arr[i][j];
+	}
+	cout<<ans<<endl;
+}

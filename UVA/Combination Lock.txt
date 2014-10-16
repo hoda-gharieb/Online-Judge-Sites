@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	int initial,first,sec,thd,total=1080,ans,a,b,c;
+	while ( cin>>initial>>first>>sec>>thd )
+	{
+		if ( initial==0 && first==0 && sec==0 && thd==0 )
+			break;
+		a=initial-first;
+		b=sec-thd;
+		c=sec-first;
+		if ( a<0 )
+			a+=40;
+		if ( b<0 )
+			b+=40;
+		if ( c<0 )
+			c+=40;
+		ans=1080 + ( 9* ( a+b+c) );
+		cout<<ans<<endl;
+	}
+}

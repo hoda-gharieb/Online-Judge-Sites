@@ -1,0 +1,107 @@
+#include<iostream>
+#include<vector>
+#include<list>
+#include<map>
+#include<set>
+#include<queue>
+#include<deque>
+#include<stack>
+#include<bitset>
+#include<algorithm>
+#include<functional>
+#include<numeric>
+#include<utility>
+#include<sstream>
+#include<iomanip>
+#include<cstdio>
+#include<stdio.h>
+#include<cmath>
+#include<cstdlib>
+#include<ctime>
+#include<climits>
+#include<cstring>
+#include<complex>
+using namespace std;
+
+typedef complex<long double> point;
+#define mp make_pair
+#define pp push_back
+#define Sort(x) sort(x.begin(), x.end())
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define ll long long
+#define all(v) v.begin(),v.end()
+#define ii pair<int, int>
+#define mem(x, v) memset(x, v, sizeof(x))
+#define cross(a,b) ((conj(a)*(b)).imag())
+#define EPS 1e-9
+#define do(a,b) ((conj(a)
+
+bool intersect(const point &a,const point &b,const point &p,const point &q, point &ret)
+{
+	long double d1 = cross(p-a,b-a);
+	long double d2 = cross(q-a,b-a);
+	point tmpQ(q.real()*d1,q.imag()*d1);
+
+	point tmpP(p.real()*d2,p.imag()*d2);
+
+	ret = (tmpQ - tmpP);
+	point retR(ret.real()/(d1-d2),ret.imag()/(d1-d2));
+	ret = retR;
+	return fabs(d1-d2)>EPS;
+}
+
+long double dist(point a,point b)
+{
+	return sqrt(((a.real()-b.real())*(a.real()-b.real())) + ((a.imag()-b.imag())*(a.imag()-b.imag())));
+}
+point mslope( point a, point b , point c)
+{
+	long double s = ( a.imag() - b.imag() ) / ( a.real() - b.real());
+	s = -1/s;
+	long double l = c.imag() - ( c.real() * s ) ;
+	long double y = s*( c.real()+2 ) + l;
+	point n( c.real()+2, y );
+
+	return n;
+}
+
+vector<pair<long double,point> > vec;
+int main()
+{
+	//freopen( "in.txt", "r", stdin);
+	int n;
+	int L,H;
+	while(cin>>n)
+	{
+		cin>>L>>H;
+		vec.clear();
+		vec.resize(n);
+		long double minz = 1e9;
+		rep(i,0,n)
+		{
+			long double a,b,c;
+			cin>>a>>b>>c;
+			vec[i]=mp(a,point(b,c));
+			long double tmp = (!(i%2)? L-b:b);
+			minz = min(tmp,minz);
+		}
+		rep(i,0,n-1)
+		{
+			point ret;
+			point tmp2 = !(i%2)? point(L,vec[i+1].first):point(0,vec[i+1].first);
+			point tmp3 = mslope( tmp2, vec[ i+1 ].second, vec[ i ].second );
+			intersect(tmp3,vec[i].second,tmp2,vec[i+1].second,ret);
+			if( ( ( !(i%2) && ret.real() <= L  && ret.real() >= vec[ i+1 ].second.real() ) 
+				|| ( (i%2) && ret.real() >= 0  && ret.real() <= vec[ i+1 ].second.real() )))
+				minz= min(minz,dist(ret,vec[i].second));
+			else
+				minz = min( minz, dist( vec[ i ].second, vec[ i+1 ].second));
+		}
+		printf( "%.2llf\n", minz);
+		//cout<<setprecision(2)<<fixed<<minz<<endl;
+	}
+}
+

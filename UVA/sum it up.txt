@@ -1,0 +1,53 @@
+#include<iostream>
+using namespace std;
+int arr[12],num,no,ccheck;
+bool check,arr2[12];
+void result(int ind,int sum)
+{
+	if(sum==num)
+	{
+		ccheck=0;
+		for(int i=0 ; i<no ; i++ )
+		{
+
+			if ( arr2[i] )
+			{
+				if ( ccheck >0 )
+					cout<<"+";
+				cout<<arr[i];
+				ccheck++;
+				check=true;
+			}			
+		}
+		cout<<endl;
+		return;
+	}
+	if ( ind==no )
+		return;
+	for ( int i=ind ; i<no ; i++ )
+	{
+		if ( i != ind && arr[i]==arr[i-1] )
+			continue;
+		arr2[i]=true;
+		result(i+1,sum+arr[i]);
+		arr2[i]=false;
+	}
+	return;
+}
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	while ( cin>>num>>no )
+	{
+		for ( int i=0 ; i<no ; i++ )
+			cin>>arr[i];
+		if ( no==0 )
+			break;
+		check=false;
+		cout <<"Sums of "<<num<<":\n";
+		result(0,0);
+
+		if ( check==false )
+			cout<<"NONE\n";
+	}
+}

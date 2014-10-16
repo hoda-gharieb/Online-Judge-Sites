@@ -1,0 +1,28 @@
+#include<iostream>
+#include<set>
+using namespace std;
+long long H(int n)
+{
+	long long res = 0;
+	for( int i = 1,j=2; ; i++ , j++)
+	{
+		if ( (n/i)< i )
+			return res;
+		if ( i != ( n/i) )
+		res += n/i;
+		res+=(((n/i)-(n/j))*i);
+	} 
+	return res;
+}
+int main()
+{
+	int t;
+	long long num ,ans;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>num;
+		ans= H(num);
+		cout<<ans<<endl;
+	}
+}

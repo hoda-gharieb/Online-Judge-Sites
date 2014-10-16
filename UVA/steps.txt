@@ -1,0 +1,30 @@
+#include<iostream>
+#include<math.h>
+using namespace std;
+int main()
+{
+	//freopen("input.in","r",stdin);
+	//freopen("output.out","w",stdout);
+	long t,x,y;
+	double steps;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>x>>y;
+		steps=y-x;
+		if ( steps<3 )
+			cout<<steps<<endl;
+		else
+		{
+			steps=sqrt((double)steps);
+			if ( (int)steps==steps)
+				steps=2*(steps-1)+1;
+			else
+			{
+				steps*=2;
+				steps=(int)steps;
+			}
+			cout<<steps<<endl;
+		}
+	}
+}

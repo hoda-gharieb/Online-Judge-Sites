@@ -1,0 +1,24 @@
+#include<iostream>
+using namespace std;
+int s=10;
+int answer=0;
+int reverse(int num)
+{
+	
+	if (num<10 )
+		return num;
+	answer=reverse(num/10)+(num%10)*s;
+	num/=10;
+	s*=10;
+	return answer;
+}
+int main()
+{
+	int num,answer1;
+	while (cin>>num)
+	{
+		answer1=1;
+		s=10;
+		cout<<reverse(num)<<endl;
+	}
+}

@@ -1,0 +1,89 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+#include<cmath>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,k,l ) for ( int i=k-1 ; i>=l ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+typedef unsigned long long ull;
+const int oo = (int)1e9 ;
+
+int arr[ 105 ], n,m;
+bool visited[ 1<<15 ];
+struct e
+{
+	int mask;
+	int count;
+	e(){}
+	e( int m, int c ) : mask( m ), count( c ) {}
+};
+
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	int t, num;
+	scanf( "%d", &t );
+	Forp( k, 1, t+1 )
+	{
+		scanf( "%d %d", &n, &m );
+		mst( arr,0 );
+		Forp( i,0,m )
+		{
+			Forp( j,0,n )
+			{
+				scanf( "%d", &num );
+				arr[ i ] |= ( 1 << j ) * num;
+			}
+		}
+		printf( "Case %d: ",k );
+
+		mst( visited, 0 );
+		queue< e > Q;
+		e cur;
+		Q.push( e( (1<<n) - 1, 0 ) );
+		visited[ (1<<n) -1 ] = true;
+		bool check = true;
+		while( !Q.empty() )
+		{
+			cur = Q.front();
+			Q.pop();
+			if ( !cur.mask )
+			{
+				printf( "%d\n", cur.count );
+				check = false;
+				break;
+			}
+			Forp( i,0, m )
+			{
+				int nMask = cur.mask ^ arr[ i ];
+				if ( !visited[ nMask ] )
+				{
+					Q.push( e( nMask, cur.count+1 ) );
+					visited[ nMask ] = true;
+				}
+			}
+		}
+		if ( check )
+		printf( "IMPOSSIBLE\n");
+	}
+}

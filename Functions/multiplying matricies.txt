@@ -1,0 +1,18 @@
+for ( int i=0 ; i<3 ; i++ )
+		for ( int j=0 ; j<3 ; j++ )
+			answer[i][j]=((matrix1[i][0]*matrix2[0][j])+(matrix1[i][1]*matrix2[1][j])+(matrix1[i][2]*matrix2[2][j]));
+
+calculating multiplication of 2 matricies
+matrix 1
+matrix 2
+in answer
+====================================
+of different sizes
+for ( int i=0 ; i<row1 ; i++ )
+	{
+		for ( int j=0 ; j<column2 ; j++ )
+		{
+			for ( int k=0 ; k<row2 ; k++ )
+				ans[i][j]+=(arr1[i][k]*arr2[k][j]);
+		}
+	}

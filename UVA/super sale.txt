@@ -1,0 +1,32 @@
+#include<iostream>
+#include<cstring>
+#include<algorithm>
+using namespace std;
+int weights[1005],prices[1005],ans[35];
+int num,num2;
+int main()
+{
+	//freopen("input.in","r",stdin);
+	int t,anss,n;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>num;
+		for ( int j=0 ; j<num ; j++ )
+			cin>>prices[j]>>weights[j];
+		memset(ans,0,sizeof(ans));
+		for ( int j=0 ; j<num ; j++ )
+			for ( int l=30 ; l>=0 ; l-- )
+				if ( weights[j]<=l && ans[l]< ans[l-weights[j]]+prices[j])
+					ans[l]= ans[l-weights[j]]+prices[j];
+
+		anss=0;
+		cin>>num2;
+		for ( int j=0 ;  j<num2 ; j++ )
+		{
+			cin>>n;
+			anss+=ans[n];
+		}
+		cout<<anss<<endl;
+	}
+}

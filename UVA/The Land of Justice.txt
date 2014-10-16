@@ -1,0 +1,17 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	long long num;
+	while ( cin>>num && num>=0 )
+	{
+		if ( num== 1 )
+		{
+			cout<<"0%"<<endl;
+			continue;
+		}
+		num*=25;
+		cout<<num<<"%"<<endl;
+	}
+}

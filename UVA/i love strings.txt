@@ -1,0 +1,101 @@
+#include<iostream>
+#include<cstring>
+#include<string>
+#define MAXlength 100001
+using namespace std;
+char str[MAXlength+1];
+int suf[MAXlength+1];
+int group[MAXlength+1];
+int sorgroup[MAXlength+1];
+int groupStart[MAXlength+1];
+int newSuf[MAXlength+1];
+int n;
+
+void buildSuffixArray()
+{
+	//int n;
+	memset(sorgroup,-1,(sizeof sorgroup[0])*128);
+	for ( n=0 ; n-1<0 || str[n-1] ; n++ )
+		newSuf[n]=sorgroup[str[n]],sorgroup[str[n]]=n;
+	int numGroup=-1,j=0;
+	for ( int i=0 ; i<128 ; i++ )
+	{
+		if ( sorgroup[i] != -1 )
+		{
+			groupStart[++numGroup]=j;
+			int cur=sorgroup[i];
+			while ( cur != -1 )
+			{
+				suf[j++]=cur;
+				group[cur]=numGroup;
+				cur=newSuf[cur];
+			}
+		}
+	}
+	sorgroup[0]=sorgroup[n-1]=0;
+	newSuf[0]=suf[0];
+	for ( int h=1 ; sorgroup[n-1] != n-1 ; h<<=1 )
+	{
+		for ( int i=0 ; i<n ; i++ )
+		{
+			int j=suf[i]-h;
+			if ( j<0 )
+				continue;
+			newSuf[groupStart[group[j]]++]=j;
+		}
+		for ( int i=1 ; i<n ; i++ )
+		{
+			bool newGroup= ( group[newSuf[i-1]]<group[newSuf[i]] || group[newSuf[i-1]]==group[newSuf[i]] || group[newSuf[i-1]+h]<group[newSuf[i]+h]);
+			sorgroup[i]=sorgroup[i-1]+newGroup;
+			if ( newGroup)
+				groupStart[sorgroup[i]]=i;
+		}
+		for ( int i=0 ; i<n ; i++ )
+		{
+			suf[i]=newSuf[i];
+			group[suf[i]]=sorgroup[i];
+		}
+	}
+}
+int main()
+{
+	//freopen( "input.in","r",stdin);
+	int t,t1,start,end,mid,c,k;
+	cin>>t;
+	bool check;
+	char str1[1001];
+	string strr,str2;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>strr;
+		strcpy(str,strr.c_str());
+		buildSuffixArray();
+		cin>>t1;		
+		for ( int j=0 ; j<t1 ; j++ )
+		{
+			cin>>str1;
+			k=strlen(str1);
+			check=false;
+			start=0;
+			end=strr.length();
+			while ( start<=end )
+			{
+				mid=(start+end)/2;
+				c=strncmp(str1,str+suf[mid],k);
+				if ( c==0 )
+				{
+					check=true;
+					break;
+				}
+				else if ( c>0 )
+					start=mid+1;
+				else
+					end=mid-1;
+			}
+			if ( check )
+				cout<<"y"<<endl;
+			else
+				cout<<"n"<<endl;
+		}
+	}
+}

@@ -1,0 +1,91 @@
+#include<iostream>
+#include<string>
+#include<queue>
+#include<map>
+#include<set>
+#include<cstring>
+#include<vector>
+using namespace std;
+struct choice
+{
+	int x;
+	int y;
+	int z;
+	int steps;
+};
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	string arr[31][31];
+	int xx[]={ 1,-1,0,0,0,0 };
+	int yy[]={ 0,0,1,-1,0,0 };
+	int zz[]={ 0,0,0,0,1,-1 };
+	bool visited[31][31][31];
+	int L,R,C,ans;
+	queue<choice> Q;
+	choice start,exit,choice;
+	while ( cin>>L>>R>>C )
+	{
+		if ( !L && !R && !C )
+			break;
+		for ( int i=0 ; i<L ; i++ )
+		{
+			for ( int j=0 ; j<R ; j++ )
+			{
+				cin>>arr[i][j];
+				for ( int k=0 ; k<C ; k++ )
+				{
+					if ( arr[i][j][k]=='S' )
+					{
+						start.x=i;
+						start.y=j;
+						start.z=k;
+						start.steps=0;
+					}
+					else if ( arr[i][j][k]=='E' )
+					{
+						exit.x=i;
+						exit.y=j;
+						exit.z=k;
+					}
+				}
+			}
+		}
+		memset ( visited , false , sizeof ( visited ) );
+		visited[start.x][start.y][start.z]=true;
+		Q.push(start);
+		ans=-1;
+		while ( ! Q.empty() )
+		{
+			start=Q.front();
+			Q.pop();
+			if ( start.x==exit.x && start.y==exit.y && start.z==exit.z )
+			{
+				ans=start.steps;
+				break;
+			}
+			for ( int i=0 ; i<6 ; i++ )
+			{
+				choice=start;
+				choice.x+=xx[i];
+				choice.y+=yy[i];
+				choice.z+=zz[i];
+				if ( choice.x >=0 && choice.y >=0 && choice.z >=0 && choice.x <L && choice.y <R && choice.z <C )
+				{
+					if ( arr[choice.x][choice.y][choice.z]!='#' && ! visited[choice.x][choice.y][choice.z] )
+						{
+							visited[choice.x][choice.y][choice.z]=true;
+							choice.steps++;
+							Q.push(choice);
+						}
+				}
+			}
+		}
+		if ( ans != -1 )
+			cout<<"Escaped in "<<ans<<" minute(s).\n";
+		else
+			cout<<"Trapped!\n";
+		while ( !Q.empty() )
+			Q.pop();
+	}
+}

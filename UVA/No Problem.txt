@@ -1,0 +1,32 @@
+#include<iostream>
+using namespace std;
+int arr[12];
+int arr2[12];
+int num,i,j,s=1;
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	while ( cin>>num )
+	{
+		if( num < 0 )
+			break;
+		for ( i=0 ; i<12 ; i++ )
+			cin>>arr[i];
+		for ( j=0 ; j<12 ; j++ )
+			cin>>arr2[j];
+		cout<<"Case "<<s<<":\n";
+		for ( i=0 ; i<12 ; i++ )
+		{
+			if ( arr2[i]<= num )
+			{
+				cout<<"No problem! :D";
+				num-=arr2[i];
+			}
+			else
+				cout<<"No problem. :(";
+			cout<<endl;
+			num+=arr[i];
+		}
+		s++;
+	}
+}

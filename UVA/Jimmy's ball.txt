@@ -1,0 +1,27 @@
+#include<iostream>
+using namespace std;
+int ball ( int a,int b)
+{
+	signed int ans=0;
+	ans=((a-(3*b))-1)/2;
+	return ans;
+}
+int main()
+{
+	freopen("input.in", "r", stdin);
+	signed int n,bal=0,s=1 ;
+	while ( cin>>n && n!=0 )
+	{
+		long long int ans=0;
+		for ( int i=1 ; i<n ; i++ )
+		{
+			bal=ball(n,i);
+			if(bal<=0)
+				break;
+			else
+				ans+=bal;
+		}
+		cout<<"Case "<<s<<": "<<ans<<endl;
+		s++;
+	}
+}

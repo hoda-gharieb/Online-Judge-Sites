@@ -1,0 +1,12 @@
+//========= Position of a point wz respect to a line ===========//
+int a, b ;
+bool isLeft( int i )
+{
+	// cross product = |A| * |B| * Sin(theta) = A.x * B.y - A.y * B.x
+	// will be negative if and only if theta > 180 (not on the left side)
+	// the two sides ai, ab , and theta between them
+	// A.x = distance from a.x and b.x , B.x = distance from a.x and i.x
+
+	return ((( V[ b ].x - V[ a ].x ) * ( V[ i ].y - V[ a ].y )) - (( V[ b ].y - V[ a ].y ) * ( V[ i ].x - V[ a ].x )) ) > 0 ;
+}
+//===============================================================//

@@ -1,0 +1,35 @@
+#include<iostream>
+#include <string>
+#include<cmath>
+using namespace std;
+int main()
+{
+	freopen("input.in", "r", stdin);
+	int n1,n2,r,s,k;
+	double m=0;
+	
+	while(cin>>n1>>n2 && n1!=0 && n2!=0)
+	{
+		s=0;
+		if(n1>n2)
+		{
+			r=n1;
+			k=n2;
+		}
+		else
+		{
+			r=n2;
+			k=n1;
+		}
+		
+		for(double i=k;i<=r;i++)
+		{
+			m=sqrt(i);
+         
+			if(((int)m)*1.0== m)
+				s++;
+		}
+		cout<<s<<endl;
+	}
+return 0;
+}

@@ -1,0 +1,48 @@
+#include <iostream>
+#include <stdio.h>
+#include <cmath>
+#include <vector>
+#include <map>
+#include <algorithm>
+using namespace std;
+
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define pp push_back
+#define long long ll
+#define unsigned long long ull
+
+int r[ 100001 ], l[ 100001 ];
+int main()
+{
+   //freopen( "input.in", "r", stdin );
+   int s,n;
+   while( scanf( "%d %d", &s, &n ) == 2 )
+   {
+	   if ( !s && !n )
+		   break;
+	   rep( i,1,s+1 )
+	   {
+		   r[ i ] = i+1;
+		   l[ i ] = i-1;
+	   }
+	   int a,b;
+	   rep( i,0,n )
+	   {
+		   scanf( "%d %d", &a, &b );
+		   if( l[ a ] < 1 )
+			   printf( "* " );
+		   else
+			   printf( "%d ", l[ a] );
+		   if ( r[ b ] > s )
+			   puts( "*" );
+		   else
+			   printf( "%d\n", r[ b ] );
+		   l[ r[ b ] ] = l[ a ];
+		   r[ l[ a ] ] = r[ b ];
+	   }
+	   puts("-");
+   }
+}

@@ -1,0 +1,70 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int arr[40];
+bool koko[1001][40];
+bool calculated[1001][40];
+
+bool ccheck(int num , int index)
+{
+	bool taken , noot ;
+	if ( num<0 )
+		return false;
+	if( index == -1 ) 
+	{
+		if( num == 0 )
+			return true;
+		return false;
+	}
+	if ( calculated[num][index] )
+		return koko[num][index];
+	taken = ccheck( num-arr[index] , index-1 );
+	noot = ccheck( num , index-1 );
+	koko[num][index] = ( taken || noot );
+	calculated[num][index] = true;
+	return koko[num][index];
+}
+//-------------------------------------------------------------
+int main()
+{
+	freopen("input.in", "r", stdin);
+	//int arr[55];
+
+	int t,s=1;
+	bool check,check2;
+	while(cin>>t)
+	{
+		memset(calculated, false, sizeof calculated);
+		check2=true;
+		for ( int i=0 ; i<t ; i++ )
+		{
+			cin>>arr[i];
+			if( i!=0 && arr[i]<=arr[i-1] )
+				check2=false;
+		}
+		cout<<"Case #"<<s<<":";
+		for ( int i=0 ; i<t ; i++ )
+			cout<<" "<<arr[i];
+		cout<<endl;
+		if ( ! check2 )
+		{
+			cout<<"This is not an A-sequence."<<endl;
+			s++;
+			continue;
+		}
+		check=true;
+		for ( int i=0; i<t; i++)
+		{
+			if ( ccheck(arr[i],i-1))
+			{
+				check = false;
+				break;
+			}	
+		}
+		if ( check )
+			cout<<"This is an A-sequence."<<endl;
+		else
+			cout<<"This is not an A-sequence."<<endl;
+		s++;
+	}
+}

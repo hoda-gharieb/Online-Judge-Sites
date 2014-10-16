@@ -1,0 +1,15 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+int t=0,v=0,d=0;
+while(cin>>t>>v)
+{
+d=2*t*v;
+
+cout<<d<<endl;
+}
+return 0;
+}
+
+

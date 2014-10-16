@@ -1,0 +1,23 @@
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+int gcd(int a,int b)
+{
+	return ( b==0 ? a : gcd(b,a%b) );
+}
+int main()
+{
+	//freopen("input.in","r",stdin);
+	int arr[1005],x,ans;
+	while ( cin>>arr[0] && arr[0] != 0 )
+	{
+		x=1;
+		while ( cin>>arr[x] && arr[x]!=0 )
+			x++;
+		ans=0;
+		for ( int i=0 ; i<x ; i++ )
+			for ( int j=i+1 ; j<x ; j++ )
+				ans=gcd(max(ans,abs(arr[j]-arr[i])),min(ans,abs(arr[j]-arr[i])));
+		cout<<ans<<endl;
+	}
+}

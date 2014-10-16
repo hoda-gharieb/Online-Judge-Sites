@@ -1,0 +1,60 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<cstdlib>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,l ) for ( int i=l-1 ; i>=0 ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+const int oo = (int)1e9;
+const int Mod = 1000000007;
+
+int arr[ 1005 ][ 3005 ], W[ 1005 ], L[ 1005 ], N;
+int solve( int index, int load )
+{
+	if ( index == N )
+		return 0;
+	int &ans = arr[ index ][ load ];
+	if ( ans != -1 )
+		return ans;
+	ans = 0;
+
+	if ( W[ index ] <= load )
+		ans = max( ans, solve( index+1, min( L[ index ], load-W[ index ] ) )+1 ); 
+	ans = max( ans, solve( index+1, load ) );
+	return ans;
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	int ans = -1;
+	while ( cin>>N && N )
+	{
+		Forp( i,0,N )
+			cin>>W[ i ]>>L[ i ];
+
+		mst( arr,-1 );
+		ans = -1;
+		Forp( i, 0, N-1 )
+			ans = max( ans, solve( i+1, L[ i ] ) +1 );
+		cout<< ans <<endl;
+	}
+}

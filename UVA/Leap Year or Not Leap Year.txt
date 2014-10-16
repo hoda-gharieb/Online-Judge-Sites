@@ -1,0 +1,53 @@
+#include<iostream>
+#include <string>
+using namespace std;
+int main()
+{
+	string k;
+	int y=0;
+	while ( cin>>k)
+	{
+		if(y!=0)
+			cout<<endl;
+		bool check = false;
+		long long int n=0 , s=1 , four=0 ,counter=0;
+		signed long long int t=0;
+		if ( k[k.size()-1]-'0' == 5 || k[k.size()-1]-'0'==0)
+			check=true;
+		for( int i=k.size()-1 ; i>=0 ; --i)
+		{
+			n+= (k[i]-'0');
+			if ( counter<4 )
+			{
+				four+= ( s* ( k[i]-'0'));
+				counter++;
+			}
+			s*=10;
+			if ( i%2 !=0)
+				t -= (k[i]-'0');
+			else
+				t += (k[i]-'0');
+
+		}
+		bool c=false, z=false;
+		if ( four%4==0 && four%100 !=0 || four%400==0  )
+		{
+			cout<<"This is leap year."<<endl;
+			c=true;
+			z=true;
+		}
+		if ( n%3==0 && check==true )
+		{
+			cout<<"This is huluculu festival year."<<endl;
+			c=true;
+		}
+		if ( t%11 == 0 && check==true && z==true)
+		{
+			cout<<"This is bulukulu festival year."<<endl;
+			c=true;
+		}
+		if ( c == false )
+			cout<<"This is an ordinary year."<<endl;
+		y++;
+	}
+}

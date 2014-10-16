@@ -1,0 +1,89 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,k,l ) for ( int i=k-1 ; i>=l ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+const int oo = (int)1e9;
+
+
+int dp[ 1<<12 ];
+
+int solve( bitset<12> mask )
+{
+	int &ans = dp[ mask.to_ullong() ];
+	
+	if ( ans != -1 )
+		return ans;
+	ans = 0;
+
+	Forp( i,0,10 )
+	{
+		if ( mask[i] && mask[ i+1 ] && !mask[ i+2 ] )
+		{
+			bitset<12> xMask = mask;
+
+			xMask[ i ] = xMask[ i+1 ] = 0;
+			xMask[ i+2 ] = 1;
+
+			ans = max( ans, 1 + solve( xMask ) );
+		}
+
+		if ( !mask[i] && mask[ i+1 ] && mask[ i+2 ] )
+		{
+			bitset<12> xMask = mask;
+
+			xMask[ i+2 ] = xMask[ i+1 ] = 0;
+			xMask[ i ] = 1;
+
+			ans = max( ans, 1 + solve( xMask ) );
+		}
+	}
+	return ans;
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	int t;
+	string line;
+	cin>>t;
+	while ( t-- )
+	{
+		cin>>line;
+		int count = 0;
+		bitset< 12 > mask;
+		Forp( i,0,line.length() )
+		{
+			if ( line[ i ] == 'o' )
+			{
+				mask[ i ] = 1;
+				count++;
+			}
+			else
+				mask[ i ] = 0;
+		}
+
+		mst( dp,-1 );
+		cout<< count - solve( mask ) << endl;
+	}
+}

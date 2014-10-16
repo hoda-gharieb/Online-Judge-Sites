@@ -1,0 +1,32 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	signed long int t=1,n1,n2,s,j,k,l;
+	while( cin>>n1>>n2 && n1>=0 && n2>=0)
+	{
+		s=1;
+		l=n1;
+		while(l!=1)
+		{
+			if(l>n2)
+			{
+				s--;
+				break;
+			}
+			else
+			{
+			if(l%2==0)
+				l/=2;
+			else
+				l=(3*l)+1;
+			}
+			s++;
+		}
+		
+	cout<<"Case "<<t<<": A ="<<n1<<", limit = "<<n2<<", number of terms = "<<s<<endl;
+	t++;
+	}
+	return 0;
+}
+

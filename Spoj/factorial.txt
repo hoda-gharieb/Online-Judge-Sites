@@ -1,0 +1,19 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+	//freopen ( "input.in","r",stdin);
+	int t,num,m,five;
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>num;
+		five=0;
+			while ( num/5 )
+			{
+				num/=5;
+				five+=num;
+			}		
+			cout<<five<<endl;
+	}	
+}

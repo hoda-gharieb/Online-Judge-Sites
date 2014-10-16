@@ -1,0 +1,98 @@
+#include<iostream>
+#include<string>
+#include<stack>
+using namespace std;
+stack<char> S;
+void solve( char a, char b, char c )
+{
+	S.pop();
+	if ( c=='|' )
+	{
+		if ( a=='T' || b=='T' )			
+			S.push('T');
+		else
+			S.push('F');
+	}
+	else 
+	{
+		if ( a=='F' || b=='F' )
+			S.push('F');
+		else
+			S.push('T');
+	}
+}
+int main()
+{
+	//freopen("input.in","r",stdin);
+	string line;
+	bool check;
+	char c;
+	int count,rem_and,ccase=1,num;
+	while ( cin>>line )
+	{
+		if ( line=="()" )
+			break;
+		cout<<ccase<<". ";
+		ccase++;
+		count=0;
+		num=0;
+		int depth=0;
+		for ( int i=0 ; i<line.length() ; i++ )
+		{
+			if(line[i]=='(' )
+			{
+				count++;
+				if ( depth<count )
+					depth=count;
+			}
+			else if ( line[i]==')' )
+				count--;
+		}
+		rem_and=depth%2;
+		count=0;
+		for ( int i=0 ; i<line.length() ; i++ )
+		{
+			if ( line[i]=='T' || line[i]=='F' )
+			{
+				if ( check )
+				{
+					if ( count%2==rem_and )
+						solve(S.top(),line[i] , '&' );
+					else
+						solve(S.top(),line[i] , '|' );
+				}
+				else
+					S.push(line[i]);
+				check=true;
+			}
+			else
+			{
+				if ( line[i]==')' )
+				{
+					count--;
+					if ( S.size()>1 )
+					{
+						c=S.top();
+						S.pop();
+						if ( count%2==rem_and )
+							solve( S.top(),c ,'&' );
+						else
+							solve( S.top(),c ,'|' );
+					}
+					check=true;
+				}
+				else
+				{
+					count++;
+					check=false;
+				}
+			}
+		}
+		if( S.top()=='T' )
+			cout<<"true\n";
+		else
+			cout<<"false\n";
+		while ( ! S.empty() )
+			S.pop();
+	}
+}

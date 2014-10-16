@@ -1,0 +1,61 @@
+#include<iostream>
+#include<cstring>
+#include<string>
+#include<cmath>
+#include<cstdlib>
+#include<iomanip>
+#include<vector>
+#include<map>
+#include<set>
+#include<stdio.h>
+using namespace std;
+bool prime[10000001];
+void sieve( int n)
+{
+	memset(prime,true,sizeof(prime));
+	long long i=4;
+	while ( i<=n )
+	{
+		prime[i]=false;
+		i+=2;
+	}
+	for ( i=3 ; i<=n ; i++ )
+	{
+		if ( prime[i] )
+		{
+			for ( long long j=i*i ; j<n ; j+=i )
+				prime[j]=false;
+		}
+	}
+}
+int main()
+{
+	//freopen("input.in","r",stdin);
+	sieve(10000000);
+	int n;
+	while ( scanf("%d",&n)!= -1 )
+	{
+		printf("1");
+		while ( n%2==0 )
+		{
+			n/=2;
+			printf(" x %d",2);
+		}
+		for ( int i=3 ; i<=10000000 ; i+=2 )
+		{
+			if ( n==1 || prime[n])
+				break;
+			if ( prime[i] )
+			{
+				while ( n%i == 0 )
+				{
+					n/=i;
+					printf(" x %d",i);
+				}
+			}
+		}
+		if ( n!=1 )
+			printf(" x %d",n);
+		printf("\n");
+	}
+}

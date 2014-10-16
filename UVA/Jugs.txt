@@ -1,0 +1,119 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<map>
+#include<queue>
+using namespace std;
+
+
+
+#define Forp( i,l ) for ( int i=0 ; i<l ; i++ )
+#define Form( i,l ) for ( int i=l-1 ; i>=0 ; i-- )
+#define vs vector< string >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+typedef long long ll;
+const int oo = (int)1e9;
+
+struct edge
+{
+	int a;
+	int b;
+	vector< string > V;
+};
+
+bool visited[ 1001 ][ 1001 ];
+
+
+int main()
+{
+	//freopen ( "input.in", "r", stdin );
+	int ca, cb, N;
+	while ( cin>>ca>>cb>>N )
+	{
+		memset ( visited, false, sizeof( visited ));
+		edge f;
+		f.a = 0;
+		f.b = 0;
+		queue< edge > Q;
+		Q.push( f );
+		visited[ 0 ][ 0 ] = true;
+		vs S;
+		while ( !Q.empty() )
+		{
+			edge k;
+			k = Q.front();
+			Q.pop();
+			if ( k.b == N )
+			{
+				S = k.V;
+				break;
+			}
+			if ( ! visited[ 0 ] [ k.b ] )
+			{
+				f = k;
+				visited[ 0 ] [ f.b ] = true;
+				f.a = 0;
+				f.V.push_back( "empty A" );
+				Q.push( f );
+			}
+			if ( ! visited[ k.a ] [ 0 ] )
+			{
+				f = k;
+				visited[ f.a ] [ 0 ] = true;
+				f.b = 0;
+				f.V.push_back( "empty B" );
+				Q.push( f );
+			}
+			if ( ! visited[ ca ] [ k.b ] )
+			{
+				f = k;
+				visited[ ca ] [ k.b ] = true;
+				f.a = ca;
+				f.V.push_back( "fill A" );
+				Q.push( f );
+			}
+			if ( ! visited[ k.a ] [ cb ] )
+			{
+				f = k;
+				visited[ f.a ] [ cb ] = true;
+				f.b = cb;
+				f.V.push_back( "fill B" );
+				Q.push( f );
+			}
+			int l = min ( k.a, cb-k.b );
+			f = k;
+			f.a -= l;
+			f.b += l;
+			if ( !visited[ f.a ][ f.b ] )
+			{
+				visited[ f.a ] [ f.b ] = true;
+				f.V.push_back( "pour A B" );
+				Q.push( f );
+			}
+			l = min ( k.b, ca-k.a );
+			f = k;
+			f.a += l;
+			f.b -= l;
+			if ( !visited[ f.a ][ f.b ] )
+			{
+				visited[ f.a ] [ f.b ] = true;
+				f.V.push_back( "pour B A" );
+				Q.push( f );
+			}
+		}
+		Forp( i, S.size() )
+			cout<<S[i]<<endl;
+		cout<<"success\n";
+	}
+}
+

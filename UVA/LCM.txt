@@ -1,0 +1,63 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+using namespace std;
+bool prime[1000009];
+long long LCM[1000005];
+void doPrime(int num)
+{
+	memset(prime,true,sizeof(prime));
+	prime[0]=prime[1]=false;
+	long long i,j;
+	for ( i=4 ; i<=num ; i+=2 )
+		prime[i]=false;
+	for ( i=3 ; i<=num ; i+=2 )
+	{
+		if ( prime[i] )
+		{
+			for ( j=i*i ; j<=num ; j+=i )
+				prime[j]=false;
+		}
+	}
+}
+
+void doLCM()
+{
+	memset ( LCM, -1, sizeof ( LCM ) );
+	for ( int i=2 ; i<=1000000 ; i++ )
+	{
+		if ( prime[i])
+		{
+			for ( long long j=i ; j<=1000000 ; j*=i )
+				LCM[j]=i;
+		}
+	}
+	long long num=1;
+	for ( int i=1 ; i<=1000000 ; i++ )
+	{
+		if ( LCM[i]==-1 )
+			LCM[i] = 1;
+		LCM[i] = (( LCM[i]%1000000 ) * ( num%1000000) ) % 1000000;
+		while (  !( LCM[i] % 10 ) )
+			LCM[i] /= 10;
+		num = LCM[i];
+	}
+}
+
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	//freopen ( "output.out" , "w" , stdout );
+	doPrime(1000000);
+	doLCM();
+	int num;
+	long long n;
+	while ( scanf ( "%d", &num ) )
+	{
+		if ( !num ) 
+			break;
+		printf ( "%d\n",LCM[num]%10);
+	}
+}

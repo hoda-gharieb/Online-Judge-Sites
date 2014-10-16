@@ -1,0 +1,44 @@
+#include<iostream>
+using namespace std;
+char arr[101][101];
+int yarr[]={0,0,1,-1,1,1,-1,-1};
+int xarr[]={1,-1,0,0,1,-1,1,-1};
+int  s=1 , n , m;
+int check ( int n1,int m1)
+{
+	int numb=0;
+	for ( int i=0 ; i<8 ; i++ )
+	{
+		if ( n1+xarr[i]>=0 && m1+yarr[i]>=0 && n1+xarr[i]<n && m1+yarr[i]<m )
+			if( arr[n1+xarr[i]][m1+yarr[i]] == '*' )
+				numb++;
+	}
+	return numb;
+}
+int main()
+{	
+	//freopen("input.in", "r", stdin);
+	while ( cin>>n>>m )
+	{
+		if ( m==0 && n==0 )
+			break;
+		for ( int i=0 ; i<n ; i++ )
+			for ( int j=0 ; j<m ; j++ )
+				cin>>arr[i][j];
+		if ( s!=1 )
+			cout<<endl;
+		cout<<"Field #"<<s<<":"<<endl;
+		for ( int i=0 ; i<n ; i++ )
+		{
+			for ( int j=0 ; j<m ; j++ )
+			{
+				if ( arr[i][j]=='*' )
+					cout<<arr[i][j];
+				else
+					cout<<check(i,j);
+			}
+			cout<<endl;
+		}
+		s++;
+	}
+}

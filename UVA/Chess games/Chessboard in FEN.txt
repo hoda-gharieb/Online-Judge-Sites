@@ -1,0 +1,216 @@
+#include<iostream>
+#include<string>
+using namespace std;
+char Board[8][8];
+string game;
+int m,n;
+void loadgame()
+{
+	int i=0;
+	for ( int x=0 ; x<8 ; x++ )
+	{
+		for ( int y=0 ; y<8 ; y++,i++ )
+		{
+			if ( game[i] == '/' )
+			{
+				y--;
+				continue;
+			}
+			if ( game[i]>='1' && game[i]<='8' )
+			{
+				int k = game[i]-'0';
+				for ( int l=0 ; l<k ; l++,y++ )
+					Board[x][y]='-';
+				y--;
+			}
+			else
+			{
+				if ( game[i] == 'p' )
+					Board[x][y] = 'p';
+				else if ( game[i] == 'P' )
+					Board[x][y] = 'P';
+				else if ( game[i] == 'K' || game[i] == 'k' )
+					Board[x][y] = 'k';
+				else if ( game[i] == 'Q' || game[i] == 'q' )
+					Board[x][y] = 'q';
+				else if ( game[i] == 'B' || game[i] == 'b' )
+					Board[x][y] = 'b';
+				else if ( game[i] == 'N' || game[i] == 'n' )
+					Board[x][y] = 'n';
+				else if ( game[i] == 'r'|| game[i] == 'R' )					
+					Board[x][y] = 'r';
+			}
+		}
+	}
+}
+
+bool qbcheck(int i,int j)
+{
+	m=i;
+	n=j;
+	while ( m > 0 && n > 0 )
+	{
+		m--;
+		n--;
+		if ( Board[m][n] == 'q' || Board[m][n] == 'b' )
+			return false;
+		if ( Board[m][n] != '-' )
+			break;
+	}
+	m=i;
+	n=j;
+	while ( m > 0 && n < 7 )
+	{
+		m--;
+		n++;
+		if ( Board[m][n] == 'q' || Board[m][n] == 'b' )
+			return false;
+		if ( Board[m][n] != '-' )
+			break;
+	}
+	m=i;
+	n=j;
+	while ( m < 7 && n > 0 )
+	{
+		m++;
+		n--;
+		if ( Board[m][n] == 'q' || Board[m][n] == 'b' )
+			return false;
+		if ( Board[m][n] != '-' )
+			break;
+	}
+	m=i;
+	n=j;
+	while ( m < 7 && n < 7 )
+	{
+		m++;
+		n++;
+		if ( Board[m][n] == 'q' || Board[m][n] == 'b' )
+			return false;
+		if ( Board[m][n] != '-' )
+			break;
+	}
+	return true;
+}
+
+bool pkcheck(int i,int j)
+{
+	if ( i-1 >= 0 )
+	{
+		if ( j-1 >= 0 && (Board[i-1][j-1]=='p' || Board[i-1][j-1]=='K' || Board[i-1][j-1]=='k'))
+			return false;
+		if ( j+1 < 8 && (Board[i-1][j+1]=='p' || Board[i-1][j+1]=='K' || Board[i-1][j+1]=='k') )
+			return false;
+	}
+	if ( i+1 < 8 )
+	{
+		if ( j-1 >= 0 && (Board[i+1][j-1]=='P' || Board[i+1][j-1]=='K' || Board[i+1][j-1]=='k'))
+			return false;
+		if ( j+1 < 8 && (Board[i+1][j+1]=='P' || Board[i+1][j+1]=='K' || Board[i+1][j+1]=='k') )
+			return false;
+	}
+	return true;
+}
+
+bool kcheck(int i,int j)
+{
+	if( i-1 >= 0 && ( Board[i-1][j]=='k' || Board[i-1][j]=='K' ))
+		return false;
+	if( i+1 < 8 && ( Board[i+1][j]=='k' || Board[i+1][j]=='K' ))
+		return false;
+	if ( j-1 >= 0 && ( Board[i][j-1]=='k' || Board[i][j-1]=='K' ))
+		return false;
+	if ( j+1 < 8 && ( Board[i][j+1]=='k' || Board[i][j+1]=='K' ))
+		return false;
+	return true;
+}
+
+bool qrcheck(int i,int j)
+{
+	m=i;
+	while ( m > 0 )
+	{
+		m--;
+		if ( Board[m][j]=='r' || Board[m][j]=='q' )
+			return false;
+		if ( Board[m][j] != '-' )
+			break;
+	}
+	m=i;
+	while ( m < 7 )
+	{
+		m++;
+		if ( Board[m][j]=='r' || Board[m][j]=='q' )
+			return false;
+		if ( Board[m][j] != '-' )
+			break;
+	}
+	m=j;
+	while ( m > 0 )
+	{
+		m--;
+		if ( Board[i][m]=='r' || Board[i][m]=='q' )
+			return false;
+		if ( Board[i][m] != '-' )
+			break;
+	}
+	m=j;
+	while ( m < 7 )
+	{
+		m++;
+		if ( Board[i][m]=='r' || Board[i][m]=='q' )
+			return false;
+		if ( Board[i][m] != '-' )
+			break;
+	}
+	return true;
+}
+
+bool ncheck(int i,int j)
+{
+	if ( i-2 >= 0 )
+	{
+		if ( j-1 >= 0 && Board[i-2][j-1]=='n')
+			return false;
+		if ( j+1 < 8 && Board[i-2][j+1]=='n')
+			return false;
+	}
+	if ( i+2 < 8 )
+	{
+		if ( j-1 >= 0 && Board[i+2][j-1]=='n')
+			return false;
+		if ( j+1 < 8 && Board[i+2][j+1]=='n')
+			return false;
+	}
+	if ( j-2 >= 0 )
+	{
+		if ( i-1 >= 0 && Board[i-1][j-2]=='n')
+			return false;
+		if ( i+1 < 8 && Board[i+1][j-2]=='n')
+			return false;
+	}
+	if ( j+2 < 8 )
+	{
+		if ( i-1 >= 0 && Board[i-1][j+2]=='n')
+			return false;
+		if ( i+1 < 8 && Board[i+1][j+2]=='n')
+			return false;
+	}
+	return true;
+}
+
+int main()
+{
+	//freopen("input.in", "r", stdin);
+	int ans;
+	while ( cin>>game )
+	{
+		ans=0;
+		loadgame();
+		for (int i=0 ; i<8 ; i++ )
+			for ( int j=0 ; j<8 ; j++ )
+				if ( Board[i][j]=='-' && qbcheck(i,j) && pkcheck(i,j) && kcheck(i,j) && qrcheck(i,j) && ncheck(i,j) )
+					ans++;
+		cout<<ans<<endl;
+	}
+}

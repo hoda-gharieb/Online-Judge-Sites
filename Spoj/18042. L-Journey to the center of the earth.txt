@@ -1,0 +1,92 @@
+#include<iostream>
+#include<iomanip>
+#include <string>
+#include <algorithm>
+#include<sstream>
+#include<iomanip>
+#include<stdio.h>
+#include<cstring>
+using namespace std;
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define pp push_back
+#define unsigned long long ull
+char arr[ 101 ][ 101 ];
+int main()
+{
+	//freopen( "input.in", "r", stdin );
+	//freopen( "output.out", "w", stdout );
+
+	int t,n ;
+	scanf( "%d", &t );
+	rep( i,1,t+1 )
+	{	
+		scanf( "%d", &n );
+		rep( j,0,n )
+			rep( k,0,n )
+			cin>>arr[ j ][ k ];
+		printf( "Case #%d: " , i );
+		bool check = false;
+		int x,y,step, count, x1, y1;
+		step = count = x = y = 0;
+		x1 = y1 = -1;
+		if ( arr[ 0 ][ 0 ] != '#' )
+		{
+			step++;
+			if ( arr[ 0 ][ 0 ] != '.' )
+				count += ( arr[ 0 ][ 0 ] - '0' );
+			arr[ 0 ][ 0 ] = '#' ;
+			while ( x1 != x || y1 != y )
+			{
+				if( x == n-1 && y == n-1 )
+				{
+					check = true;
+					break;
+				}
+				x1 = x; y1 = y;
+				if ( x > 0 && arr[ x-1 ][ y ] != '#' )
+				{
+					step++;
+					if ( arr[ x-1 ][ y ] != '.' )
+						count += ( arr[ x-1 ][ y ] - '0' );
+					x-- ;
+					arr[ x ][ y ] = '#';
+				}
+				else if ( y > 0 && arr[ x ][ y-1 ] != '#' )
+				{
+					step++;
+					if ( arr[ x ][ y-1 ] != '.' )
+						count += ( arr[ x ][ y-1 ] - '0' );
+					y--;
+					arr[ x ][ y ] = '#';
+				}
+				else if ( ( x < n-1 )  && arr[ x+1 ][ y ] != '#' )
+				{
+					step++;
+					if ( arr[ x+1 ][ y ] != '.' )
+						count += ( arr[ x+1 ][ y ] - '0' );
+					x++;
+					arr[ x ][ y ] = '#';
+				}
+				else if ( ( y < n-1 )  && arr[ x ][ y+1 ] != '#' )
+				{
+					step++;
+					if ( arr[ x ][ y+1 ] != '.' )
+						count += ( arr[ x ][ y+1 ] - '0' );
+					y++;
+					arr[ x ][ y ] = '#';
+				}
+			}
+		}
+		if( check )
+		{
+			puts( "Mohamed can go to the center of the earth :-)" );
+			printf( "Number of steps = %d\nNumber of diamonds = %d\n", step, count);
+		}
+		else
+			puts( "Mohamed can't go to the center of the earth :-(" );
+	}
+}
+

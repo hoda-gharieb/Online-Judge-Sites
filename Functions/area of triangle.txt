@@ -1,0 +1,7 @@
+This formula is attributed to Heron of Alexandria but can be traced back to Archimedes. 
+
+This formula is represented by 
+
+Area=SQRT(s(s-a)(s-b)(s-c)), 
+
+where s=(a+b+c)/2 or perimeter/2.

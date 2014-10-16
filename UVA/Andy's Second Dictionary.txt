@@ -1,0 +1,48 @@
+#include<iostream>
+#include<string>
+#include<set>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	freopen("input.in","r",stdin);
+	set<string> V;
+	string m="",n,k;
+	bool check=true;
+	while ( cin>>k )
+	{
+		n=k;
+		for ( int i=0 ; i<n.size() ; i++ )
+		{
+			if ( (n[i]<='z' && n[i]>='a') || (n[i]<='Z' && n[i]>='A') || n[i]=='-')
+			{
+				m.push_back(tolower(n[i]));
+			}
+			else
+			{
+				if ( m!="")
+				{
+					V.insert(m);
+					m="";
+				}
+			}
+		}
+
+		if ( m!="" && m[m.length()-1]=='-' )
+		{
+			check=false;
+			m.erase(m.length()-1,1);
+		}
+		else
+			check=true;
+		if ( check==true && m!="")
+		{
+			V.insert(m);
+			check=true;
+			m="";
+		}
+	}
+	set<string>::iterator it ;
+	for ( it=V.begin() ; it != V.end() ; it++)
+		cout<<*(it)<<endl;
+}

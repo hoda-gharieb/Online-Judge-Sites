@@ -1,0 +1,59 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+#include<stdio.h>
+#include<set>
+#include<map>
+#include<string>
+#include<algorithm>
+#include<limits.h>
+#include<math.h>
+#include<iomanip>
+#include<queue>
+#include<sstream>
+#include<bitset>
+#include<cmath>
+using namespace std;
+
+#define Forp( i,k,l ) for ( int i=k ; i<l ; i++ )
+#define Form( i,k,l ) for ( int i=k-1 ; i>=l ; i-- )
+#define vs vector< string >
+#define vb vector< bool >
+#define vi vector< int >
+#define vll vector< long long >
+#define msv map< string, vs >
+#define mst( i,j ) memset( i,j,sizeof(i))
+typedef long long ll;
+typedef unsigned long long ull;
+const int oo = (int)1e9 ;
+
+
+
+int main()
+{
+	//freopen ( "input.in" , "r" ,stdin );
+	int t, n, arr[ 52 ] ;
+	ll ans;
+	int Mod = 1000000007;
+	scanf( "%d", &t );
+	while ( t-- )
+	{
+		scanf( "%d", &n );
+		Forp( i, 0, n )
+			scanf( "%d", &arr[ i ] );
+		sort( arr, arr+n );
+		ans = 1;
+		Forp( i, 0, n )
+		{
+			if ( arr[ i ] < i+1 )
+			{
+				ans = 0;
+				break;
+			}
+			else
+				ans = ( ans * (ll)( arr[ i ] - i ) ) % Mod;
+		}
+		printf( "%lld\n", ans );
+	}
+}

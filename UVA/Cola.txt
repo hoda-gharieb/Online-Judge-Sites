@@ -1,0 +1,41 @@
+#include <iostream>
+#include <string>
+using namespace std;
+int main()
+{
+	
+	int k,n,l;
+	while(cin>>n)
+	{
+		k=n;
+		if(n==1)
+			k=1;
+		if(n>1 && n%3==2)
+		{
+			n++;
+	        while(n>2)
+		    {
+			  
+			  l=n%3;
+			  n=(n/3);
+			  k+=n;
+			  n+=l;
+		    }
+		}
+		else
+		{
+			while(n>2)
+			{
+				l=n%3;
+				n=(n/3);
+			    k+=n;
+			    n+=l;
+			}
+			if(n==2)
+				k++;
+		}
+		cout<<k<<endl;
+	}
+	return 0;
+}
+

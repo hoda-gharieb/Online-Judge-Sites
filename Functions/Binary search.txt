@@ -1,0 +1,31 @@
+int binarySearch ( int i, int j , int x )
+{
+	int loc,index=(i+j)/2;
+	if ( suf[index]==x )
+		loc=index;
+	else if ( x<suf[index] && i<index )
+		binarySearch(i,index-1,x);
+	else if ( x>suf[index] && j>index )
+		binarySearch(index+1,j,x);
+	else
+		loc=-1;
+	return loc;
+}
+
+====
+int getNext( int a, int b )
+{
+	int low = b+1, high = n-1, ans = -1 ;
+	while ( low <= high )
+	{
+		int mid = ( low + high ) / 2;
+		if ( check ( a, b, b+1, mid ) )
+		{
+			ans = mid;
+			high = mid - 1;
+		}
+		else
+			low = mid + 1;
+	}
+	return ans;
+}

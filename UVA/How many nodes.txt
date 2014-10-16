@@ -1,0 +1,33 @@
+#include<iostream>
+#include<map>
+using namespace std;
+map<long long,int> M;
+void nCr()
+{
+	long double anss;
+	int n,r;
+	for ( int i=1 ; i<20 ; i++ )
+	{
+		n=i*2;
+		r=i;
+		anss=1;
+		if ( n-r > r )
+			r=n-r;
+		for ( int i=r+1,j=2 ; i<=n || j<=n-r ; i++,j++ )
+		{
+			if ( i<=n )
+				anss*=i;
+			if( j<=n-r )
+				anss/=j;
+		}
+		anss/=(i+1);
+		M[anss]=i;
+	}
+}
+int main()
+{
+	nCr();
+	int num;
+	while ( cin>>num )
+		cout<<M[num]<<endl;
+}

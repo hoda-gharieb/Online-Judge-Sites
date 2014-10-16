@@ -1,0 +1,30 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	//freopen("input.in","r",stdin);
+	int t,n,ans,num,mini,maxi,j,maxx;
+	int arr[1000005];
+	cin>>t;
+	for ( int i=0 ; i<t ; i++ )
+	{
+		cin>>num>>n;
+		maxi=1000000;
+		mini=0;
+		maxx=0;
+		for ( j=0 ; j<n ; j++ )
+		{
+			cin>>arr[j];
+			if ( arr[j]<maxi )
+				maxi=arr[j];
+			if ( arr[j]>maxx)
+				maxx=arr[j];
+			if ( mini < min(arr[j],num-arr[j]))
+				mini=min(arr[j],num-arr[j]);
+		}
+		maxi=num-maxi;
+		maxi=max(maxx,maxi);
+		cout<<mini<<" "<<maxi<<endl;
+	}
+}

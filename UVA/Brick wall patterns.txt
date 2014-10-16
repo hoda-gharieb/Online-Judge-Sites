@@ -1,0 +1,20 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main()
+{
+	int n,x[100];
+	while(cin>>n && n!=0)
+	{
+		x[0]=1;
+		x[1]=1;
+		if(n>=2)
+		{
+		for( int i=2;i<=n;i++)
+			x[i]=x[i-1]+x[i-2];
+
+		}
+		cout<<x[n]<<endl;
+	}
+	return 0;
+}

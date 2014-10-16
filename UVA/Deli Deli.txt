@@ -1,0 +1,38 @@
+#include<iostream>
+#include<map>
+#include<string>
+using namespace std;
+int main()
+{
+	//freopen ( "input.in" , "r" , stdin );
+	map<string,string> M;
+	string word,line,arr[101];
+	int n,m;
+	while ( cin>>n>>m )
+	{
+		M.clear();
+		for ( int i=0 ; i<n ; i++ )
+		{
+			cin>>word>>line;
+			M[word]=line;
+		}
+		for ( int i=0 ; i<m ; i++ )
+		{
+			cin>>arr[i];
+			if ( M.find(arr[i])!= M.end() )
+				arr[i]=M[arr[i]];
+			else if ( arr[i][arr[i].length()-1]=='y' && arr[i][arr[i].length()-2]!='a' && arr[i][arr[i].length()-2]!='e' && arr[i][arr[i].length()-2]!='i' && arr[i][arr[i].length()-2]!='o' && arr[i][arr[i].length()-2]!='u' )
+			{
+				arr[i].erase(arr[i].length()-1,1);
+				arr[i]+="ies";
+			}
+			else if ( arr[i][arr[i].length()-1]=='o' || arr[i][arr[i].length()-1]=='s' || arr[i][arr[i].length()-1]=='x' ||
+				( arr[i][arr[i].length()-1]=='h'&& (arr[i][arr[i].length()-2]=='c' || arr[i][arr[i].length()-2]=='s' )))
+				arr[i]+="es";
+			else
+				arr[i]+='s';
+		}
+		for ( int i=0 ; i<m ; i++ )
+			cout<<arr[i]<<endl;
+	}
+}

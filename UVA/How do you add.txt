@@ -1,0 +1,30 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int arr[101][101];
+int solve( int N , int K )
+{
+	if ( K==1 )
+		return 1;
+	if ( arr[N][K] != -1 )
+		return arr[N][K];
+	int ans=0;
+	for ( int i=0 ; i<=N ; i++ )
+	{
+		arr[N-i][K-1]=solve(N-i,K-1);
+		ans+=arr[N-i][K-1];
+	}
+	return ans%1000000;
+}
+int main()
+{
+	//freopen ( "input.in","r",stdin);
+	int N,K;
+	memset(arr,-1,sizeof (arr));
+	while ( cin>>N>>K )
+	{
+		if ( N==0 && K==0 )
+			break;		
+		cout<<solve(N,K)<<endl;
+	}
+}

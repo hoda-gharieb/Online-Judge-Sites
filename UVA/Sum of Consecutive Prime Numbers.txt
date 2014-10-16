@@ -1,0 +1,56 @@
+#include<iostream>
+#include<cmath>
+#include<vector>
+#include<cstring>
+using namespace std;
+bool prime[10009];
+int summ[10001];
+void doPrime(int num)
+{
+	memset(prime,true,sizeof(prime));
+	prime[0]=prime[1]=false;
+	int i;
+	for ( i=4 ; i<=num ; i+=2 )
+		prime[i]=false;
+	for ( i=3 ; i<=num ; i+=2 )
+	{
+		if ( prime[i] )
+		{
+			for ( int  j=i*i ; j<=num ; j+=i )
+				prime[j]=false;
+		}
+	}
+}
+void summation()
+{
+	int temp;
+	memset(summ,0,sizeof(summ));
+	for ( int i=0 ; i<10001 ; i++ )
+	{
+		if ( prime[i])
+		{
+			summ[i]++;
+			temp=i;
+			for ( int j=i+1 ; j<10001 ; j++ )
+			{
+				if ( prime[j] )
+				{
+					temp+=j;
+					if ( temp>10000 )
+						break;
+					summ[temp]++;
+				}
+			}
+		}
+	}
+}
+
+int main()
+{
+	//freopen("input.in","r",stdin);
+	doPrime(10000);
+	summation();
+	int n;
+	while ( cin>>n && n!=0 )
+		cout<<summ[n]<<endl;
+}
