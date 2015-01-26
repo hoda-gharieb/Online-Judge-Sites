@@ -1,0 +1,81 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+#define Set(a, s) memset(a, s, sizeof (a))
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define vp vector< pair< int, int > >
+#define point pair<double, double >
+#define pp push_back
+#define mp make_pair
+#define eps pow(10.0,-9.0)
+#define MOD 1000000007
+#define oo 1e18
+#define Maxi 250000
+typedef unsigned long long ull;
+typedef long long ll;
+
+struct Node
+{
+    Node* right;
+    Node* left;
+    int data;
+};
+
+//================ Top Down approach O(n), worst O(n^2) =============//
+int count_matches_TD( Node* root, Node* a, Node* b )
+{
+    if( root == NULL )
+        return 0;
+    int ans = count_matches_TD( root->left, a, b) + count_matches_TD( root->right, a, b);
+    if( root == a || root == b )
+        return ans + 1;
+    else
+        return ans;
+}
+
+Node* LCA_TD( Node* root, Node* a, Node* b )
+{
+    if( root == NULL || a == NULL || b == NULL )
+        return NULL;
+
+    if( root == a || root == b )
+        return root;
+
+    int matches = count_matches_TD( root->left, a, b );
+    if( matches == 1 )
+        return root;
+    else if ( matches == 2 )
+        return LCA_TD( root->left, a, b );
+    else
+        return LCA_TD( root->right, a, b );
+}
+//=======================================================//
+
+//=================== Bottom Up approach ===============//
+Node* LCA_BU( Node* root, Node* a, Node* b )
+{
+    if( root == NULL )
+        return NULL;
+
+    if( root == a || root == b )
+        return root;
+
+    Node* r = LCA_BU( root->left, a, b);
+    Node* l = LCA_BU( root->right, a, b);
+    if( r && l )
+        return root;
+    return ( l ? l : r );
+}
+//======================================================//
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    //freopen("input.in","r", stdin);
+   // freopen("output.out","w", stdout);
+  
+}
