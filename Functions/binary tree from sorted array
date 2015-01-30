@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+#define Set(a, s) memset(a, s, sizeof (a))
+#define rep(i, x, y) for(int i = x; i < y; i++)
+#define Rep(i, x, y) for(int i = x; i <= y; i++)
+#define vi vector<int>
+#define vvi vector<vector<int> >
+#define vp vector< pair< int, int > >
+#define point pair<double, double >
+#define pp push_back
+#define mp make_pair
+#define eps pow(10.0,-9.0)
+#define MOD 1000000007
+#define oo 1e18
+#define Maxi 250000
+typedef unsigned long long ull;
+typedef long long ll;
+
+struct Node
+{
+    Node* right;
+    Node* left;
+    int data;
+    Node( int d) : data(d)
+        {
+        }
+};
+
+//================ check if a binary tree is balanced =============//
+Node* addNodeToTree( int arr[], int start, int last)
+{
+    if( last < start )
+        return NULL;
+
+    int mid = ( start + last )  / 2;
+    Node* n = new Node(mid);
+    n->left = addNodeToTree( arr, start, mid - 1);
+    n->right = addNodeToTree( arr, mid+1, last);
+
+    return n;
+}
+//===================================================================//
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    //freopen("input.in","r", stdin);
+    //freopen("output.out","w", stdout);
+}
